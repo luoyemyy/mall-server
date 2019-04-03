@@ -1,0 +1,2 @@
+insert into user (head_image, name, phone, password, gender, create_time, update_time) values("https://img5.duitang.com/uploads/item/201412/07/20141207214303_hTT3P.jpeg","叶玉明","18681506437","e10adc3949ba59abbe56e057f20f883e",1,now(),now());
+insert into admin_user(user_id,role,token,state)values(1,1,"0000",1);
