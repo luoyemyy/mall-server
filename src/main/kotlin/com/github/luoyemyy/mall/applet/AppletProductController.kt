@@ -35,7 +35,7 @@ class AppletProductController : BaseController() {
     @ApiImplicitParams(value = [
         ApiImplicitParam(name = "categoryId", value = "分类Id，全部分类为0", required = true, dataTypeClass = Long::class),
         ApiImplicitParam(name = "page", value = "页码", required = false, defaultValue = "1", dataTypeClass = Int::class)])
-    @RequestApplet
+    @RequestApplet(needLogin = false)
     @GetMapping("list")
     fun list(categoryId: Long, @RequestParam(required = false, defaultValue = "1") page: Int): ListResponse<ProductBean> {
         return listResponse(appletProductService.getByCategoryAndPage(categoryId, page))
@@ -47,7 +47,7 @@ class AppletProductController : BaseController() {
     @ApiOperation("推荐产品列表")
     @ApiImplicitParams(value = [
         ApiImplicitParam(name = "hotId", value = "热门id", required = true, dataTypeClass = Long::class)])
-    @RequestApplet
+    @RequestApplet(needLogin = false)
     @GetMapping("list/hot")
     fun hotProduct(hotId: Long): ListResponse<ProductBean> {
         return listResponse(appletProductService.getByHot(hotId))
@@ -59,7 +59,7 @@ class AppletProductController : BaseController() {
     @ApiOperation("产品详情")
     @ApiImplicitParams(value = [
         ApiImplicitParam(name = "id", value = "产品Id", required = true, dataTypeClass = Long::class)])
-    @RequestApplet
+    @RequestApplet(needLogin = false)
     @GetMapping("get")
     fun get(id: Long): DataResponse<ProductDetail> {
         return dataResponse(appletProductService.getDetail(id))

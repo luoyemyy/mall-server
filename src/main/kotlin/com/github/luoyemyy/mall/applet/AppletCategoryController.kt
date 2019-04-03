@@ -30,7 +30,7 @@ class AppletCategoryController : BaseController() {
      *
      */
     @ApiOperation("分类列表")
-    @RequestApplet
+    @RequestApplet(needLogin = false)
     @GetMapping("list")
     fun list(): ListResponse<AppletCategoryBean> {
         return listResponse(appletCategoryService.list())

@@ -27,7 +27,7 @@ class AppletHotController : BaseController() {
      *
      */
     @ApiOperation("推荐列表")
-    @RequestApplet
+    @RequestApplet(needLogin = false)
     @GetMapping("list")
     fun list(): ListResponse<AppletHotBean> {
         return listResponse(appletHotService.list())
