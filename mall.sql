@@ -31,7 +31,6 @@ CREATE TABLE IF NOT EXISTS `mall`.`user` (
   `update_time` DATETIME NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
 COMMENT = '用户';
 
 
