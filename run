@@ -6,13 +6,14 @@ echo "发现java进程$pid，结束该进程"
 kill -9 $pid
 fi
 cd /home/code/mall-server
-echo "进入工作目录"
-s=`git pull`
-echo "拉取最新代码 $s"
+echo "进入工作目录，拉取最新代码"
+git pull
+echo "拉取最新代码结束 $?"
 echo "开始构建项目"
-j=`./gradlew bootJar`
-echo "构建项目结束 $j"
-if [ $? == 1 ]
+./gradlew bootJar
+bootjar = $?
+echo "构建项目结束 $bootjar"
+if [ $bootjar == 1 ]
 then
 mv build/lib/mall-1.0.jar /home/java/
 echo "移动mall-1.0.jar到目录/home/java/"
