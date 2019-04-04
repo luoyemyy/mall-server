@@ -1,18 +1,22 @@
 #!/usr/bin/env sh
-
 pid=`ps -ef|grep java|grep -v grep|awk '{print $2}'`
-if [ -n "$pid"]
+if [ -n "$pid" ]
 then
+echo "发现java进程$pid，结束该进程"
 kill -9 $pid
 fi
-
-
 cd /home/code/mall-server
-git = `git pull`
-jar =`./gradlew bootJar`
-if [ jar == 1 && git == 1]
+echo "进入工作目录"
+s=`git pull`
+echo "拉取最新代码 $s"
+echo "开始构建项目"
+j=`./gradlew bootJar`
+echo "构建项目结束 $j"
+if [ j ]
 then
-mv build/lib/mall*.jar /home/java/
+mv build/lib/mall-1.0.jar /home/java/
+echo "移动mall-1.0.jar到目录/home/java/"
 cd /home/java
-nohup java -jar mall*.jar
+nohup java -jar mall-1.0.jar
+echo "成功启动"
 fi
