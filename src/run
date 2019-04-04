@@ -6,9 +6,11 @@ then
 kill -9 $pid
 fi
 
+
 cd /home/code/mall-server
+git = `git pull`
 jar =`./gradlew bootJar`
-if [ jar == 1 ]
+if [ jar == 1 && git == 1]
 then
 mv build/lib/mall*.jar /home/java/
 cd /home/java
