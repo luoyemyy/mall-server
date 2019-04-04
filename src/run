@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+pid=`ps -ef|grep java|grep -v grep|awk '{print $2}'`
+if [ -n "$pid"]
+then
+kill -9 $pid
+fi
+
+cd /home/code/mall-server
+jar =`./gradlew bootJar`
+if [ jar == 1 ]
+then
+mv build/lib/mall*.jar /home/java/
+cd /home/java
+nohup java -jar mall*.jar
+fi
