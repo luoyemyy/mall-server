@@ -8,10 +8,9 @@ import com.github.luoyemyy.mall.base.advice.MallException
 import com.github.luoyemyy.mall.base.aspect.RequestAdmin
 import com.github.luoyemyy.mall.base.response.*
 import com.github.luoyemyy.mall.base.response.ApiResponse
-import com.github.luoyemyy.mall.core.bean.ProductBean
-import com.github.luoyemyy.mall.core.bean.ProductDetail
-import com.github.luoyemyy.mall.core.bean.SortBean
+import com.github.luoyemyy.mall.core.bean.*
 import com.github.luoyemyy.mall.core.entity.Product
+import com.github.luoyemyy.mall.core.entity.ProductImage
 import com.github.luoyemyy.mall.core.service.ProductService
 import com.github.luoyemyy.mall.util.Role
 import io.swagger.annotations.*
@@ -121,4 +120,25 @@ class ProductController : BaseController() {
     fun sortSave(@RequestBody sort: List<SortBean>): ApiResponse {
         return apiResponse(productService.sort(sort))
     }
+
+    /**
+     *
+     */
+    @ApiOperation("产品模板图片")
+    @RequestAdmin
+    @GetMapping("template")
+    fun template(): ListResponse<ProductTemplateImage> {
+        return listResponse(productService.template())
+    }
+
+    /**
+     *
+     */
+    @ApiOperation("产品模板图片新增和编辑")
+    @RequestAdmin
+    @PostMapping("template/aoe")
+    fun templateAoe(@RequestBody images: List<ProductTemplateImage>): ApiResponse {
+        return apiResponse(productService.templateAoe(images))
+    }
+
 }

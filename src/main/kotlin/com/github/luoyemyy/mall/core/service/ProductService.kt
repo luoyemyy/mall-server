@@ -2,14 +2,13 @@ package com.github.luoyemyy.mall.core.service
 
 import com.github.luoyemyy.mall.base.advice.Code
 import com.github.luoyemyy.mall.base.advice.MallException
-import com.github.luoyemyy.mall.core.bean.ProductBean
-import com.github.luoyemyy.mall.core.bean.ProductDetail
-import com.github.luoyemyy.mall.core.bean.ProductImageBean
-import com.github.luoyemyy.mall.core.bean.SortBean
+import com.github.luoyemyy.mall.core.bean.*
 import com.github.luoyemyy.mall.core.dao.BatchDao
 import com.github.luoyemyy.mall.core.dao.ProductDao
 import com.github.luoyemyy.mall.core.entity.*
-import com.github.luoyemyy.mall.core.mapper.*
+import com.github.luoyemyy.mall.core.mapper.ProductCategoryMapper
+import com.github.luoyemyy.mall.core.mapper.ProductImageMapper
+import com.github.luoyemyy.mall.core.mapper.ProductMapper
 import com.github.luoyemyy.mall.util.diff
 import com.github.luoyemyy.mall.util.minus
 import com.github.luoyemyy.mall.util.toPageStart
@@ -242,5 +241,45 @@ class ProductService {
                 batchDao.updateProductImageSort(sort)
             }
         }
+    }
+
+    fun template(): List<ProductTemplateImage> {
+        return productImageMapper.selectByExample(ProductImageExample().apply {
+            createCriteria().andProductIdEqualTo(0).andTypeEqualTo(4)
+            orderByClause = "sort asc"
+        })?.map { ProductTemplateImage.fromProductImage(it) } ?: listOf()
+    }
+
+    fun templateAoe(newImages: List<ProductTemplateImage>): Boolean {
+        val deleteImages = template().minus(newImages) { o, n -> o.id == n.id }
+        if (deleteImages.isNotEmpty()) {
+            deleteProductImage(0, deleteImages.map { it.id })
+        }
+        if (!newImages.isNullOrEmpty()) {
+            val sort = mutableListOf<SortBean>()
+            val add = mutableListOf<ProductImage>()
+            newImages.forEachIndexed { index, productImageBean ->
+                if (productImageBean.id == 0L) {
+                    add.add(ProductImage().apply {
+                        this.productId = 0
+                        this.image = productImageBean.image
+                        this.type = 4
+                        this.sort = index + 1
+                    })
+                } else {
+                    sort.add(SortBean().apply {
+                        this.id = productImageBean.id
+                        this.sort = index + 1
+                    })
+                }
+            }
+            if (add.isNotEmpty()) {
+                batchDao.insertProductImage(add)
+            }
+            if (sort.isNotEmpty()) {
+                batchDao.updateProductImageSort(sort)
+            }
+        }
+        return true
     }
 }
