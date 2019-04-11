@@ -1,5 +1,6 @@
 package com.github.luoyemyy.mall.core.dao
 
+import com.github.luoyemyy.mall.core.bean.AppletCart
 import com.github.luoyemyy.mall.core.bean.ProductBean
 import com.github.luoyemyy.mall.core.bean.ProductDetail
 import com.github.luoyemyy.mall.core.bean.SortBean
@@ -76,4 +77,17 @@ interface ProductDao {
 
     @Select("select sort from product_category where category_id = #{categoryId} order by sort desc limit 1")
     fun currentProductCategorySort(categoryId: Long): Int?
+
+    @Select("""
+        select p.id,p.name,p.cover_image,p.market_price,p.actual_price,sc.count from shop_cart sc
+        inner join product p on sc.product_id = p.id
+        where sc.user_id=#{userId}
+    """)
+    @Results(value = [Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
+        Result(column = "cover_image", property = "coverImage", jdbcType = JdbcType.VARCHAR),
+        Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
+        Result(column = "market_price", property = "marketPrice", jdbcType = JdbcType.REAL),
+        Result(column = "actual_price", property = "actualPrice", jdbcType = JdbcType.REAL),
+        Result(column = "count", property = "count", jdbcType = JdbcType.INTEGER)])
+    fun selectCartProducts(userId: Long): List<AppletCart>?
 }

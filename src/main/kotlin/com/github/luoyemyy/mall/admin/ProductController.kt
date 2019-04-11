@@ -113,8 +113,6 @@ class ProductController : BaseController() {
      *
      */
     @ApiOperation("产品排序")
-    @ApiImplicitParams(value = [
-        ApiImplicitParam(name = "categoryId", value = "分类Id，全部分类为0", required = true, dataTypeClass = Long::class)])
     @RequestAdmin
     @PostMapping("sort")
     fun sortSave(@RequestBody sort: List<SortBean>): ApiResponse {

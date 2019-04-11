@@ -3,6 +3,7 @@ package com.github.luoyemyy.mall.core.dao
 import com.github.luoyemyy.mall.core.bean.SortBean
 import com.github.luoyemyy.mall.core.entity.ProductCategory
 import com.github.luoyemyy.mall.core.entity.ProductImage
+import com.github.luoyemyy.mall.core.entity.ShopCart
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Component
@@ -71,6 +72,14 @@ class BatchDao {
         }.toTypedArray()
         jdbcTemplate.batchUpdate(*sql)
         return true
+    }
+
+    fun insertShopCart(list: List<ShopCart>) {
+        if (list.isEmpty()) return
+        val sql = list.map {
+            "insert into shop_cart (user_id, product_id, count) values (${it.userId},${it.productId},${it.count})"
+        }.toTypedArray()
+        jdbcTemplate.batchUpdate(*sql)
     }
 
 }

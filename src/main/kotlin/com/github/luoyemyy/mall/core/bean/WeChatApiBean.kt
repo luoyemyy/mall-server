@@ -11,7 +11,7 @@ class CodeToSession : WeChatApiBean() {
     var session_key: String? = null
 }
 
-class AccessToken:WeChatApiBean(){
+class AccessToken : WeChatApiBean() {
     var access_token: String? = null
-    var expires_in: String? = null
+    var expires_in: Int = 0
 }
