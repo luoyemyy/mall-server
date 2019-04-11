@@ -31,11 +31,15 @@ public interface AddressMapper {
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into address (country, province, ",
-        "city, county, street, ",
+        "insert into address (name, phone, ",
+        "post_code, country, ",
+        "province, city, ",
+        "county, street, ",
         "summary)",
-        "values (#{country,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, ",
-        "#{city,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, #{street,jdbcType=VARCHAR}, ",
+        "values (#{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, ",
+        "#{postCode,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, ",
+        "#{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, ",
+        "#{county,jdbcType=VARCHAR}, #{street,jdbcType=VARCHAR}, ",
         "#{summary,jdbcType=VARCHAR})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
@@ -48,6 +52,9 @@ public interface AddressMapper {
     @SelectProvider(type=AddressSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+        @Result(column="phone", property="phone", jdbcType=JdbcType.VARCHAR),
+        @Result(column="post_code", property="postCode", jdbcType=JdbcType.VARCHAR),
         @Result(column="country", property="country", jdbcType=JdbcType.VARCHAR),
         @Result(column="province", property="province", jdbcType=JdbcType.VARCHAR),
         @Result(column="city", property="city", jdbcType=JdbcType.VARCHAR),
@@ -59,12 +66,15 @@ public interface AddressMapper {
 
     @Select({
         "select",
-        "id, country, province, city, county, street, summary",
+        "id, name, phone, post_code, country, province, city, county, street, summary",
         "from address",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
+        @Result(column="phone", property="phone", jdbcType=JdbcType.VARCHAR),
+        @Result(column="post_code", property="postCode", jdbcType=JdbcType.VARCHAR),
         @Result(column="country", property="country", jdbcType=JdbcType.VARCHAR),
         @Result(column="province", property="province", jdbcType=JdbcType.VARCHAR),
         @Result(column="city", property="city", jdbcType=JdbcType.VARCHAR),
@@ -85,7 +95,10 @@ public interface AddressMapper {
 
     @Update({
         "update address",
-        "set country = #{country,jdbcType=VARCHAR},",
+        "set name = #{name,jdbcType=VARCHAR},",
+          "phone = #{phone,jdbcType=VARCHAR},",
+          "post_code = #{postCode,jdbcType=VARCHAR},",
+          "country = #{country,jdbcType=VARCHAR},",
           "province = #{province,jdbcType=VARCHAR},",
           "city = #{city,jdbcType=VARCHAR},",
           "county = #{county,jdbcType=VARCHAR},",

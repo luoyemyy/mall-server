@@ -79,11 +79,12 @@ interface ProductDao {
     fun currentProductCategorySort(categoryId: Long): Int?
 
     @Select("""
-        select p.id,p.name,p.cover_image,p.market_price,p.actual_price,sc.count from shop_cart sc
+        select p.id,sc.id as cart_id,p.name,p.cover_image,p.market_price,p.actual_price,sc.count from shop_cart sc
         inner join product p on sc.product_id = p.id
-        where sc.user_id=#{userId}
+        where sc.user_id=#{userId} and sc.count>0
     """)
     @Results(value = [Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
+        Result(column = "cart_id", property = "cartId", jdbcType = JdbcType.BIGINT, id = true),
         Result(column = "cover_image", property = "coverImage", jdbcType = JdbcType.VARCHAR),
         Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
         Result(column = "market_price", property = "marketPrice", jdbcType = JdbcType.REAL),

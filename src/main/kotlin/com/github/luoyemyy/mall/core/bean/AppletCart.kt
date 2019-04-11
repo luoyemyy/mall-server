@@ -3,11 +3,13 @@ package com.github.luoyemyy.mall.core.bean
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 
-@ApiModel("购物车产品")
+@ApiModel("微信购物车产品")
 open class AppletCart {
 
     @ApiModelProperty("产品id", required = true)
     var id: Long = 0
+    @ApiModelProperty("购物车id", required = true)
+    var cartId: Long = 0
     @ApiModelProperty("产品封面", required = true)
     var coverImage: String? = null
     @ApiModelProperty("产品名称", required = true)

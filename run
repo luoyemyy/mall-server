@@ -1,23 +1,7 @@
-#!/usr/bin/env sh
-pid=`ps -ef|grep java|grep -v grep|awk '{print $2}'`
-if [ -n "$pid" ]
-then
-echo "发现java进程$pid，结束该进程"
-kill -9 $pid
-fi
-cd /home/code/mall-server
-echo "进入工作目录，拉取最新代码"
-git pull
-echo "拉取最新代码结束 $?"
-echo "开始构建项目"
-./gradlew bootJar
-s = $?
-echo "构建项目结束 s"
-if [ $s == 1 ]
-then
-mv build/lib/mall-1.0.jar /home/java/
-echo "移动mall-1.0.jar到目录/home/java/"
+#!/bin/bash
+
+ssh root@47.106.181.28 << remote
 cd /home/java
-nohup java -jar mall-1.0.jar --server.port=80 &
-echo "成功启动"
-fi
+./run
+exit
+remote

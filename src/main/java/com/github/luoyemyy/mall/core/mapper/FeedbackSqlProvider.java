@@ -13,90 +13,55 @@ import static org.apache.ibatis.jdbc.SqlBuilder.UPDATE;
 import static org.apache.ibatis.jdbc.SqlBuilder.VALUES;
 import static org.apache.ibatis.jdbc.SqlBuilder.WHERE;
 
-import com.github.luoyemyy.mall.core.entity.Address;
-import com.github.luoyemyy.mall.core.entity.AddressExample.Criteria;
-import com.github.luoyemyy.mall.core.entity.AddressExample.Criterion;
-import com.github.luoyemyy.mall.core.entity.AddressExample;
+import com.github.luoyemyy.mall.core.entity.Feedback;
+import com.github.luoyemyy.mall.core.entity.FeedbackExample.Criteria;
+import com.github.luoyemyy.mall.core.entity.FeedbackExample.Criterion;
+import com.github.luoyemyy.mall.core.entity.FeedbackExample;
 import java.util.List;
 import java.util.Map;
 
-public class AddressSqlProvider {
+public class FeedbackSqlProvider {
 
-    public String countByExample(AddressExample example) {
+    public String countByExample(FeedbackExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("address");
+        FROM("feedback");
         applyWhere(example, false);
         return SQL();
     }
 
-    public String deleteByExample(AddressExample example) {
+    public String deleteByExample(FeedbackExample example) {
         BEGIN();
-        DELETE_FROM("address");
+        DELETE_FROM("feedback");
         applyWhere(example, false);
         return SQL();
     }
 
-    public String insertSelective(Address record) {
+    public String insertSelective(Feedback record) {
         BEGIN();
-        INSERT_INTO("address");
+        INSERT_INTO("feedback");
         
-        if (record.getName() != null) {
-            VALUES("name", "#{name,jdbcType=VARCHAR}");
+        if (record.getUserId() != null) {
+            VALUES("user_id", "#{userId,jdbcType=BIGINT}");
         }
         
-        if (record.getPhone() != null) {
-            VALUES("phone", "#{phone,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getPostCode() != null) {
-            VALUES("post_code", "#{postCode,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getCountry() != null) {
-            VALUES("country", "#{country,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getProvince() != null) {
-            VALUES("province", "#{province,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getCity() != null) {
-            VALUES("city", "#{city,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getCounty() != null) {
-            VALUES("county", "#{county,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getStreet() != null) {
-            VALUES("street", "#{street,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSummary() != null) {
-            VALUES("summary", "#{summary,jdbcType=VARCHAR}");
+        if (record.getContent() != null) {
+            VALUES("content", "#{content,jdbcType=VARCHAR}");
         }
         
         return SQL();
     }
 
-    public String selectByExample(AddressExample example) {
+    public String selectByExample(FeedbackExample example) {
         BEGIN();
         if (example != null && example.isDistinct()) {
             SELECT_DISTINCT("id");
         } else {
             SELECT("id");
         }
-        SELECT("name");
-        SELECT("phone");
-        SELECT("post_code");
-        SELECT("country");
-        SELECT("province");
-        SELECT("city");
-        SELECT("county");
-        SELECT("street");
-        SELECT("summary");
-        FROM("address");
+        SELECT("user_id");
+        SELECT("content");
+        FROM("feedback");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -107,50 +72,22 @@ public class AddressSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        Address record = (Address) parameter.get("record");
-        AddressExample example = (AddressExample) parameter.get("example");
+        Feedback record = (Feedback) parameter.get("record");
+        FeedbackExample example = (FeedbackExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("address");
+        UPDATE("feedback");
         
         if (record.getId() != null) {
             SET("id = #{record.id,jdbcType=BIGINT}");
         }
         
-        if (record.getName() != null) {
-            SET("name = #{record.name,jdbcType=VARCHAR}");
+        if (record.getUserId() != null) {
+            SET("user_id = #{record.userId,jdbcType=BIGINT}");
         }
         
-        if (record.getPhone() != null) {
-            SET("phone = #{record.phone,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getPostCode() != null) {
-            SET("post_code = #{record.postCode,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getCountry() != null) {
-            SET("country = #{record.country,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getProvince() != null) {
-            SET("province = #{record.province,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getCity() != null) {
-            SET("city = #{record.city,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getCounty() != null) {
-            SET("county = #{record.county,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getStreet() != null) {
-            SET("street = #{record.street,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSummary() != null) {
-            SET("summary = #{record.summary,jdbcType=VARCHAR}");
+        if (record.getContent() != null) {
+            SET("content = #{record.content,jdbcType=VARCHAR}");
         }
         
         applyWhere(example, true);
@@ -159,62 +96,27 @@ public class AddressSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("address");
+        UPDATE("feedback");
         
         SET("id = #{record.id,jdbcType=BIGINT}");
-        SET("name = #{record.name,jdbcType=VARCHAR}");
-        SET("phone = #{record.phone,jdbcType=VARCHAR}");
-        SET("post_code = #{record.postCode,jdbcType=VARCHAR}");
-        SET("country = #{record.country,jdbcType=VARCHAR}");
-        SET("province = #{record.province,jdbcType=VARCHAR}");
-        SET("city = #{record.city,jdbcType=VARCHAR}");
-        SET("county = #{record.county,jdbcType=VARCHAR}");
-        SET("street = #{record.street,jdbcType=VARCHAR}");
-        SET("summary = #{record.summary,jdbcType=VARCHAR}");
+        SET("user_id = #{record.userId,jdbcType=BIGINT}");
+        SET("content = #{record.content,jdbcType=VARCHAR}");
         
-        AddressExample example = (AddressExample) parameter.get("example");
+        FeedbackExample example = (FeedbackExample) parameter.get("example");
         applyWhere(example, true);
         return SQL();
     }
 
-    public String updateByPrimaryKeySelective(Address record) {
+    public String updateByPrimaryKeySelective(Feedback record) {
         BEGIN();
-        UPDATE("address");
+        UPDATE("feedback");
         
-        if (record.getName() != null) {
-            SET("name = #{name,jdbcType=VARCHAR}");
+        if (record.getUserId() != null) {
+            SET("user_id = #{userId,jdbcType=BIGINT}");
         }
         
-        if (record.getPhone() != null) {
-            SET("phone = #{phone,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getPostCode() != null) {
-            SET("post_code = #{postCode,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getCountry() != null) {
-            SET("country = #{country,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getProvince() != null) {
-            SET("province = #{province,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getCity() != null) {
-            SET("city = #{city,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getCounty() != null) {
-            SET("county = #{county,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getStreet() != null) {
-            SET("street = #{street,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSummary() != null) {
-            SET("summary = #{summary,jdbcType=VARCHAR}");
+        if (record.getContent() != null) {
+            SET("content = #{content,jdbcType=VARCHAR}");
         }
         
         WHERE("id = #{id,jdbcType=BIGINT}");
@@ -222,7 +124,7 @@ public class AddressSqlProvider {
         return SQL();
     }
 
-    protected void applyWhere(AddressExample example, boolean includeExamplePhrase) {
+    protected void applyWhere(FeedbackExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }
