@@ -4,7 +4,7 @@ import com.github.luoyemyy.mall.base.aspect.RequestApplet
 import com.github.luoyemyy.mall.base.response.DataResponse
 import com.github.luoyemyy.mall.base.response.dataResponse
 import com.github.luoyemyy.mall.core.bean.AppletLoginUser
-import com.github.luoyemyy.mall.core.service2.WeChatService
+import com.github.luoyemyy.mall.core.service2.AppletUserService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiImplicitParam
 import io.swagger.annotations.ApiImplicitParams
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController
 class AppletUserController {
 
     @Autowired
-    private lateinit var weChatService: WeChatService
+    private lateinit var appletUserService: AppletUserService
 
     @ApiOperation("登录")
     @RequestApplet(needLogin = false)
@@ -28,7 +28,7 @@ class AppletUserController {
         ApiImplicitParam(name = "code", value = "授权码", paramType = "body", required = true, dataTypeClass = String::class)])
     @GetMapping("login")
     fun list(code: String): DataResponse<AppletLoginUser> {
-        return dataResponse(weChatService.login(code))
+        return dataResponse(appletUserService.login(code))
     }
 
 }
