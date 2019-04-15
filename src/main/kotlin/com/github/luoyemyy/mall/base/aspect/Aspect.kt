@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.github.luoyemyy.mall.base.aspect
 
 import com.github.luoyemyy.mall.base.advice.Code
@@ -50,13 +52,16 @@ class Aspect {
         val path = request.servletPath
         val token = request.getHeader("token")
         val params = params(pjp) ?: ""
-        logger.info("<<<<<<:[{}],[{}],[{}],[{}]", request.method, path, token, params)
+        logger.info("<<<<<<:method=[{}],path=[{}],token=[{}],params=[{}]", request.method, path, token, params)
     }
 
     private fun postLog(result: Any) {
         logger.info(">>>>>>:{}", JsonUtil.objectMapper.writeValueAsString(result))
     }
 
+    /**
+     * 拦截后台请求
+     */
     @Around("execution(public * com.github.luoyemyy.mall.admin.*Controller.*(..)) && @annotation(flag)")
     fun around(pjp: ProceedingJoinPoint, flag: RequestAdmin): Any {
         preLog(pjp)
@@ -73,6 +78,9 @@ class Aspect {
         return pjp.proceed().apply { postLog(this) }
     }
 
+    /**
+     * 拦截微信请求
+     */
     @Around("execution(public * com.github.luoyemyy.mall.applet.*Controller.*(..)) && @annotation(flag)")
     fun around(pjp: ProceedingJoinPoint, flag: RequestApplet): Any {
         preLog(pjp)

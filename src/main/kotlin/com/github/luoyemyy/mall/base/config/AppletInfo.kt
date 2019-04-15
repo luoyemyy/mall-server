@@ -8,4 +8,10 @@ import org.springframework.stereotype.Component
 class AppletInfo {
     var appId: String? = null
     var secret: String? = null
+    var mchId: String? = null
+    var mchKey: String? = null
+    var spbillCreateIp: String? = null
+    var notifyUrl: String? = null
+    var tradeType: String? = null
+    var body: String? = null
 }

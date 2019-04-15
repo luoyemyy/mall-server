@@ -34,11 +34,13 @@ public interface ProductMapper {
         "insert into product (cover_image, name, ",
         "description, market_price, ",
         "actual_price, stock, ",
-        "online, sort, create_time)",
+        "online, sort, create_time, ",
+        "status)",
         "values (#{coverImage,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, ",
         "#{description,jdbcType=VARCHAR}, #{marketPrice,jdbcType=REAL}, ",
         "#{actualPrice,jdbcType=REAL}, #{stock,jdbcType=INTEGER}, ",
-        "#{online,jdbcType=BIT}, #{sort,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})"
+        "#{online,jdbcType=BIT}, #{sort,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{status,jdbcType=INTEGER})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(Product record);
@@ -58,14 +60,15 @@ public interface ProductMapper {
         @Result(column="stock", property="stock", jdbcType=JdbcType.INTEGER),
         @Result(column="online", property="online", jdbcType=JdbcType.BIT),
         @Result(column="sort", property="sort", jdbcType=JdbcType.INTEGER),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER)
     })
     List<Product> selectByExample(ProductExample example);
 
     @Select({
         "select",
         "id, cover_image, name, description, market_price, actual_price, stock, online, ",
-        "sort, create_time",
+        "sort, create_time, status",
         "from product",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -79,7 +82,8 @@ public interface ProductMapper {
         @Result(column="stock", property="stock", jdbcType=JdbcType.INTEGER),
         @Result(column="online", property="online", jdbcType=JdbcType.BIT),
         @Result(column="sort", property="sort", jdbcType=JdbcType.INTEGER),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER)
     })
     Product selectByPrimaryKey(Long id);
 
@@ -102,7 +106,8 @@ public interface ProductMapper {
           "stock = #{stock,jdbcType=INTEGER},",
           "online = #{online,jdbcType=BIT},",
           "sort = #{sort,jdbcType=INTEGER},",
-          "create_time = #{createTime,jdbcType=TIMESTAMP}",
+          "create_time = #{createTime,jdbcType=TIMESTAMP},",
+          "status = #{status,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(Product record);

@@ -32,9 +32,9 @@ public interface OrderProductMapper {
 
     @Insert({
         "insert into order_product (order_id, product_id, ",
-        "count)",
+        "count, price)",
         "values (#{orderId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, ",
-        "#{count,jdbcType=INTEGER})"
+        "#{count,jdbcType=INTEGER}, #{price,jdbcType=REAL})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(OrderProduct record);
@@ -48,13 +48,14 @@ public interface OrderProductMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="order_id", property="orderId", jdbcType=JdbcType.BIGINT),
         @Result(column="product_id", property="productId", jdbcType=JdbcType.BIGINT),
-        @Result(column="count", property="count", jdbcType=JdbcType.INTEGER)
+        @Result(column="count", property="count", jdbcType=JdbcType.INTEGER),
+        @Result(column="price", property="price", jdbcType=JdbcType.REAL)
     })
     List<OrderProduct> selectByExample(OrderProductExample example);
 
     @Select({
         "select",
-        "id, order_id, product_id, count",
+        "id, order_id, product_id, count, price",
         "from order_product",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -62,7 +63,8 @@ public interface OrderProductMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="order_id", property="orderId", jdbcType=JdbcType.BIGINT),
         @Result(column="product_id", property="productId", jdbcType=JdbcType.BIGINT),
-        @Result(column="count", property="count", jdbcType=JdbcType.INTEGER)
+        @Result(column="count", property="count", jdbcType=JdbcType.INTEGER),
+        @Result(column="price", property="price", jdbcType=JdbcType.REAL)
     })
     OrderProduct selectByPrimaryKey(Long id);
 
@@ -79,7 +81,8 @@ public interface OrderProductMapper {
         "update order_product",
         "set order_id = #{orderId,jdbcType=BIGINT},",
           "product_id = #{productId,jdbcType=BIGINT},",
-          "count = #{count,jdbcType=INTEGER}",
+          "count = #{count,jdbcType=INTEGER},",
+          "price = #{price,jdbcType=REAL}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(OrderProduct record);

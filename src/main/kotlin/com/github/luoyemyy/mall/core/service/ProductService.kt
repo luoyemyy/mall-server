@@ -132,6 +132,7 @@ class ProductService {
         if (product.id == null || product.id == 0L) {
             product.sort = nextSort()
             product.createTime = Date()
+            product.status = 1
             if (productMapper.insert(product) == 0) {
                 throw MallException(Code.FAILURE)
             }

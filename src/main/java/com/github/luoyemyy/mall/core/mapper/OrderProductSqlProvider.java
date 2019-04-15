@@ -53,6 +53,10 @@ public class OrderProductSqlProvider {
             VALUES("count", "#{count,jdbcType=INTEGER}");
         }
         
+        if (record.getPrice() != null) {
+            VALUES("price", "#{price,jdbcType=REAL}");
+        }
+        
         return SQL();
     }
 
@@ -66,6 +70,7 @@ public class OrderProductSqlProvider {
         SELECT("order_id");
         SELECT("product_id");
         SELECT("count");
+        SELECT("price");
         FROM("order_product");
         applyWhere(example, false);
         
@@ -99,6 +104,10 @@ public class OrderProductSqlProvider {
             SET("count = #{record.count,jdbcType=INTEGER}");
         }
         
+        if (record.getPrice() != null) {
+            SET("price = #{record.price,jdbcType=REAL}");
+        }
+        
         applyWhere(example, true);
         return SQL();
     }
@@ -111,6 +120,7 @@ public class OrderProductSqlProvider {
         SET("order_id = #{record.orderId,jdbcType=BIGINT}");
         SET("product_id = #{record.productId,jdbcType=BIGINT}");
         SET("count = #{record.count,jdbcType=INTEGER}");
+        SET("price = #{record.price,jdbcType=REAL}");
         
         OrderProductExample example = (OrderProductExample) parameter.get("example");
         applyWhere(example, true);
@@ -131,6 +141,10 @@ public class OrderProductSqlProvider {
         
         if (record.getCount() != null) {
             SET("count = #{count,jdbcType=INTEGER}");
+        }
+        
+        if (record.getPrice() != null) {
+            SET("price = #{price,jdbcType=REAL}");
         }
         
         WHERE("id = #{id,jdbcType=BIGINT}");

@@ -1,5 +1,11 @@
 package com.github.luoyemyy.mall.core.wx.bean
 
+import com.github.luoyemyy.mall.base.config.AppletInfo
+import com.github.luoyemyy.mall.util.newRandomString
+import com.github.luoyemyy.mall.util.md5
+import com.github.luoyemyy.mall.util.toXmlString
+import com.github.luoyemyy.mall.util.wxSign
+
 class BookOrder constructor() {
 
     var appid: String? = null               //小程序ID	    appid	    是	String(32)	wxd678efh567hg6787	微信分配的小程序ID
@@ -26,22 +32,28 @@ class BookOrder constructor() {
     //var receipt: String? = null           //电子发票入口开放标识receipt	否	String(8)	Y	Y，传入Y时，支付成功消息和支付详情页将出现开票入口。需要在微信支付商户平台或微信公众平台开通电子发票功能，传此字段才可生效
     //var scene_info: String? = null        //+场景信息	    scene_info	否	String(256) 该字段常用于线下活动时的场景信息上报，支持上报实际门店信息，商户也可以按需求自己上报相关信息。该字段为JSON对象数据，对象格式为{"store_info":{"id": "门店ID","name": "名称","area_code": "编码","address": "地址" }} ，字段详细说明请点击行前的+展开
 
-    constructor(appid: String, mch_id: String, nonce_str: String, sign: String, body: String, out_trade_no: String, total_fee: Int, spbill_create_ip: String, notify_url: String, trade_type: String, openid: String) : this() {
-        this.appid = appid
-        this.mch_id = mch_id
-        this.nonce_str = nonce_str
-        this.sign = sign
-        this.body = body
-        this.out_trade_no = out_trade_no
-        this.total_fee = total_fee
-        this.spbill_create_ip = spbill_create_ip
-        this.notify_url = notify_url
-        this.trade_type = trade_type
-        this.openid = openid
+    /**
+     * @param appletInfo 商户信息
+     * @param orderNo    订单编号
+     * @param amount     金额
+     * @param openId     微信用户
+     */
+    constructor(appletInfo: AppletInfo, orderNo: String, amount: Int, openId: String) : this() {
+        this.appid = appletInfo.appId
+        this.mch_id = appletInfo.mchId
+        this.body = appletInfo.body
+        this.spbill_create_ip = appletInfo.spbillCreateIp
+        this.notify_url = appletInfo.notifyUrl
+        this.trade_type = appletInfo.tradeType
+        this.nonce_str = newRandomString(16)
+        this.openid = openId
+        this.out_trade_no = orderNo
+        this.total_fee = amount
+        this.sign = wxSign(this,appletInfo.mchKey)
     }
 
     fun buildXml(): String {
-        return ""
+        return this.toXmlString()
     }
 }
 

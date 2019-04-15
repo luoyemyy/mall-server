@@ -5,7 +5,9 @@ public class KeyValue {
 
     private String key;
 
-    private String value;
+    private String valueString;
+
+    private Long valueLong;
 
     private Long expire;
 
@@ -25,12 +27,20 @@ public class KeyValue {
         this.key = key == null ? null : key.trim();
     }
 
-    public String getValue() {
-        return value;
+    public String getValueString() {
+        return valueString;
     }
 
-    public void setValue(String value) {
-        this.value = value == null ? null : value.trim();
+    public void setValueString(String valueString) {
+        this.valueString = valueString == null ? null : valueString.trim();
+    }
+
+    public Long getValueLong() {
+        return valueLong;
+    }
+
+    public void setValueLong(Long valueLong) {
+        this.valueLong = valueLong;
     }
 
     public Long getExpire() {

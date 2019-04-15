@@ -1,12 +1,12 @@
 package com.github.luoyemyy.mall.core.bean
 
 import com.github.luoyemyy.mall.core.entity.Address
+import com.github.luoyemyy.mall.core.entity.Postage
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 
 @ApiModel("微信收货地址")
 open class AppletAddress {
-
 
     @ApiModelProperty("地址id", required = true)
     var id: Long = 0

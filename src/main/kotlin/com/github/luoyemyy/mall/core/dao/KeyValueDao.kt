@@ -12,7 +12,8 @@ interface KeyValueDao {
     @Results(id = "keyValue", value = [
         Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
         Result(column = "key", property = "key", jdbcType = JdbcType.VARCHAR),
-        Result(column = "value", property = "value", jdbcType = JdbcType.VARCHAR),
+        Result(column = "value_string", property = "valueString", jdbcType = JdbcType.VARCHAR),
+        Result(column = "value_long", property = "valueLong", jdbcType = JdbcType.BIGINT),
         Result(column = "expire", property = "expire", jdbcType = JdbcType.BIGINT)
     ])
     fun selectByKey(key: String): KeyValue?

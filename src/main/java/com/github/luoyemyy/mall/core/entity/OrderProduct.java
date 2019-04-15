@@ -9,6 +9,8 @@ public class OrderProduct {
 
     private Integer count;
 
+    private Float price;
+
     public Long getId() {
         return id;
     }
@@ -39,5 +41,13 @@ public class OrderProduct {
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
     }
 }

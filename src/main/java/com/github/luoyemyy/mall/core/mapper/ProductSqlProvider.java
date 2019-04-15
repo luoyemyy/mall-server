@@ -77,6 +77,10 @@ public class ProductSqlProvider {
             VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
         
+        if (record.getStatus() != null) {
+            VALUES("status", "#{status,jdbcType=INTEGER}");
+        }
+        
         return SQL();
     }
 
@@ -96,6 +100,7 @@ public class ProductSqlProvider {
         SELECT("online");
         SELECT("sort");
         SELECT("create_time");
+        SELECT("status");
         FROM("product");
         applyWhere(example, false);
         
@@ -153,6 +158,10 @@ public class ProductSqlProvider {
             SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
         
+        if (record.getStatus() != null) {
+            SET("status = #{record.status,jdbcType=INTEGER}");
+        }
+        
         applyWhere(example, true);
         return SQL();
     }
@@ -171,6 +180,7 @@ public class ProductSqlProvider {
         SET("online = #{record.online,jdbcType=BIT}");
         SET("sort = #{record.sort,jdbcType=INTEGER}");
         SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
+        SET("status = #{record.status,jdbcType=INTEGER}");
         
         ProductExample example = (ProductExample) parameter.get("example");
         applyWhere(example, true);
@@ -215,6 +225,10 @@ public class ProductSqlProvider {
         
         if (record.getCreateTime() != null) {
             SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getStatus() != null) {
+            SET("status = #{status,jdbcType=INTEGER}");
         }
         
         WHERE("id = #{id,jdbcType=BIGINT}");

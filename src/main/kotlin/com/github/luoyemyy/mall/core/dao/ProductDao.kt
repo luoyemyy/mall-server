@@ -13,7 +13,7 @@ interface ProductDao {
 
     @Select("""
         select p.*,pc.sort as pc_sort from product_category pc
-        inner join product p on pc.product_id = p.id
+        inner join product p on pc.product_id = p.id and p.status=1
         where pc.category_id = #{categoryId} order by pc.sort desc limit #{pageStart},10
     """)
     @Results(id = "productList", value = [Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
@@ -29,13 +29,13 @@ interface ProductDao {
 
     @Select("""
         select p.*,pc.sort as pc_sort from product_category pc
-        inner join product p on pc.product_id = p.id and p.online = true
+        inner join product p on pc.product_id = p.id and p.online = true and p.status=1
         where pc.category_id = #{categoryId} order by pc.sort desc limit #{pageStart},10
     """)
     @ResultMap("productBean")
     fun selectOnlineByCategoryAndPage(categoryId: Long, pageStart: Int): List<ProductBean>?
 
-    @Select("select p.* from product p order by sort desc limit #{pageStart},10 ")
+    @Select("select p.* from product p where p.status=1 order by sort desc limit #{pageStart},10 ")
     @Results(id = "productBean", value = [Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
         Result(column = "cover_image", property = "coverImage", jdbcType = JdbcType.VARCHAR),
         Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
@@ -47,11 +47,11 @@ interface ProductDao {
         Result(column = "sort", property = "sort", jdbcType = JdbcType.INTEGER)])
     fun selectAllByPage(pageStart: Int): List<ProductBean>?
 
-    @Select("select p.* from product p where p.online = true order by sort desc limit #{pageStart},10 ")
+    @Select("select p.* from product p where p.online = true and p.status=1 order by sort desc limit #{pageStart},10 ")
     @ResultMap("productBean")
     fun selectAllOnlineByPage(pageStart: Int): List<ProductBean>?
 
-    @Select("select * from product where id = #{id} ")
+    @Select("select * from product where id = #{id} and p.status=1 ")
     @Results(id = "productDetail", value = [Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
         Result(column = "cover_image", property = "coverImage", jdbcType = JdbcType.VARCHAR),
         Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
@@ -66,7 +66,7 @@ interface ProductDao {
     @Select("""
         select p.* from hot_product hp
         inner join hot h on hp.hot_id = h.id
-        inner join product p on hp.product_id = p.id
+        inner join product p on hp.product_id = p.id and p.status=1
         where hp.hot_id = #{hotId}
     """)
     @ResultMap("productBean")
@@ -80,7 +80,7 @@ interface ProductDao {
 
     @Select("""
         select p.id,sc.id as cart_id,p.name,p.cover_image,p.market_price,p.actual_price,sc.count from shop_cart sc
-        inner join product p on sc.product_id = p.id
+        inner join product p on sc.product_id = p.id and p.status=1
         where sc.user_id=#{userId} and sc.count>0
     """)
     @Results(value = [Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),

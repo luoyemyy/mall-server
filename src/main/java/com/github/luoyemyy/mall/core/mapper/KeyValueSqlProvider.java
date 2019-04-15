@@ -45,8 +45,12 @@ public class KeyValueSqlProvider {
             VALUES("key", "#{key,jdbcType=VARCHAR}");
         }
         
-        if (record.getValue() != null) {
-            VALUES("value", "#{value,jdbcType=VARCHAR}");
+        if (record.getValueString() != null) {
+            VALUES("value_string", "#{valueString,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getValueLong() != null) {
+            VALUES("value_long", "#{valueLong,jdbcType=BIGINT}");
         }
         
         if (record.getExpire() != null) {
@@ -64,7 +68,8 @@ public class KeyValueSqlProvider {
             SELECT("id");
         }
         SELECT("key");
-        SELECT("value");
+        SELECT("value_string");
+        SELECT("value_long");
         SELECT("expire");
         FROM("key_value");
         applyWhere(example, false);
@@ -91,8 +96,12 @@ public class KeyValueSqlProvider {
             SET("key = #{record.key,jdbcType=VARCHAR}");
         }
         
-        if (record.getValue() != null) {
-            SET("value = #{record.value,jdbcType=VARCHAR}");
+        if (record.getValueString() != null) {
+            SET("value_string = #{record.valueString,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getValueLong() != null) {
+            SET("value_long = #{record.valueLong,jdbcType=BIGINT}");
         }
         
         if (record.getExpire() != null) {
@@ -109,7 +118,8 @@ public class KeyValueSqlProvider {
         
         SET("id = #{record.id,jdbcType=BIGINT}");
         SET("key = #{record.key,jdbcType=VARCHAR}");
-        SET("value = #{record.value,jdbcType=VARCHAR}");
+        SET("value_string = #{record.valueString,jdbcType=VARCHAR}");
+        SET("value_long = #{record.valueLong,jdbcType=BIGINT}");
         SET("expire = #{record.expire,jdbcType=BIGINT}");
         
         KeyValueExample example = (KeyValueExample) parameter.get("example");
@@ -125,8 +135,12 @@ public class KeyValueSqlProvider {
             SET("key = #{key,jdbcType=VARCHAR}");
         }
         
-        if (record.getValue() != null) {
-            SET("value = #{value,jdbcType=VARCHAR}");
+        if (record.getValueString() != null) {
+            SET("value_string = #{valueString,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getValueLong() != null) {
+            SET("value_long = #{valueLong,jdbcType=BIGINT}");
         }
         
         if (record.getExpire() != null) {

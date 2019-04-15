@@ -17,6 +17,12 @@ object Code {
     const val EXIST_MANAGER = 10
     const val OLD_PASSWORD_ERROR = 11
 
+    const val BOOK_ORDER_USER_ERROR = 12
+    const val BOOK_ORDER_MONEY_ERROR = 13
+    const val BOOK_ORDER_ADDRESS_ERROR = 13
+    const val BOOK_ORDER_FAIL = 14
+
+
     private val map = mapOf(
             SUCCESS to "请求成功",
             FAILURE to "服务器错误",
@@ -29,7 +35,8 @@ object Code {
             PRODUCT_NOT_EXIST to "产品不存在",
             INVALID_ROLE to "无权限",
             EXIST_MANAGER to "该手机号已经注册为管理人员",
-            OLD_PASSWORD_ERROR to "原密码错误"
+            OLD_PASSWORD_ERROR to "原密码错误",
+            BOOK_ORDER_FAIL to "下单失败"
     )
 
     fun msg(code: Int): String {

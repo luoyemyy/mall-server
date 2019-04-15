@@ -7,6 +7,7 @@ import com.github.luoyemyy.mall.core.dao.KeyValueDao
 import com.github.luoyemyy.mall.core.entity.KeyValue
 import com.github.luoyemyy.mall.core.mapper.KeyValueMapper
 import com.github.luoyemyy.mall.core.service.HttpService
+import com.github.luoyemyy.mall.util.AppKey
 import com.github.luoyemyy.mall.util.toObject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Service
 class WxService {
 
     companion object {
-        const val KEY_ACCESS_TOKEN = "access_token"
         const val URL_GET_OPEN_ID = "https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code"
         const val URL_ACCESS_TOKEN = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credentialappid=%s&secret=%s"
     }
@@ -37,21 +37,21 @@ class WxService {
     }
 
     fun accessToken(): String? {
-        val keyValue = keyValueDao.selectByKey(KEY_ACCESS_TOKEN)?.apply {
+        val keyValue = keyValueDao.selectByKey(AppKey.ACCESS_TOKEN)?.apply {
             if (this.expire != null && this.expire > System.currentTimeMillis()) {
-                return value
+                return valueString
             }
         }
         httpService.get(String.format(URL_ACCESS_TOKEN, appletInfo.appId, appletInfo.secret)).toObject<AccessToken>()?.apply {
             if (!access_token.isNullOrEmpty()) {
                 if (keyValue != null) {
-                    keyValue.value = access_token
+                    keyValue.valueString = access_token
                     keyValue.expire = System.currentTimeMillis() + expires_in - 100
                     keyValueMapper.updateByPrimaryKeySelective(keyValue)
                 } else {
                     KeyValue().apply {
-                        key = KEY_ACCESS_TOKEN
-                        value = access_token
+                        key = AppKey.ACCESS_TOKEN
+                        valueString = access_token
                         expire = System.currentTimeMillis() + expires_in - 100
                         keyValueMapper.insert(this)
                     }

@@ -31,12 +31,20 @@ public interface OrderMapper {
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into order (state, money, ",
-        "address, create_time, ",
-        "update_time)",
-        "values (#{state,jdbcType=INTEGER}, #{money,jdbcType=REAL}, ",
-        "#{address,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{updateTime,jdbcType=TIMESTAMP})"
+        "insert into order (order_no, user_id, ",
+        "state, money, postage, ",
+        "username, phone, ",
+        "address, postcode, ",
+        "create_time, update_time, ",
+        "wx_pay_id, wx_order_id, ",
+        "status)",
+        "values (#{orderNo,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, ",
+        "#{state,jdbcType=INTEGER}, #{money,jdbcType=REAL}, #{postage,jdbcType=REAL}, ",
+        "#{username,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, ",
+        "#{address,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR}, ",
+        "#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, ",
+        "#{wxPayId,jdbcType=VARCHAR}, #{wxOrderId,jdbcType=VARCHAR}, ",
+        "#{status,jdbcType=INTEGER})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(Order record);
@@ -48,27 +56,46 @@ public interface OrderMapper {
     @SelectProvider(type=OrderSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="order_no", property="orderNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="user_id", property="userId", jdbcType=JdbcType.BIGINT),
         @Result(column="state", property="state", jdbcType=JdbcType.INTEGER),
         @Result(column="money", property="money", jdbcType=JdbcType.REAL),
+        @Result(column="postage", property="postage", jdbcType=JdbcType.REAL),
+        @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
+        @Result(column="phone", property="phone", jdbcType=JdbcType.VARCHAR),
         @Result(column="address", property="address", jdbcType=JdbcType.VARCHAR),
+        @Result(column="postcode", property="postcode", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="wx_pay_id", property="wxPayId", jdbcType=JdbcType.VARCHAR),
+        @Result(column="wx_order_id", property="wxOrderId", jdbcType=JdbcType.VARCHAR),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER)
     })
     List<Order> selectByExample(OrderExample example);
 
     @Select({
         "select",
-        "id, state, money, address, create_time, update_time",
+        "id, order_no, user_id, state, money, postage, username, phone, address, postcode, ",
+        "create_time, update_time, wx_pay_id, wx_order_id, status",
         "from order",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
+        @Result(column="order_no", property="orderNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="user_id", property="userId", jdbcType=JdbcType.BIGINT),
         @Result(column="state", property="state", jdbcType=JdbcType.INTEGER),
         @Result(column="money", property="money", jdbcType=JdbcType.REAL),
+        @Result(column="postage", property="postage", jdbcType=JdbcType.REAL),
+        @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
+        @Result(column="phone", property="phone", jdbcType=JdbcType.VARCHAR),
         @Result(column="address", property="address", jdbcType=JdbcType.VARCHAR),
+        @Result(column="postcode", property="postcode", jdbcType=JdbcType.VARCHAR),
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="wx_pay_id", property="wxPayId", jdbcType=JdbcType.VARCHAR),
+        @Result(column="wx_order_id", property="wxOrderId", jdbcType=JdbcType.VARCHAR),
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER)
     })
     Order selectByPrimaryKey(Long id);
 
@@ -83,11 +110,20 @@ public interface OrderMapper {
 
     @Update({
         "update order",
-        "set state = #{state,jdbcType=INTEGER},",
+        "set order_no = #{orderNo,jdbcType=VARCHAR},",
+          "user_id = #{userId,jdbcType=BIGINT},",
+          "state = #{state,jdbcType=INTEGER},",
           "money = #{money,jdbcType=REAL},",
+          "postage = #{postage,jdbcType=REAL},",
+          "username = #{username,jdbcType=VARCHAR},",
+          "phone = #{phone,jdbcType=VARCHAR},",
           "address = #{address,jdbcType=VARCHAR},",
+          "postcode = #{postcode,jdbcType=VARCHAR},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
-          "update_time = #{updateTime,jdbcType=TIMESTAMP}",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP},",
+          "wx_pay_id = #{wxPayId,jdbcType=VARCHAR},",
+          "wx_order_id = #{wxOrderId,jdbcType=VARCHAR},",
+          "status = #{status,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(Order record);

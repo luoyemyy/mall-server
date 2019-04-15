@@ -41,6 +41,14 @@ public class OrderSqlProvider {
         BEGIN();
         INSERT_INTO("order");
         
+        if (record.getOrderNo() != null) {
+            VALUES("order_no", "#{orderNo,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getUserId() != null) {
+            VALUES("user_id", "#{userId,jdbcType=BIGINT}");
+        }
+        
         if (record.getState() != null) {
             VALUES("state", "#{state,jdbcType=INTEGER}");
         }
@@ -49,8 +57,24 @@ public class OrderSqlProvider {
             VALUES("money", "#{money,jdbcType=REAL}");
         }
         
+        if (record.getPostage() != null) {
+            VALUES("postage", "#{postage,jdbcType=REAL}");
+        }
+        
+        if (record.getUsername() != null) {
+            VALUES("username", "#{username,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getPhone() != null) {
+            VALUES("phone", "#{phone,jdbcType=VARCHAR}");
+        }
+        
         if (record.getAddress() != null) {
             VALUES("address", "#{address,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getPostcode() != null) {
+            VALUES("postcode", "#{postcode,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -59,6 +83,18 @@ public class OrderSqlProvider {
         
         if (record.getUpdateTime() != null) {
             VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getWxPayId() != null) {
+            VALUES("wx_pay_id", "#{wxPayId,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getWxOrderId() != null) {
+            VALUES("wx_order_id", "#{wxOrderId,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getStatus() != null) {
+            VALUES("status", "#{status,jdbcType=INTEGER}");
         }
         
         return SQL();
@@ -71,11 +107,20 @@ public class OrderSqlProvider {
         } else {
             SELECT("id");
         }
+        SELECT("order_no");
+        SELECT("user_id");
         SELECT("state");
         SELECT("money");
+        SELECT("postage");
+        SELECT("username");
+        SELECT("phone");
         SELECT("address");
+        SELECT("postcode");
         SELECT("create_time");
         SELECT("update_time");
+        SELECT("wx_pay_id");
+        SELECT("wx_order_id");
+        SELECT("status");
         FROM("order");
         applyWhere(example, false);
         
@@ -97,6 +142,14 @@ public class OrderSqlProvider {
             SET("id = #{record.id,jdbcType=BIGINT}");
         }
         
+        if (record.getOrderNo() != null) {
+            SET("order_no = #{record.orderNo,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getUserId() != null) {
+            SET("user_id = #{record.userId,jdbcType=BIGINT}");
+        }
+        
         if (record.getState() != null) {
             SET("state = #{record.state,jdbcType=INTEGER}");
         }
@@ -105,8 +158,24 @@ public class OrderSqlProvider {
             SET("money = #{record.money,jdbcType=REAL}");
         }
         
+        if (record.getPostage() != null) {
+            SET("postage = #{record.postage,jdbcType=REAL}");
+        }
+        
+        if (record.getUsername() != null) {
+            SET("username = #{record.username,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getPhone() != null) {
+            SET("phone = #{record.phone,jdbcType=VARCHAR}");
+        }
+        
         if (record.getAddress() != null) {
             SET("address = #{record.address,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getPostcode() != null) {
+            SET("postcode = #{record.postcode,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -115,6 +184,18 @@ public class OrderSqlProvider {
         
         if (record.getUpdateTime() != null) {
             SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getWxPayId() != null) {
+            SET("wx_pay_id = #{record.wxPayId,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getWxOrderId() != null) {
+            SET("wx_order_id = #{record.wxOrderId,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getStatus() != null) {
+            SET("status = #{record.status,jdbcType=INTEGER}");
         }
         
         applyWhere(example, true);
@@ -126,11 +207,20 @@ public class OrderSqlProvider {
         UPDATE("order");
         
         SET("id = #{record.id,jdbcType=BIGINT}");
+        SET("order_no = #{record.orderNo,jdbcType=VARCHAR}");
+        SET("user_id = #{record.userId,jdbcType=BIGINT}");
         SET("state = #{record.state,jdbcType=INTEGER}");
         SET("money = #{record.money,jdbcType=REAL}");
+        SET("postage = #{record.postage,jdbcType=REAL}");
+        SET("username = #{record.username,jdbcType=VARCHAR}");
+        SET("phone = #{record.phone,jdbcType=VARCHAR}");
         SET("address = #{record.address,jdbcType=VARCHAR}");
+        SET("postcode = #{record.postcode,jdbcType=VARCHAR}");
         SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
+        SET("wx_pay_id = #{record.wxPayId,jdbcType=VARCHAR}");
+        SET("wx_order_id = #{record.wxOrderId,jdbcType=VARCHAR}");
+        SET("status = #{record.status,jdbcType=INTEGER}");
         
         OrderExample example = (OrderExample) parameter.get("example");
         applyWhere(example, true);
@@ -141,6 +231,14 @@ public class OrderSqlProvider {
         BEGIN();
         UPDATE("order");
         
+        if (record.getOrderNo() != null) {
+            SET("order_no = #{orderNo,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getUserId() != null) {
+            SET("user_id = #{userId,jdbcType=BIGINT}");
+        }
+        
         if (record.getState() != null) {
             SET("state = #{state,jdbcType=INTEGER}");
         }
@@ -149,8 +247,24 @@ public class OrderSqlProvider {
             SET("money = #{money,jdbcType=REAL}");
         }
         
+        if (record.getPostage() != null) {
+            SET("postage = #{postage,jdbcType=REAL}");
+        }
+        
+        if (record.getUsername() != null) {
+            SET("username = #{username,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getPhone() != null) {
+            SET("phone = #{phone,jdbcType=VARCHAR}");
+        }
+        
         if (record.getAddress() != null) {
             SET("address = #{address,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getPostcode() != null) {
+            SET("postcode = #{postcode,jdbcType=VARCHAR}");
         }
         
         if (record.getCreateTime() != null) {
@@ -159,6 +273,18 @@ public class OrderSqlProvider {
         
         if (record.getUpdateTime() != null) {
             SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getWxPayId() != null) {
+            SET("wx_pay_id = #{wxPayId,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getWxOrderId() != null) {
+            SET("wx_order_id = #{wxOrderId,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getStatus() != null) {
+            SET("status = #{status,jdbcType=INTEGER}");
         }
         
         WHERE("id = #{id,jdbcType=BIGINT}");
