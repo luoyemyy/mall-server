@@ -51,7 +51,7 @@ interface ProductDao {
     @ResultMap("productBean")
     fun selectAllOnlineByPage(pageStart: Int): List<ProductBean>?
 
-    @Select("select * from product where id = #{id} and p.status=1 ")
+    @Select("select * from product where id = #{id} and status=1 ")
     @Results(id = "productDetail", value = [Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
         Result(column = "cover_image", property = "coverImage", jdbcType = JdbcType.VARCHAR),
         Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),

@@ -1,6 +1,9 @@
 package com.github.luoyemyy.mall.core.dao
 
+import com.github.luoyemyy.mall.core.bean.AppletOrderProduct
+import com.github.luoyemyy.mall.core.bean.PostageBean
 import com.github.luoyemyy.mall.core.bean.SortBean
+import com.github.luoyemyy.mall.core.entity.OrderProduct
 import com.github.luoyemyy.mall.core.entity.ProductCategory
 import com.github.luoyemyy.mall.core.entity.ProductImage
 import com.github.luoyemyy.mall.core.entity.ShopCart
@@ -81,5 +84,26 @@ class BatchDao {
         }.toTypedArray()
         jdbcTemplate.batchUpdate(*sql)
     }
+
+    fun insertOrderProduct(orderId: Long, list: List<AppletOrderProduct>?): Boolean {
+        if (list.isNullOrEmpty()) return false
+        val sql = list.map {
+            "insert into order_product (order_id, product_id, count, price) values ($orderId,${it.productId},${it.count},${it.price})"
+        }.toTypedArray()
+        return jdbcTemplate.batchUpdate(*sql).let { r ->
+            r.size == list.size && r.none { it == 0 }
+        }
+    }
+
+    fun updatePostage(list: List<PostageBean>?): Boolean {
+        if (list.isNullOrEmpty()) return false
+        val sql = list.map {
+            "update postage set price = ${it.price},post = ${it.post} where id = ${it.id}"
+        }.toTypedArray()
+        return jdbcTemplate.batchUpdate(*sql).let { r ->
+            r.size == list.size && r.none { it == 0 }
+        }
+    }
+
 
 }

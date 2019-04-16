@@ -10,12 +10,15 @@ open class ProductImageBean {
     var id: Long = 0
     @ApiModelProperty("图片地址", required = true)
     var image: String? = null
+    @ApiModelProperty("类型 1 轮播 2 描述", required = true)
+    var type: Int = 0
 
     companion object {
         fun fromProductImage(productImage: ProductImage): ProductImageBean {
             return ProductImageBean().apply {
                 id = productImage.id
                 image = productImage.image
+                type = productImage.type
             }
         }
     }

@@ -124,9 +124,11 @@ class ProductController : BaseController() {
      */
     @ApiOperation("产品模板图片")
     @RequestAdmin
+    @ApiImplicitParams(value = [
+        ApiImplicitParam(name = "type", value = "模板类型3轮播图4描述图", required = true, dataTypeClass = Long::class)])
     @GetMapping("template")
-    fun template(): ListResponse<ProductTemplateImage> {
-        return listResponse(productService.template())
+    fun template(type:Int): ListResponse<ProductTemplateImage> {
+        return listResponse(productService.template(type))
     }
 
     /**

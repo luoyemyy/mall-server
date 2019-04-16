@@ -63,15 +63,10 @@ class ProductService {
      * @admin
      */
     fun delete(productId: Long): Boolean {
-        return if (productMapper.deleteByPrimaryKey(productId) > 0) {
-            productCategoryMapper.deleteByExample(ProductCategoryExample().apply {
-                createCriteria().andProductIdEqualTo(productId)
-            })
-            productImageMapper.deleteByExample(ProductImageExample().apply {
-                createCriteria().andProductIdEqualTo(productId)
-            })
-            true
-        } else false
+        return productMapper.updateByPrimaryKeySelective(Product().apply {
+            id = productId
+            status = 0
+        }) > 0
     }
 
     /**
@@ -244,15 +239,15 @@ class ProductService {
         }
     }
 
-    fun template(): List<ProductTemplateImage> {
+    fun template(type: Int): List<ProductTemplateImage> {
         return productImageMapper.selectByExample(ProductImageExample().apply {
-            createCriteria().andProductIdEqualTo(0).andTypeEqualTo(4)
-            orderByClause = "sort asc"
+            createCriteria().andProductIdEqualTo(0).andTypeEqualTo(type)
         })?.map { ProductTemplateImage.fromProductImage(it) } ?: listOf()
     }
 
     fun templateAoe(newImages: List<ProductTemplateImage>): Boolean {
-        val deleteImages = template().minus(newImages) { o, n -> o.id == n.id }
+        val type = newImages.firstOrNull()?.type?:0
+        val deleteImages = template(type).minus(newImages) { o, n -> o.id == n.id }
         if (deleteImages.isNotEmpty()) {
             deleteProductImage(0, deleteImages.map { it.id })
         }
@@ -264,7 +259,7 @@ class ProductService {
                     add.add(ProductImage().apply {
                         this.productId = 0
                         this.image = productImageBean.image
-                        this.type = 4
+                        this.type = productImageBean.type
                         this.sort = index + 1
                     })
                 } else {

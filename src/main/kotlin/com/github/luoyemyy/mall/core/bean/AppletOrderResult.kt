@@ -9,4 +9,6 @@ class AppletOrderResult {
     var orderId: Long = 0
     @ApiModelProperty("统一下单id")
     var payId: String? = null
+    @ApiModelProperty("模拟微信支付")
+    var mock: Boolean = false
 }

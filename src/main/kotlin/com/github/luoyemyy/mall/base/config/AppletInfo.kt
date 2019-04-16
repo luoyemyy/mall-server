@@ -14,4 +14,5 @@ class AppletInfo {
     var notifyUrl: String? = null
     var tradeType: String? = null
     var body: String? = null
+    var payMock: Boolean = false
 }

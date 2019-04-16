@@ -20,7 +20,8 @@ object Code {
     const val BOOK_ORDER_USER_ERROR = 12
     const val BOOK_ORDER_MONEY_ERROR = 13
     const val BOOK_ORDER_ADDRESS_ERROR = 13
-    const val BOOK_ORDER_FAIL = 14
+    const val BOOK_ORDER_PRODUCT_ERROR = 14
+    const val BOOK_ORDER_FAIL = 15
 
 
     private val map = mapOf(
