@@ -59,6 +59,8 @@ class WxPayService {
     private lateinit var productMapper: ProductMapper
     @Autowired
     private lateinit var batchDao: BatchDao
+    @Autowired
+    private lateinit var mockWxPay: MockWxPay
 
 
     private fun bookOrderCheckUser(userId: Long): String {
@@ -147,16 +149,7 @@ class WxPayService {
 
         //直接返回订单注册成功，模拟微信支付
         if (appletInfo.payMock) {
-            order.wxPayId = newOrderNo()
-            if (orderMapper.insert(order) > 0) {
-                if (batchDao.insertOrderProduct(order.id, appletOrder.products)) {
-                    return AppletOrderResult().also {
-                        it.orderId = order.id
-                        it.payId = order.wxPayId
-                        it.mock = true
-                    }
-                }
-            }
+           return mockWxPay.bookOrder(order, appletOrder)
         }
         //注册订单
         httpService.postXml(URL_BOOK_ORDER, bookOrder.buildXml())?.xmlToObject<BookOrderResult>()?.apply {
