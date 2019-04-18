@@ -37,7 +37,7 @@ class AppletPostageController : BaseController() {
     @ApiOperation("免邮总额")
     @RequestAdmin
     @GetMapping("free")
-    fun free(addressId: Long): DataResponse<Float> {
+    fun free(): DataResponse<Float> {
         return dataResponse(appletPostageService.free())
     }
 

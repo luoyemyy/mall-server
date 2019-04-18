@@ -8,7 +8,7 @@ import org.apache.ibatis.type.JdbcType
 
 interface KeyValueDao {
 
-    @Select("select * from key_value where key=#{key} limit 1")
+    @Select("select * from key_value where `key`=#{key} limit 1")
     @Results(id = "keyValue", value = [
         Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
         Result(column = "key", property = "key", jdbcType = JdbcType.VARCHAR),

@@ -72,8 +72,8 @@ class AppletAddressController : BaseController() {
      */
     @ApiOperation("获得默认收货地址")
     @RequestApplet
-    @PostMapping("get/default")
-    fun getDefault(id: Long): DataResponse<AppletAddress> {
+    @GetMapping("get/default")
+    fun getDefault(): DataResponse<AppletAddress> {
         return dataResponse(appletAddressService.getDefault(userId()))
     }
 }
