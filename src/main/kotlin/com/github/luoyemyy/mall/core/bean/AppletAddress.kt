@@ -1,7 +1,6 @@
 package com.github.luoyemyy.mall.core.bean
 
 import com.github.luoyemyy.mall.core.entity.Address
-import com.github.luoyemyy.mall.core.entity.Postage
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 

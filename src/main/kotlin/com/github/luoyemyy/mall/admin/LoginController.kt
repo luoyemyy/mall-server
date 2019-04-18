@@ -1,8 +1,6 @@
 package com.github.luoyemyy.mall.admin
 
 import com.aliyun.oss.common.auth.HmacSHA1Signature
-import com.aliyun.oss.internal.OSSRequestSigner
-import com.aliyun.oss.internal.OSSUtils
 import com.github.luoyemyy.mall.base.BaseController
 import com.github.luoyemyy.mall.base.aspect.RequestAdmin
 import com.github.luoyemyy.mall.base.config.AliOss
@@ -16,7 +14,6 @@ import io.swagger.annotations.ApiImplicitParams
 import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 

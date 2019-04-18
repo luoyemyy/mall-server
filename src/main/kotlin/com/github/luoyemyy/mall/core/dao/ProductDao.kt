@@ -3,9 +3,10 @@ package com.github.luoyemyy.mall.core.dao
 import com.github.luoyemyy.mall.core.bean.AppletCart
 import com.github.luoyemyy.mall.core.bean.ProductBean
 import com.github.luoyemyy.mall.core.bean.ProductDetail
-import com.github.luoyemyy.mall.core.bean.SortBean
-import com.github.luoyemyy.mall.core.entity.Product
-import org.apache.ibatis.annotations.*
+import org.apache.ibatis.annotations.Result
+import org.apache.ibatis.annotations.ResultMap
+import org.apache.ibatis.annotations.Results
+import org.apache.ibatis.annotations.Select
 import org.apache.ibatis.type.JdbcType
 
 interface ProductDao {

@@ -4,12 +4,14 @@ import com.github.luoyemyy.mall.base.advice.Code
 import com.github.luoyemyy.mall.base.advice.MallException
 import com.github.luoyemyy.mall.base.config.AliOss
 import com.github.luoyemyy.mall.core.bean.LoginUser
-import com.github.luoyemyy.mall.core.bean.LoginWeChatUser
 import com.github.luoyemyy.mall.core.bean.Manager
+import com.github.luoyemyy.mall.core.dao.UserDao
+import com.github.luoyemyy.mall.core.entity.AdminUser
+import com.github.luoyemyy.mall.core.entity.AdminUserExample
+import com.github.luoyemyy.mall.core.entity.User
+import com.github.luoyemyy.mall.core.entity.UserExample
 import com.github.luoyemyy.mall.core.mapper.AdminUserMapper
 import com.github.luoyemyy.mall.core.mapper.UserMapper
-import com.github.luoyemyy.mall.core.dao.UserDao
-import com.github.luoyemyy.mall.core.entity.*
 import com.github.luoyemyy.mall.util.Role
 import com.github.luoyemyy.mall.util.md5
 import com.github.luoyemyy.mall.util.toPageStart

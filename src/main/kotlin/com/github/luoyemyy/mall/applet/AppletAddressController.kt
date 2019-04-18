@@ -4,17 +4,9 @@ package com.github.luoyemyy.mall.applet
 
 import com.github.luoyemyy.mall.base.BaseController
 import com.github.luoyemyy.mall.base.aspect.RequestApplet
-import com.github.luoyemyy.mall.base.response.ApiResponse
-import com.github.luoyemyy.mall.base.response.ListResponse
-import com.github.luoyemyy.mall.base.response.apiResponse
-import com.github.luoyemyy.mall.base.response.listResponse
+import com.github.luoyemyy.mall.base.response.*
 import com.github.luoyemyy.mall.core.bean.AppletAddress
-import com.github.luoyemyy.mall.core.bean.AppletCart
-import com.github.luoyemyy.mall.core.bean.AppletHotBean
-import com.github.luoyemyy.mall.core.bean.SortBean
 import com.github.luoyemyy.mall.core.service2.AppletAddressService
-import com.github.luoyemyy.mall.core.service2.AppletCartService
-import com.github.luoyemyy.mall.core.service2.AppletHotService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiImplicitParam
 import io.swagger.annotations.ApiImplicitParams
@@ -70,8 +62,18 @@ class AppletAddressController : BaseController() {
     @RequestApplet
     @ApiImplicitParams(value = [
         ApiImplicitParam(name = "id", value = "地址id", required = true, dataTypeClass = Long::class)])
-    @PostMapping("type/default")
+    @PostMapping("set/default")
     fun setDefault(id: Long): ApiResponse {
         return apiResponse(appletAddressService.setDefault(userId(), id))
+    }
+
+    /**
+     *
+     */
+    @ApiOperation("获得默认收货地址")
+    @RequestApplet
+    @PostMapping("get/default")
+    fun getDefault(id: Long): DataResponse<AppletAddress> {
+        return dataResponse(appletAddressService.getDefault(userId()))
     }
 }

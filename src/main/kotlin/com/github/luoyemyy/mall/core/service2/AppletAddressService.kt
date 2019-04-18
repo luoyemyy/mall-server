@@ -1,13 +1,11 @@
 package com.github.luoyemyy.mall.core.service2
 
 import com.github.luoyemyy.mall.core.bean.AppletAddress
-import com.github.luoyemyy.mall.core.bean.AppletCart
-import com.github.luoyemyy.mall.core.bean.AppletHotBean
 import com.github.luoyemyy.mall.core.dao.AddressDao
-import com.github.luoyemyy.mall.core.dao.BatchDao
-import com.github.luoyemyy.mall.core.dao.ProductDao
-import com.github.luoyemyy.mall.core.entity.*
-import com.github.luoyemyy.mall.core.mapper.*
+import com.github.luoyemyy.mall.core.entity.UserAddress
+import com.github.luoyemyy.mall.core.entity.UserAddressExample
+import com.github.luoyemyy.mall.core.mapper.AddressMapper
+import com.github.luoyemyy.mall.core.mapper.UserAddressMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -62,6 +60,12 @@ class AppletAddressService {
         })
         return true
     }
+
+    @Transactional
+    fun getDefault(userId: Long): AppletAddress? {
+       return addressDao.selectDefaultAddressByUser(userId)
+    }
+
 
 
 }

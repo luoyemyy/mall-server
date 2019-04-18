@@ -2,18 +2,18 @@ package com.github.luoyemyy.mall.core.service2
 
 import com.github.luoyemyy.mall.base.advice.Code
 import com.github.luoyemyy.mall.base.advice.MallException
-import com.github.luoyemyy.mall.core.bean.*
+import com.github.luoyemyy.mall.core.bean.ProductBean
+import com.github.luoyemyy.mall.core.bean.ProductDetail
+import com.github.luoyemyy.mall.core.bean.ProductImageBean
 import com.github.luoyemyy.mall.core.dao.BatchDao
 import com.github.luoyemyy.mall.core.dao.ProductDao
-import com.github.luoyemyy.mall.core.entity.*
-import com.github.luoyemyy.mall.core.mapper.*
-import com.github.luoyemyy.mall.util.diff
-import com.github.luoyemyy.mall.util.minus
+import com.github.luoyemyy.mall.core.entity.ProductImageExample
+import com.github.luoyemyy.mall.core.mapper.ProductCategoryMapper
+import com.github.luoyemyy.mall.core.mapper.ProductImageMapper
+import com.github.luoyemyy.mall.core.mapper.ProductMapper
 import com.github.luoyemyy.mall.util.toPageStart
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
-import java.util.*
 
 @Service
 class AppletProductService {

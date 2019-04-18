@@ -2,7 +2,6 @@ package com.github.luoyemyy.mall.core.wx.bean
 
 import com.github.luoyemyy.mall.base.config.AppletInfo
 import com.github.luoyemyy.mall.util.newRandomString
-import com.github.luoyemyy.mall.util.md5
 import com.github.luoyemyy.mall.util.toXmlString
 import com.github.luoyemyy.mall.util.wxSign
 

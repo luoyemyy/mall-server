@@ -5,25 +5,22 @@ import com.github.luoyemyy.mall.base.advice.MallException
 import com.github.luoyemyy.mall.base.config.AppletInfo
 import com.github.luoyemyy.mall.core.bean.AppletAddress
 import com.github.luoyemyy.mall.core.bean.AppletOrder
+import com.github.luoyemyy.mall.core.bean.AppletOrderProduct
 import com.github.luoyemyy.mall.core.bean.AppletOrderResult
 import com.github.luoyemyy.mall.core.dao.BatchDao
-import com.github.luoyemyy.mall.core.dao.KeyValueDao
 import com.github.luoyemyy.mall.core.dao.WeChatDao
-import com.github.luoyemyy.mall.core.entity.Address
 import com.github.luoyemyy.mall.core.entity.Order
 import com.github.luoyemyy.mall.core.entity.ProductExample
 import com.github.luoyemyy.mall.core.mapper.OrderMapper
-import com.github.luoyemyy.mall.core.mapper.PostageMapper
 import com.github.luoyemyy.mall.core.mapper.ProductMapper
 import com.github.luoyemyy.mall.core.service.HttpService
+import com.github.luoyemyy.mall.core.service2.AppletPostageService
 import com.github.luoyemyy.mall.core.wx.bean.BookOrder
 import com.github.luoyemyy.mall.core.wx.bean.BookOrderResult
-import com.github.luoyemyy.mall.util.AppKey
 import com.github.luoyemyy.mall.util.newOrderNo
 import com.github.luoyemyy.mall.util.xmlToObject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.lang.StringBuilder
 import java.util.*
 
 @Service
@@ -50,9 +47,7 @@ class WxPayService {
     @Autowired
     private lateinit var weChatDao: WeChatDao
     @Autowired
-    private lateinit var postageMapper: PostageMapper
-    @Autowired
-    private lateinit var keyValueDao: KeyValueDao
+    private lateinit var appletPostageService: AppletPostageService
     @Autowired
     private lateinit var orderMapper: OrderMapper
     @Autowired
@@ -68,22 +63,22 @@ class WxPayService {
         return weChat.openId ?: throw MallException(Code.BOOK_ORDER_USER_ERROR)
     }
 
-    private fun bookOrderCheckPostage(appletOrder: AppletOrder): Float {
-        val postage = appletOrder.postage ?: throw MallException(Code.BOOK_ORDER_MONEY_ERROR)
-        val localPostage = postageMapper.selectByPrimaryKey(postage.id)
-        if (localPostage == null || localPostage.post == 0) throw MallException(Code.BOOK_ORDER_MONEY_ERROR)
-        val freePostage = keyValueDao.selectByKey(AppKey.FREE_POSTAGE)?.valueLong?.toFloat() ?: 0f
-        //不免邮费或订单金额小于免邮金额
-        if (appletOrder.money < freePostage) {
-            if (postage.price != localPostage.price) throw MallException(Code.BOOK_ORDER_MONEY_ERROR)
+    private fun bookOrderCheckPostage(productMoney: Float, postage: Float, address: AppletAddress): Float {
+        val match = appletPostageService.match(address.id)
+        if (match != null && match.post == 1) {
+            val free = appletPostageService.free()
+            if ((free > 0f && productMoney >= free && postage == 0f) || (free == 0f && postage == match.price)) {
+                return postage
+            }
         }
-        return postage.price
+        throw MallException(Code.BOOK_ORDER_ADDRESS_ERROR)
     }
 
-    private fun bookOrderCheckProduct(appletOrder: AppletOrder): Float {
+    private fun bookOrderCheckProduct(products: List<AppletOrderProduct>?): Float {
+        if (products.isNullOrEmpty()) throw MallException(Code.BOOK_ORDER_PRODUCT_ERROR)
         var orderMoney = 0f
         val orderProductDesc = StringBuilder()
-        val productIds = appletOrder.products?.map {
+        val productIds = products.map {
             orderMoney += it.count * it.price
             orderProductDesc.append("${it.productId}=${it.price}").append(",")
             it.productId
@@ -103,8 +98,8 @@ class WxPayService {
         return orderMoney
     }
 
-    private fun bookOrderCheckAddress(appletOrder: AppletOrder): AppletAddress {
-        val address = appletOrder.address ?: throw MallException(Code.BOOK_ORDER_ADDRESS_ERROR)
+    private fun bookOrderCheckAddress(address: AppletAddress?): AppletAddress {
+        if (address == null) throw MallException(Code.BOOK_ORDER_ADDRESS_ERROR)
         if (address.name.isNullOrEmpty() || address.phone.isNullOrEmpty() || address.summary.isNullOrEmpty() || address.postCode.isNullOrEmpty()) {
             throw MallException(Code.BOOK_ORDER_ADDRESS_ERROR)
         }
@@ -117,17 +112,16 @@ class WxPayService {
     fun bookOrder(userId: Long, appletOrder: AppletOrder): AppletOrderResult {
         //检验用户
         val openId = bookOrderCheckUser(userId)
-        //检验邮费
-        val postage = bookOrderCheckPostage(appletOrder)
+        //检验地址
+        val address = bookOrderCheckAddress(appletOrder.address)
         //检验产品和价格
-        val orderProductMoney = bookOrderCheckProduct(appletOrder)
+        val orderProductMoney = bookOrderCheckProduct(appletOrder.products)
+        //检验邮费
+        val postage = bookOrderCheckPostage(orderProductMoney, appletOrder.postage, address)
         //检验金额
         if (postage + orderProductMoney != appletOrder.money) {
             throw MallException(Code.BOOK_ORDER_MONEY_ERROR)
         }
-        //检验地址
-        val address = bookOrderCheckAddress(appletOrder)
-
         //生成订单
         val order = Order().apply {
             this.orderNo = newOrderNo()
@@ -149,7 +143,7 @@ class WxPayService {
 
         //直接返回订单注册成功，模拟微信支付
         if (appletInfo.payMock) {
-           return mockWxPay.bookOrder(order, appletOrder)
+            return mockWxPay.bookOrder(order, appletOrder)
         }
         //注册订单
         httpService.postXml(URL_BOOK_ORDER, bookOrder.buildXml())?.xmlToObject<BookOrderResult>()?.apply {

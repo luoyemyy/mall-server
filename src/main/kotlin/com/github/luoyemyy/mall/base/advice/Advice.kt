@@ -5,10 +5,8 @@ import com.github.luoyemyy.mall.base.response.apiResponse
 import com.github.luoyemyy.mall.util.JsonUtil
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.HttpRequestMethodNotSupportedException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
-import org.springframework.web.servlet.NoHandlerFoundException
 import javax.servlet.http.HttpServletResponse
 
 @Suppress("unused")

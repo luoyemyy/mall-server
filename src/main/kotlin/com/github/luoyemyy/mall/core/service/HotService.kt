@@ -2,14 +2,16 @@ package com.github.luoyemyy.mall.core.service
 
 import com.github.luoyemyy.mall.base.advice.Code
 import com.github.luoyemyy.mall.base.advice.MallException
-import com.github.luoyemyy.mall.core.bean.CategoryBean
 import com.github.luoyemyy.mall.core.bean.HotBean
 import com.github.luoyemyy.mall.core.bean.SortBean
 import com.github.luoyemyy.mall.core.dao.BatchDao
-import com.github.luoyemyy.mall.core.dao.CategoryDao
 import com.github.luoyemyy.mall.core.dao.HotDao
-import com.github.luoyemyy.mall.core.entity.*
-import com.github.luoyemyy.mall.core.mapper.*
+import com.github.luoyemyy.mall.core.entity.Hot
+import com.github.luoyemyy.mall.core.entity.HotExample
+import com.github.luoyemyy.mall.core.entity.HotProduct
+import com.github.luoyemyy.mall.core.entity.HotProductExample
+import com.github.luoyemyy.mall.core.mapper.HotMapper
+import com.github.luoyemyy.mall.core.mapper.HotProductMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

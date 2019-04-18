@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 
 @ApiModel("微信下单邮费")
-class AppletOrderPostage {
+class AppletPostage {
     @ApiModelProperty("邮费id")
     var id: Long = 0
     @ApiModelProperty("邮费区域")

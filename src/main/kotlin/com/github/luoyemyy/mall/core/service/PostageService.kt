@@ -25,14 +25,6 @@ class PostageService {
     }
 
     /**
-     * @applet
-     */
-    fun validList(): List<PostageBean> {
-        return postageDao.selectValid()?: listOf()
-    }
-
-
-    /**
      * @admin
      */
     @Transactional

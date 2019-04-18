@@ -6,12 +6,12 @@ import com.github.luoyemyy.mall.base.BaseController
 import com.github.luoyemyy.mall.base.advice.Code
 import com.github.luoyemyy.mall.base.advice.MallException
 import com.github.luoyemyy.mall.base.aspect.RequestAdmin
-import com.github.luoyemyy.mall.base.response.*
-import com.github.luoyemyy.mall.core.bean.CategoryBean
+import com.github.luoyemyy.mall.base.response.ApiResponse
+import com.github.luoyemyy.mall.base.response.ListResponse
+import com.github.luoyemyy.mall.base.response.apiResponse
+import com.github.luoyemyy.mall.base.response.listResponse
 import com.github.luoyemyy.mall.core.bean.HotBean
-import com.github.luoyemyy.mall.core.bean.ProductBean
 import com.github.luoyemyy.mall.core.bean.SortBean
-import com.github.luoyemyy.mall.core.service.CategoryService
 import com.github.luoyemyy.mall.core.service.HotService
 import com.github.luoyemyy.mall.util.toList
 import io.swagger.annotations.Api

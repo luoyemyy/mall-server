@@ -7,13 +7,17 @@ import com.github.luoyemyy.mall.base.advice.Code
 import com.github.luoyemyy.mall.base.advice.MallException
 import com.github.luoyemyy.mall.base.aspect.RequestAdmin
 import com.github.luoyemyy.mall.base.response.*
-import com.github.luoyemyy.mall.base.response.ApiResponse
-import com.github.luoyemyy.mall.core.bean.*
+import com.github.luoyemyy.mall.core.bean.ProductBean
+import com.github.luoyemyy.mall.core.bean.ProductDetail
+import com.github.luoyemyy.mall.core.bean.ProductTemplateImage
+import com.github.luoyemyy.mall.core.bean.SortBean
 import com.github.luoyemyy.mall.core.entity.Product
-import com.github.luoyemyy.mall.core.entity.ProductImage
 import com.github.luoyemyy.mall.core.service.ProductService
 import com.github.luoyemyy.mall.util.Role
-import io.swagger.annotations.*
+import io.swagger.annotations.Api
+import io.swagger.annotations.ApiImplicitParam
+import io.swagger.annotations.ApiImplicitParams
+import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 

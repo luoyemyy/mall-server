@@ -3,7 +3,6 @@ package com.github.luoyemyy.mall.core.dao
 import com.github.luoyemyy.mall.core.bean.AppletOrderProduct
 import com.github.luoyemyy.mall.core.bean.PostageBean
 import com.github.luoyemyy.mall.core.bean.SortBean
-import com.github.luoyemyy.mall.core.entity.OrderProduct
 import com.github.luoyemyy.mall.core.entity.ProductCategory
 import com.github.luoyemyy.mall.core.entity.ProductImage
 import com.github.luoyemyy.mall.core.entity.ShopCart

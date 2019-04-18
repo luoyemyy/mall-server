@@ -1,7 +1,6 @@
 package com.github.luoyemyy.mall.core.bean
 
 import com.github.luoyemyy.mall.core.entity.User
-import com.github.luoyemyy.mall.util.Role
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 

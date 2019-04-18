@@ -3,21 +3,19 @@
 package com.github.luoyemyy.mall.applet
 
 import com.github.luoyemyy.mall.base.BaseController
-import com.github.luoyemyy.mall.base.advice.Code
-import com.github.luoyemyy.mall.base.advice.MallException
-import com.github.luoyemyy.mall.base.aspect.RequestAdmin
 import com.github.luoyemyy.mall.base.aspect.RequestApplet
-import com.github.luoyemyy.mall.base.response.*
-import com.github.luoyemyy.mall.base.response.ApiResponse
-import com.github.luoyemyy.mall.core.bean.*
-import com.github.luoyemyy.mall.core.entity.Product
-import com.github.luoyemyy.mall.core.service.ProductService
-import com.github.luoyemyy.mall.core.service2.AppletProductService
+import com.github.luoyemyy.mall.base.response.DataResponse
+import com.github.luoyemyy.mall.base.response.dataResponse
+import com.github.luoyemyy.mall.core.bean.AppletOrder
+import com.github.luoyemyy.mall.core.bean.AppletOrderResult
 import com.github.luoyemyy.mall.core.wx.WxPayService
-import com.github.luoyemyy.mall.util.Role
-import io.swagger.annotations.*
+import io.swagger.annotations.Api
+import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 @Api(tags = ["微信-下单"])
 @RestController
