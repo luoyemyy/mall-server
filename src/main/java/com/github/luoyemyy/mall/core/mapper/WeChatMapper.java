@@ -25,13 +25,13 @@ public interface WeChatMapper {
     int deleteByExample(WeChatExample example);
 
     @Delete({
-        "delete from we_chat",
+        "delete from `we_chat`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into we_chat (union_id, open_id)",
+        "insert into `we_chat` (union_id, open_id)",
         "values (#{unionId,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
@@ -52,7 +52,7 @@ public interface WeChatMapper {
     @Select({
         "select",
         "id, union_id, open_id",
-        "from we_chat",
+        "from `we_chat`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
@@ -72,7 +72,7 @@ public interface WeChatMapper {
     int updateByPrimaryKeySelective(WeChat record);
 
     @Update({
-        "update we_chat",
+        "update `we_chat`",
         "set union_id = #{unionId,jdbcType=VARCHAR},",
           "open_id = #{openId,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=BIGINT}"

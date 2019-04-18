@@ -25,19 +25,19 @@ public interface OrderMapper {
     int deleteByExample(OrderExample example);
 
     @Delete({
-        "delete from order",
+        "delete from `order`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into order (order_no, user_id, ",
-        "state, money, postage, ",
+        "insert into `order` (order_no, user_id, ",
+        "`state`, money, postage, ",
         "username, phone, ",
         "address, postcode, ",
         "create_time, update_time, ",
         "wx_pay_id, wx_order_id, ",
-        "status)",
+        "`status`)",
         "values (#{orderNo,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, ",
         "#{state,jdbcType=INTEGER}, #{money,jdbcType=REAL}, #{postage,jdbcType=REAL}, ",
         "#{username,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, ",
@@ -75,9 +75,9 @@ public interface OrderMapper {
 
     @Select({
         "select",
-        "id, order_no, user_id, state, money, postage, username, phone, address, postcode, ",
-        "create_time, update_time, wx_pay_id, wx_order_id, status",
-        "from order",
+        "id, order_no, user_id, `state`, money, postage, username, phone, address, postcode, ",
+        "create_time, update_time, wx_pay_id, wx_order_id, `status`",
+        "from `order`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
@@ -109,10 +109,10 @@ public interface OrderMapper {
     int updateByPrimaryKeySelective(Order record);
 
     @Update({
-        "update order",
+        "update `order`",
         "set order_no = #{orderNo,jdbcType=VARCHAR},",
           "user_id = #{userId,jdbcType=BIGINT},",
-          "state = #{state,jdbcType=INTEGER},",
+          "`state` = #{state,jdbcType=INTEGER},",
           "money = #{money,jdbcType=REAL},",
           "postage = #{postage,jdbcType=REAL},",
           "username = #{username,jdbcType=VARCHAR},",
@@ -123,7 +123,7 @@ public interface OrderMapper {
           "update_time = #{updateTime,jdbcType=TIMESTAMP},",
           "wx_pay_id = #{wxPayId,jdbcType=VARCHAR},",
           "wx_order_id = #{wxOrderId,jdbcType=VARCHAR},",
-          "status = #{status,jdbcType=INTEGER}",
+          "`status` = #{status,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(Order record);

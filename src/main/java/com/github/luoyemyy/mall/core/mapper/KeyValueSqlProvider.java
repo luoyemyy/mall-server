@@ -25,32 +25,28 @@ public class KeyValueSqlProvider {
     public String countByExample(KeyValueExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("key_value");
+        FROM("`key_value`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(KeyValueExample example) {
         BEGIN();
-        DELETE_FROM("key_value");
+        DELETE_FROM("`key_value`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(KeyValue record) {
         BEGIN();
-        INSERT_INTO("key_value");
+        INSERT_INTO("`key_value`");
         
         if (record.getKey() != null) {
-            VALUES("key", "#{key,jdbcType=VARCHAR}");
+            VALUES("`key`", "#{key,jdbcType=VARCHAR}");
         }
         
-        if (record.getValueString() != null) {
-            VALUES("value_string", "#{valueString,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getValueLong() != null) {
-            VALUES("value_long", "#{valueLong,jdbcType=BIGINT}");
+        if (record.getValue() != null) {
+            VALUES("`value`", "#{value,jdbcType=VARCHAR}");
         }
         
         if (record.getExpire() != null) {
@@ -67,11 +63,10 @@ public class KeyValueSqlProvider {
         } else {
             SELECT("id");
         }
-        SELECT("key");
-        SELECT("value_string");
-        SELECT("value_long");
+        SELECT("`key`");
+        SELECT("`value`");
         SELECT("expire");
-        FROM("key_value");
+        FROM("`key_value`");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -86,22 +81,18 @@ public class KeyValueSqlProvider {
         KeyValueExample example = (KeyValueExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("key_value");
+        UPDATE("`key_value`");
         
         if (record.getId() != null) {
             SET("id = #{record.id,jdbcType=BIGINT}");
         }
         
         if (record.getKey() != null) {
-            SET("key = #{record.key,jdbcType=VARCHAR}");
+            SET("`key` = #{record.key,jdbcType=VARCHAR}");
         }
         
-        if (record.getValueString() != null) {
-            SET("value_string = #{record.valueString,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getValueLong() != null) {
-            SET("value_long = #{record.valueLong,jdbcType=BIGINT}");
+        if (record.getValue() != null) {
+            SET("`value` = #{record.value,jdbcType=VARCHAR}");
         }
         
         if (record.getExpire() != null) {
@@ -114,12 +105,11 @@ public class KeyValueSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("key_value");
+        UPDATE("`key_value`");
         
         SET("id = #{record.id,jdbcType=BIGINT}");
-        SET("key = #{record.key,jdbcType=VARCHAR}");
-        SET("value_string = #{record.valueString,jdbcType=VARCHAR}");
-        SET("value_long = #{record.valueLong,jdbcType=BIGINT}");
+        SET("`key` = #{record.key,jdbcType=VARCHAR}");
+        SET("`value` = #{record.value,jdbcType=VARCHAR}");
         SET("expire = #{record.expire,jdbcType=BIGINT}");
         
         KeyValueExample example = (KeyValueExample) parameter.get("example");
@@ -129,18 +119,14 @@ public class KeyValueSqlProvider {
 
     public String updateByPrimaryKeySelective(KeyValue record) {
         BEGIN();
-        UPDATE("key_value");
+        UPDATE("`key_value`");
         
         if (record.getKey() != null) {
-            SET("key = #{key,jdbcType=VARCHAR}");
+            SET("`key` = #{key,jdbcType=VARCHAR}");
         }
         
-        if (record.getValueString() != null) {
-            SET("value_string = #{valueString,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getValueLong() != null) {
-            SET("value_long = #{valueLong,jdbcType=BIGINT}");
+        if (record.getValue() != null) {
+            SET("`value` = #{value,jdbcType=VARCHAR}");
         }
         
         if (record.getExpire() != null) {

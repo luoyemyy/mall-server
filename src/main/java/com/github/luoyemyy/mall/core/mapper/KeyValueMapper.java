@@ -25,16 +25,16 @@ public interface KeyValueMapper {
     int deleteByExample(KeyValueExample example);
 
     @Delete({
-        "delete from key_value",
+        "delete from `key_value`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into key_value (key, value_string, ",
-        "value_long, expire)",
-        "values (#{key,jdbcType=VARCHAR}, #{valueString,jdbcType=VARCHAR}, ",
-        "#{valueLong,jdbcType=BIGINT}, #{expire,jdbcType=BIGINT})"
+        "insert into `key_value` (`key`, `value`, ",
+        "expire)",
+        "values (#{key,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, ",
+        "#{expire,jdbcType=BIGINT})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(KeyValue record);
@@ -47,23 +47,21 @@ public interface KeyValueMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="key", property="key", jdbcType=JdbcType.VARCHAR),
-        @Result(column="value_string", property="valueString", jdbcType=JdbcType.VARCHAR),
-        @Result(column="value_long", property="valueLong", jdbcType=JdbcType.BIGINT),
+        @Result(column="value", property="value", jdbcType=JdbcType.VARCHAR),
         @Result(column="expire", property="expire", jdbcType=JdbcType.BIGINT)
     })
     List<KeyValue> selectByExample(KeyValueExample example);
 
     @Select({
         "select",
-        "id, key, value_string, value_long, expire",
-        "from key_value",
+        "id, `key`, `value`, expire",
+        "from `key_value`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="key", property="key", jdbcType=JdbcType.VARCHAR),
-        @Result(column="value_string", property="valueString", jdbcType=JdbcType.VARCHAR),
-        @Result(column="value_long", property="valueLong", jdbcType=JdbcType.BIGINT),
+        @Result(column="value", property="value", jdbcType=JdbcType.VARCHAR),
         @Result(column="expire", property="expire", jdbcType=JdbcType.BIGINT)
     })
     KeyValue selectByPrimaryKey(Long id);
@@ -78,10 +76,9 @@ public interface KeyValueMapper {
     int updateByPrimaryKeySelective(KeyValue record);
 
     @Update({
-        "update key_value",
-        "set key = #{key,jdbcType=VARCHAR},",
-          "value_string = #{valueString,jdbcType=VARCHAR},",
-          "value_long = #{valueLong,jdbcType=BIGINT},",
+        "update `key_value`",
+        "set `key` = #{key,jdbcType=VARCHAR},",
+          "`value` = #{value,jdbcType=VARCHAR},",
           "expire = #{expire,jdbcType=BIGINT}",
         "where id = #{id,jdbcType=BIGINT}"
     })

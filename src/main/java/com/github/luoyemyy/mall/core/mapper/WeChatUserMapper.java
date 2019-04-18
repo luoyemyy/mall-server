@@ -25,13 +25,13 @@ public interface WeChatUserMapper {
     int deleteByExample(WeChatUserExample example);
 
     @Delete({
-        "delete from we_chat_user",
+        "delete from `we_chat_user`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into we_chat_user (we_chat_id, user_id, ",
+        "insert into `we_chat_user` (we_chat_id, user_id, ",
         "token)",
         "values (#{weChatId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, ",
         "#{token,jdbcType=VARCHAR})"
@@ -55,7 +55,7 @@ public interface WeChatUserMapper {
     @Select({
         "select",
         "id, we_chat_id, user_id, token",
-        "from we_chat_user",
+        "from `we_chat_user`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
@@ -76,7 +76,7 @@ public interface WeChatUserMapper {
     int updateByPrimaryKeySelective(WeChatUser record);
 
     @Update({
-        "update we_chat_user",
+        "update `we_chat_user`",
         "set we_chat_id = #{weChatId,jdbcType=BIGINT},",
           "user_id = #{userId,jdbcType=BIGINT},",
           "token = #{token,jdbcType=VARCHAR}",

@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 5.7.18, for macos10.12 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.15, for Win64 (x86_64)
 --
 -- Host: localhost    Database: mall
 -- ------------------------------------------------------
--- Server version	5.7.18
+-- Server version	8.0.15
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+ SET NAMES utf8 ;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -16,53 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `address`
---
-
-DROP TABLE IF EXISTS `address`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `address` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL COMMENT '收件人',
-  `phone` varchar(45) DEFAULT NULL COMMENT '手机',
-  `post_code` varchar(45) DEFAULT NULL,
-  `country` varchar(45) DEFAULT NULL COMMENT '国家',
-  `province` varchar(45) DEFAULT NULL COMMENT '省',
-  `city` varchar(60) DEFAULT NULL COMMENT '市',
-  `county` varchar(60) DEFAULT NULL COMMENT '县',
-  `street` varchar(100) DEFAULT NULL COMMENT '街道',
-  `summary` varchar(255) DEFAULT NULL COMMENT '合称',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='地址';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `address`
 --
 
 LOCK TABLES `address` WRITE;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
-INSERT INTO `address` VALUES (6,'张三','020-81167888','510000','510000','广东省','广州市','海珠区','新港中路397号','广东省 广州市 海珠区 新港中路397号'),(7,'叶玉明','18681506437','332500','360429','江西省','九江市','湖口县','均桥镇枫树村一组010号','江西省 九江市 湖口县 均桥镇枫树村一组010号'),(8,'叶玉明','18681506437','518101','440306','广东省','深圳市','宝安区','岭下花园1巷4号1002','广东省 深圳市 宝安区 岭下花园1巷4号1002');
+INSERT INTO `address` VALUES (6,'张三','020-81167888','510000','510000','广东省','广州市','海珠区','新港中路397号','广东省 广州市 海珠区 新港中路397号'),(7,'叶玉明','18681506437','332500','360429','江西省','九江市','湖口县','均桥镇枫树村一组010号','江西省 九江市 湖口县 均桥镇枫树村一组010号'),(8,'叶玉明','18681506437','518101','440306','广东省','深圳市','宝安区','岭下花园1巷4号1002','广东省 深圳市 宝安区 岭下花园1巷4号1002'),(9,'张三','020-81167888','510000','510000','广东省','广州市','海珠区','新港中路397号','广东省 广州市 海珠区 新港中路397号');
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `admin_user`
---
-
-DROP TABLE IF EXISTS `admin_user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `admin_user` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) DEFAULT NULL,
-  `role` int(11) DEFAULT NULL COMMENT '角色id 1 系统管理员 2 管理员 3 客服',
-  `token` varchar(60) DEFAULT NULL COMMENT '管理用户登录token',
-  `state` int(11) DEFAULT NULL COMMENT '0 无效 1 有效',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='管理人员';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `admin_user`
@@ -75,22 +36,6 @@ INSERT INTO `admin_user` VALUES (1,1,1,'5943E41213FAEAE0B3A648A143286B40',1),(2,
 UNLOCK TABLES;
 
 --
--- Table structure for table `category`
---
-
-DROP TABLE IF EXISTS `category`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `category` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL COMMENT '名称',
-  `sort` int(11) DEFAULT NULL COMMENT '排序号',
-  `state` int(11) DEFAULT NULL COMMENT '0 无效 1 有效',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 COMMENT='分类';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `category`
 --
 
@@ -101,21 +46,6 @@ INSERT INTO `category` VALUES (32,'水果',1,1),(33,'蔬菜',2,1),(34,'饮料',3
 UNLOCK TABLES;
 
 --
--- Table structure for table `feedback`
---
-
-DROP TABLE IF EXISTS `feedback`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `feedback` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) DEFAULT NULL,
-  `content` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `feedback`
 --
 
@@ -123,23 +53,6 @@ LOCK TABLES `feedback` WRITE;
 /*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
 /*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `hot`
---
-
-DROP TABLE IF EXISTS `hot`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `hot` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `image` varchar(255) DEFAULT NULL COMMENT '图片地址',
-  `description` varchar(100) DEFAULT NULL COMMENT '描述',
-  `sort` int(11) DEFAULT NULL COMMENT '排序号',
-  `state` int(11) DEFAULT NULL COMMENT '状态',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `hot`
@@ -152,21 +65,6 @@ INSERT INTO `hot` VALUES (1,'http://luoyemyy-mall.oss-cn-shenzhen.aliyuncs.com/2
 UNLOCK TABLES;
 
 --
--- Table structure for table `hot_product`
---
-
-DROP TABLE IF EXISTS `hot_product`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `hot_product` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `hot_id` bigint(20) DEFAULT NULL,
-  `product_id` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `hot_product`
 --
 
@@ -175,22 +73,6 @@ LOCK TABLES `hot_product` WRITE;
 INSERT INTO `hot_product` VALUES (6,1,12),(7,1,13),(11,2,13),(14,3,12),(15,4,12),(16,5,12);
 /*!40000 ALTER TABLE `hot_product` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `key_value`
---
-
-DROP TABLE IF EXISTS `key_value`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `key_value` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `key` varchar(45) DEFAULT NULL,
-  `value` varchar(512) DEFAULT NULL,
-  `expire` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `key_value`
@@ -202,47 +84,14 @@ LOCK TABLES `key_value` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `order`
---
-
-DROP TABLE IF EXISTS `order`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `order` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `state` int(11) DEFAULT NULL COMMENT '0 未支付 1 已支付，待发货 2 运输中 3 已签收，交易完成 4 取消订单 5 退款中 6 已取消',
-  `money` float DEFAULT NULL COMMENT '金额',
-  `address` varchar(255) DEFAULT NULL COMMENT '地址',
-  `create_time` datetime DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `order`
 --
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
+INSERT INTO `order` VALUES (1,'111',1,0,12,0,'111','111','aaa','ssss','2019-04-18 21:42:45','2019-04-18 21:42:45','111','111',1),(2,'cc435c659f174e25ba42223dec33c927',5,0,300,0,'叶玉明','18681506437','江西省 九江市 湖口县 均桥镇枫树村一组010号','332500','2019-04-18 22:27:41','2019-04-18 22:27:41','d9cac14f986d4276a3d7e39943c5bb68',NULL,1),(3,'3bf5fe653a634874bb4f1ad351907dfd',5,0,300,0,'叶玉明','18681506437','江西省 九江市 湖口县 均桥镇枫树村一组010号','332500','2019-04-18 22:30:33','2019-04-18 22:30:33','5e9381b8b05e469a82ca6430c3e53b16',NULL,1),(4,'c87726d2a4344b649b0cb0d242dffa85',5,0,300,0,'叶玉明','18681506437','江西省 九江市 湖口县 均桥镇枫树村一组010号','332500','2019-04-18 22:30:55','2019-04-18 22:30:55','82f056a63719487890a95e1a41ac6b88',NULL,1),(5,'6baad337334f411d8acb5e3cf246864e',5,0,300,0,'叶玉明','18681506437','江西省 九江市 湖口县 均桥镇枫树村一组010号','332500','2019-04-18 22:32:24','2019-04-18 22:32:24','09d2716f8ce04727a86d36f8b589a3dd',NULL,1);
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `order_product`
---
-
-DROP TABLE IF EXISTS `order_product`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `order_product` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `order_id` bigint(20) DEFAULT NULL,
-  `product_id` bigint(20) DEFAULT NULL,
-  `count` int(11) DEFAULT NULL COMMENT '数量',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单产品';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `order_product`
@@ -250,24 +99,9 @@ CREATE TABLE `order_product` (
 
 LOCK TABLES `order_product` WRITE;
 /*!40000 ALTER TABLE `order_product` DISABLE KEYS */;
+INSERT INTO `order_product` VALUES (1,3,9,1,300),(2,4,9,1,300),(3,5,9,1,300);
 /*!40000 ALTER TABLE `order_product` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `postage`
---
-
-DROP TABLE IF EXISTS `postage`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `postage` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `area` varchar(60) DEFAULT NULL COMMENT '地区（省）',
-  `price` float DEFAULT NULL COMMENT '价格',
-  `post` int(11) DEFAULT NULL COMMENT '0 不邮寄 1 邮寄',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COMMENT='邮费';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `postage`
@@ -280,29 +114,6 @@ INSERT INTO `postage` VALUES (1,'北京',15,1),(2,'天津',15,1),(3,'河北',15,
 UNLOCK TABLES;
 
 --
--- Table structure for table `product`
---
-
-DROP TABLE IF EXISTS `product`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `product` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `cover_image` varchar(255) DEFAULT NULL COMMENT '封面 图片地址',
-  `name` varchar(45) DEFAULT NULL COMMENT '名称',
-  `description` varchar(255) DEFAULT NULL COMMENT '描述',
-  `market_price` float DEFAULT NULL COMMENT '市场价格',
-  `actual_price` float DEFAULT NULL COMMENT '实际价格',
-  `stock` int(11) DEFAULT NULL COMMENT '库存',
-  `online` tinyint(1) DEFAULT NULL COMMENT '是否上架',
-  `sort` int(11) DEFAULT NULL COMMENT '在全部分类中产品的排序号',
-  `create_time` datetime DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 COMMENT='产品';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `product`
 --
 
@@ -311,22 +122,6 @@ LOCK TABLES `product` WRITE;
 INSERT INTO `product` VALUES (9,'http://luoyemyy-mall.oss-cn-shenzhen.aliyuncs.com/20190327_172037_395.jpg','螃蟹','帝王蟹',350,300,0,1,4,'2019-03-27 04:20:47',1),(10,'http://luoyemyy-mall.oss-cn-shenzhen.aliyuncs.com/20190327_172134_324.jpg','猪肉','猪肉',13,12,0,1,1,'2019-03-27 04:21:42',1),(11,'http://luoyemyy-mall.oss-cn-shenzhen.aliyuncs.com/20190327_172202_287.jpg','牛肉','牛肉',19,15,0,1,9,'2019-03-27 04:22:10',1),(12,'http://luoyemyy-mall.oss-cn-shenzhen.aliyuncs.com/20190329_121319_181.jpg','香蕉','进口',15,15,0,1,11,'2019-03-28 23:13:29',1),(13,'http://luoyemyy-mall.oss-cn-shenzhen.aliyuncs.com/20190329_123616_690.jpg','怡宝','纯净水',2,1.5,0,1,10,'2019-03-28 23:36:29',1),(14,'http://luoyemyy-mall.oss-cn-shenzhen.aliyuncs.com/20190403_140526_109.jpg','苹果','苹果',11,11,0,1,12,'2019-04-03 01:05:40',1),(15,'http://luoyemyy-mall.oss-cn-shenzhen.aliyuncs.com/20190403_140604_129.jpg','梨','梨',22,22,0,1,13,'2019-04-03 01:06:21',1),(16,'http://luoyemyy-mall.oss-cn-shenzhen.aliyuncs.com/20190403_140646_972.jpg','番茄','番茄',333,33,0,1,14,'2019-04-03 01:06:56',1),(17,'http://luoyemyy-mall.oss-cn-shenzhen.aliyuncs.com/20190403_140733_551.jpg','西红柿','西红柿',4,4,0,1,15,'2019-04-03 01:07:41',1),(18,'http://luoyemyy-mall.oss-cn-shenzhen.aliyuncs.com/20190403_140802_530.jpg','橙子','橙子',5,5,0,1,16,'2019-04-03 01:08:13',1),(19,'http://luoyemyy-mall.oss-cn-shenzhen.aliyuncs.com/20190403_141601_936.jpg','西瓜','西瓜',6,6,0,1,17,'2019-04-03 01:16:10',1),(20,'http://luoyemyy-mall.oss-cn-shenzhen.aliyuncs.com/20190408_140132_003.jpg','樱桃','樱桃',4,4,0,1,18,'2019-04-08 01:01:43',1),(21,'http://luoyemyy-mall.oss-cn-shenzhen.aliyuncs.com/20190408_140636_198.jpg','葡萄','葡萄',99,99,0,1,19,'2019-04-08 01:06:46',1),(22,'http://luoyemyy-mall.oss-cn-shenzhen.aliyuncs.com/20190415_141518_457.jpg','苹果','香甜可口',10,8,0,1,20,'2019-04-15 01:15:46',1),(23,'http://luoyemyy-mall.oss-cn-shenzhen.aliyuncs.com/20190415_142029_847.jpg','苹果','香甜可口',10,8,0,1,21,'2019-04-15 01:20:32',1),(24,'http://luoyemyy-mall.oss-cn-shenzhen.aliyuncs.com/20190415_142354_292.jpg','苹果','香甜可口',10,8,0,1,22,'2019-04-15 01:23:59',1);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `product_category`
---
-
-DROP TABLE IF EXISTS `product_category`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `product_category` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `product_id` bigint(20) DEFAULT NULL,
-  `category_id` bigint(20) DEFAULT NULL,
-  `sort` int(11) DEFAULT NULL COMMENT '在分类中的产品排序号',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8 COMMENT='产品分类';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `product_category`
@@ -339,23 +134,6 @@ INSERT INTO `product_category` VALUES (18,9,33,2),(19,10,35,1),(20,11,35,2),(21,
 UNLOCK TABLES;
 
 --
--- Table structure for table `product_image`
---
-
-DROP TABLE IF EXISTS `product_image`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `product_image` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `product_id` bigint(20) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL COMMENT '图片地址',
-  `type` int(11) DEFAULT NULL COMMENT '1 滑动展示图 2 描述图',
-  `sort` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 COMMENT='产品图片';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `product_image`
 --
 
@@ -366,50 +144,14 @@ INSERT INTO `product_image` VALUES (15,9,'http://luoyemyy-mall.oss-cn-shenzhen.a
 UNLOCK TABLES;
 
 --
--- Table structure for table `shop_cart`
---
-
-DROP TABLE IF EXISTS `shop_cart`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `shop_cart` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) DEFAULT NULL,
-  `product_id` bigint(20) DEFAULT NULL,
-  `count` int(11) DEFAULT NULL COMMENT '数量',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=155 DEFAULT CHARSET=utf8 COMMENT='购物车';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `shop_cart`
 --
 
 LOCK TABLES `shop_cart` WRITE;
 /*!40000 ALTER TABLE `shop_cart` DISABLE KEYS */;
-INSERT INTO `shop_cart` VALUES (142,5,20,2),(143,5,21,2),(144,5,12,2),(145,5,19,1),(146,5,18,1),(147,5,17,1),(148,5,16,1),(149,5,15,1),(150,5,14,1),(151,5,13,1),(152,5,11,1),(153,5,9,1),(154,5,10,1);
+INSERT INTO `shop_cart` VALUES (155,5,9,1);
 /*!40000 ALTER TABLE `shop_cart` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `user`
---
-
-DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `head_image` varchar(255) DEFAULT NULL COMMENT '头像id',
-  `name` varchar(45) DEFAULT NULL COMMENT '昵称',
-  `phone` varchar(20) DEFAULT NULL COMMENT '手机',
-  `password` varchar(60) DEFAULT NULL COMMENT '密码',
-  `gender` int(11) DEFAULT NULL COMMENT '0 未知 1 男 2 女',
-  `create_time` datetime DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='用户';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `user`
@@ -422,45 +164,14 @@ INSERT INTO `user` VALUES (1,'http://luoyemyy-mall.oss-cn-shenzhen.aliyuncs.com/
 UNLOCK TABLES;
 
 --
--- Table structure for table `user_address`
---
-
-DROP TABLE IF EXISTS `user_address`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user_address` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) DEFAULT NULL,
-  `address_id` bigint(20) DEFAULT NULL,
-  `type` int(11) DEFAULT NULL COMMENT '1 默认地址 0 其他地址',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='用户地址';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `user_address`
 --
 
 LOCK TABLES `user_address` WRITE;
 /*!40000 ALTER TABLE `user_address` DISABLE KEYS */;
-INSERT INTO `user_address` VALUES (6,5,6,0),(7,5,7,0),(8,5,8,0);
+INSERT INTO `user_address` VALUES (6,5,6,0),(7,5,7,1),(8,5,8,0),(9,5,9,0);
 /*!40000 ALTER TABLE `user_address` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `we_chat`
---
-
-DROP TABLE IF EXISTS `we_chat`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `we_chat` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `union_id` varchar(45) DEFAULT NULL,
-  `open_id` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='微信账号';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `we_chat`
@@ -473,28 +184,12 @@ INSERT INTO `we_chat` VALUES (2,NULL,'oLlh35DrPMMDS3NVgj-aHXArC_0U');
 UNLOCK TABLES;
 
 --
--- Table structure for table `we_chat_user`
---
-
-DROP TABLE IF EXISTS `we_chat_user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `we_chat_user` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `we_chat_id` bigint(20) DEFAULT NULL,
-  `user_id` bigint(20) DEFAULT NULL,
-  `token` varchar(60) DEFAULT NULL COMMENT '微信用户登录token',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='微信用户';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `we_chat_user`
 --
 
 LOCK TABLES `we_chat_user` WRITE;
 /*!40000 ALTER TABLE `we_chat_user` DISABLE KEYS */;
-INSERT INTO `we_chat_user` VALUES (2,2,5,'KhF2b/mAvKyBXIOJYSF6Ig==');
+INSERT INTO `we_chat_user` VALUES (2,2,5,'C/qNPVVRDzZU656ZCYRcfA==');
 /*!40000 ALTER TABLE `we_chat_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -507,4 +202,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-16 11:58:12
+-- Dump completed on 2019-04-18 22:37:00

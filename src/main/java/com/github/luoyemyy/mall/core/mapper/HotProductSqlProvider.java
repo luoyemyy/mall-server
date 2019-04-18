@@ -25,21 +25,21 @@ public class HotProductSqlProvider {
     public String countByExample(HotProductExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("hot_product");
+        FROM("`hot_product`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(HotProductExample example) {
         BEGIN();
-        DELETE_FROM("hot_product");
+        DELETE_FROM("`hot_product`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(HotProduct record) {
         BEGIN();
-        INSERT_INTO("hot_product");
+        INSERT_INTO("`hot_product`");
         
         if (record.getHotId() != null) {
             VALUES("hot_id", "#{hotId,jdbcType=BIGINT}");
@@ -61,7 +61,7 @@ public class HotProductSqlProvider {
         }
         SELECT("hot_id");
         SELECT("product_id");
-        FROM("hot_product");
+        FROM("`hot_product`");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -76,7 +76,7 @@ public class HotProductSqlProvider {
         HotProductExample example = (HotProductExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("hot_product");
+        UPDATE("`hot_product`");
         
         if (record.getId() != null) {
             SET("id = #{record.id,jdbcType=BIGINT}");
@@ -96,7 +96,7 @@ public class HotProductSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("hot_product");
+        UPDATE("`hot_product`");
         
         SET("id = #{record.id,jdbcType=BIGINT}");
         SET("hot_id = #{record.hotId,jdbcType=BIGINT}");
@@ -109,7 +109,7 @@ public class HotProductSqlProvider {
 
     public String updateByPrimaryKeySelective(HotProduct record) {
         BEGIN();
-        UPDATE("hot_product");
+        UPDATE("`hot_product`");
         
         if (record.getHotId() != null) {
             SET("hot_id = #{hotId,jdbcType=BIGINT}");

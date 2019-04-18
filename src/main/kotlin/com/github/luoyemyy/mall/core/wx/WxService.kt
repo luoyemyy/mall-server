@@ -39,19 +39,19 @@ class WxService {
     fun accessToken(): String? {
         val keyValue = keyValueDao.selectByKey(AppKey.ACCESS_TOKEN)?.apply {
             if (this.expire != null && this.expire > System.currentTimeMillis()) {
-                return valueString
+                return value
             }
         }
         httpService.get(String.format(URL_ACCESS_TOKEN, appletInfo.appId, appletInfo.secret)).toObject<AccessToken>()?.apply {
             if (!access_token.isNullOrEmpty()) {
                 if (keyValue != null) {
-                    keyValue.valueString = access_token
+                    keyValue.value = access_token
                     keyValue.expire = System.currentTimeMillis() + expires_in - 100
                     keyValueMapper.updateByPrimaryKeySelective(keyValue)
                 } else {
                     KeyValue().apply {
                         key = AppKey.ACCESS_TOKEN
-                        valueString = access_token
+                        value = access_token
                         expire = System.currentTimeMillis() + expires_in - 100
                         keyValueMapper.insert(this)
                     }

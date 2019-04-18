@@ -37,6 +37,10 @@ object Code {
             INVALID_ROLE to "无权限",
             EXIST_MANAGER to "该手机号已经注册为管理人员",
             OLD_PASSWORD_ERROR to "原密码错误",
+            BOOK_ORDER_USER_ERROR to "用户校验失败",
+            BOOK_ORDER_MONEY_ERROR to "金额校验失败",
+            BOOK_ORDER_ADDRESS_ERROR to "地址校验失败",
+            BOOK_ORDER_PRODUCT_ERROR to "产品校验失败",
             BOOK_ORDER_FAIL to "下单失败"
     )
 

@@ -25,13 +25,13 @@ public interface FeedbackMapper {
     int deleteByExample(FeedbackExample example);
 
     @Delete({
-        "delete from feedback",
+        "delete from `feedback`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into feedback (user_id, content)",
+        "insert into `feedback` (user_id, content)",
         "values (#{userId,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
@@ -52,7 +52,7 @@ public interface FeedbackMapper {
     @Select({
         "select",
         "id, user_id, content",
-        "from feedback",
+        "from `feedback`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
@@ -72,7 +72,7 @@ public interface FeedbackMapper {
     int updateByPrimaryKeySelective(Feedback record);
 
     @Update({
-        "update feedback",
+        "update `feedback`",
         "set user_id = #{userId,jdbcType=BIGINT},",
           "content = #{content,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=BIGINT}"

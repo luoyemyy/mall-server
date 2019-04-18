@@ -25,14 +25,14 @@ public interface OrderProductMapper {
     int deleteByExample(OrderProductExample example);
 
     @Delete({
-        "delete from order_product",
+        "delete from `order_product`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into order_product (order_id, product_id, ",
-        "count, price)",
+        "insert into `order_product` (order_id, product_id, ",
+        "`count`, price)",
         "values (#{orderId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, ",
         "#{count,jdbcType=INTEGER}, #{price,jdbcType=REAL})"
     })
@@ -55,8 +55,8 @@ public interface OrderProductMapper {
 
     @Select({
         "select",
-        "id, order_id, product_id, count, price",
-        "from order_product",
+        "id, order_id, product_id, `count`, price",
+        "from `order_product`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
@@ -78,10 +78,10 @@ public interface OrderProductMapper {
     int updateByPrimaryKeySelective(OrderProduct record);
 
     @Update({
-        "update order_product",
+        "update `order_product`",
         "set order_id = #{orderId,jdbcType=BIGINT},",
           "product_id = #{productId,jdbcType=BIGINT},",
-          "count = #{count,jdbcType=INTEGER},",
+          "`count` = #{count,jdbcType=INTEGER},",
           "price = #{price,jdbcType=REAL}",
         "where id = #{id,jdbcType=BIGINT}"
     })

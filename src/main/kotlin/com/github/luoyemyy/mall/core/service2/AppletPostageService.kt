@@ -26,7 +26,7 @@ class AppletPostageService {
      * @applet
      */
     fun free(): Float {
-        return keyValueDao.selectByKey(AppKey.FREE_POSTAGE)?.valueString?.toFloat() ?: 0f
+        return keyValueDao.selectByKey(AppKey.FREE_POSTAGE)?.value?.toFloat() ?: 0f
     }
 
 }

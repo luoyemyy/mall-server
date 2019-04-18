@@ -25,14 +25,14 @@ public interface UserMapper {
     int deleteByExample(UserExample example);
 
     @Delete({
-        "delete from user",
+        "delete from `user`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into user (head_image, name, ",
-        "phone, password, ",
+        "insert into `user` (head_image, `name`, ",
+        "phone, `password`, ",
         "gender, create_time, ",
         "update_time)",
         "values (#{headImage,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, ",
@@ -62,8 +62,8 @@ public interface UserMapper {
 
     @Select({
         "select",
-        "id, head_image, name, phone, password, gender, create_time, update_time",
-        "from user",
+        "id, head_image, `name`, phone, `password`, gender, create_time, update_time",
+        "from `user`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
@@ -88,11 +88,11 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     @Update({
-        "update user",
+        "update `user`",
         "set head_image = #{headImage,jdbcType=VARCHAR},",
-          "name = #{name,jdbcType=VARCHAR},",
+          "`name` = #{name,jdbcType=VARCHAR},",
           "phone = #{phone,jdbcType=VARCHAR},",
-          "password = #{password,jdbcType=VARCHAR},",
+          "`password` = #{password,jdbcType=VARCHAR},",
           "gender = #{gender,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "update_time = #{updateTime,jdbcType=TIMESTAMP}",

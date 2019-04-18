@@ -25,14 +25,14 @@ public interface ProductImageMapper {
     int deleteByExample(ProductImageExample example);
 
     @Delete({
-        "delete from product_image",
+        "delete from `product_image`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into product_image (product_id, image, ",
-        "type, sort)",
+        "insert into `product_image` (product_id, image, ",
+        "`type`, sort)",
         "values (#{productId,jdbcType=BIGINT}, #{image,jdbcType=VARCHAR}, ",
         "#{type,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER})"
     })
@@ -55,8 +55,8 @@ public interface ProductImageMapper {
 
     @Select({
         "select",
-        "id, product_id, image, type, sort",
-        "from product_image",
+        "id, product_id, image, `type`, sort",
+        "from `product_image`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
@@ -78,10 +78,10 @@ public interface ProductImageMapper {
     int updateByPrimaryKeySelective(ProductImage record);
 
     @Update({
-        "update product_image",
+        "update `product_image`",
         "set product_id = #{productId,jdbcType=BIGINT},",
           "image = #{image,jdbcType=VARCHAR},",
-          "type = #{type,jdbcType=INTEGER},",
+          "`type` = #{type,jdbcType=INTEGER},",
           "sort = #{sort,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=BIGINT}"
     })

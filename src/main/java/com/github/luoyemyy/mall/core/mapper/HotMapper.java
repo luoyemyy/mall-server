@@ -25,14 +25,14 @@ public interface HotMapper {
     int deleteByExample(HotExample example);
 
     @Delete({
-        "delete from hot",
+        "delete from `hot`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into hot (image, description, ",
-        "sort, state)",
+        "insert into `hot` (image, description, ",
+        "sort, `state`)",
         "values (#{image,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, ",
         "#{sort,jdbcType=INTEGER}, #{state,jdbcType=INTEGER})"
     })
@@ -55,8 +55,8 @@ public interface HotMapper {
 
     @Select({
         "select",
-        "id, image, description, sort, state",
-        "from hot",
+        "id, image, description, sort, `state`",
+        "from `hot`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
@@ -78,11 +78,11 @@ public interface HotMapper {
     int updateByPrimaryKeySelective(Hot record);
 
     @Update({
-        "update hot",
+        "update `hot`",
         "set image = #{image,jdbcType=VARCHAR},",
           "description = #{description,jdbcType=VARCHAR},",
           "sort = #{sort,jdbcType=INTEGER},",
-          "state = #{state,jdbcType=INTEGER}",
+          "`state` = #{state,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(Hot record);

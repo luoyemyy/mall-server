@@ -25,21 +25,21 @@ public class WeChatSqlProvider {
     public String countByExample(WeChatExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("we_chat");
+        FROM("`we_chat`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(WeChatExample example) {
         BEGIN();
-        DELETE_FROM("we_chat");
+        DELETE_FROM("`we_chat`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(WeChat record) {
         BEGIN();
-        INSERT_INTO("we_chat");
+        INSERT_INTO("`we_chat`");
         
         if (record.getUnionId() != null) {
             VALUES("union_id", "#{unionId,jdbcType=VARCHAR}");
@@ -61,7 +61,7 @@ public class WeChatSqlProvider {
         }
         SELECT("union_id");
         SELECT("open_id");
-        FROM("we_chat");
+        FROM("`we_chat`");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -76,7 +76,7 @@ public class WeChatSqlProvider {
         WeChatExample example = (WeChatExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("we_chat");
+        UPDATE("`we_chat`");
         
         if (record.getId() != null) {
             SET("id = #{record.id,jdbcType=BIGINT}");
@@ -96,7 +96,7 @@ public class WeChatSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("we_chat");
+        UPDATE("`we_chat`");
         
         SET("id = #{record.id,jdbcType=BIGINT}");
         SET("union_id = #{record.unionId,jdbcType=VARCHAR}");
@@ -109,7 +109,7 @@ public class WeChatSqlProvider {
 
     public String updateByPrimaryKeySelective(WeChat record) {
         BEGIN();
-        UPDATE("we_chat");
+        UPDATE("`we_chat`");
         
         if (record.getUnionId() != null) {
             SET("union_id = #{unionId,jdbcType=VARCHAR}");

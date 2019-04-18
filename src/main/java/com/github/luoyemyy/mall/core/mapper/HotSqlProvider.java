@@ -25,21 +25,21 @@ public class HotSqlProvider {
     public String countByExample(HotExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("hot");
+        FROM("`hot`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(HotExample example) {
         BEGIN();
-        DELETE_FROM("hot");
+        DELETE_FROM("`hot`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(Hot record) {
         BEGIN();
-        INSERT_INTO("hot");
+        INSERT_INTO("`hot`");
         
         if (record.getImage() != null) {
             VALUES("image", "#{image,jdbcType=VARCHAR}");
@@ -54,7 +54,7 @@ public class HotSqlProvider {
         }
         
         if (record.getState() != null) {
-            VALUES("state", "#{state,jdbcType=INTEGER}");
+            VALUES("`state`", "#{state,jdbcType=INTEGER}");
         }
         
         return SQL();
@@ -70,8 +70,8 @@ public class HotSqlProvider {
         SELECT("image");
         SELECT("description");
         SELECT("sort");
-        SELECT("state");
-        FROM("hot");
+        SELECT("`state`");
+        FROM("`hot`");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -86,7 +86,7 @@ public class HotSqlProvider {
         HotExample example = (HotExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("hot");
+        UPDATE("`hot`");
         
         if (record.getId() != null) {
             SET("id = #{record.id,jdbcType=BIGINT}");
@@ -105,7 +105,7 @@ public class HotSqlProvider {
         }
         
         if (record.getState() != null) {
-            SET("state = #{record.state,jdbcType=INTEGER}");
+            SET("`state` = #{record.state,jdbcType=INTEGER}");
         }
         
         applyWhere(example, true);
@@ -114,13 +114,13 @@ public class HotSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("hot");
+        UPDATE("`hot`");
         
         SET("id = #{record.id,jdbcType=BIGINT}");
         SET("image = #{record.image,jdbcType=VARCHAR}");
         SET("description = #{record.description,jdbcType=VARCHAR}");
         SET("sort = #{record.sort,jdbcType=INTEGER}");
-        SET("state = #{record.state,jdbcType=INTEGER}");
+        SET("`state` = #{record.state,jdbcType=INTEGER}");
         
         HotExample example = (HotExample) parameter.get("example");
         applyWhere(example, true);
@@ -129,7 +129,7 @@ public class HotSqlProvider {
 
     public String updateByPrimaryKeySelective(Hot record) {
         BEGIN();
-        UPDATE("hot");
+        UPDATE("`hot`");
         
         if (record.getImage() != null) {
             SET("image = #{image,jdbcType=VARCHAR}");
@@ -144,7 +144,7 @@ public class HotSqlProvider {
         }
         
         if (record.getState() != null) {
-            SET("state = #{state,jdbcType=INTEGER}");
+            SET("`state` = #{state,jdbcType=INTEGER}");
         }
         
         WHERE("id = #{id,jdbcType=BIGINT}");

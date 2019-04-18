@@ -25,21 +25,21 @@ public class OrderProductSqlProvider {
     public String countByExample(OrderProductExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("order_product");
+        FROM("`order_product`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(OrderProductExample example) {
         BEGIN();
-        DELETE_FROM("order_product");
+        DELETE_FROM("`order_product`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(OrderProduct record) {
         BEGIN();
-        INSERT_INTO("order_product");
+        INSERT_INTO("`order_product`");
         
         if (record.getOrderId() != null) {
             VALUES("order_id", "#{orderId,jdbcType=BIGINT}");
@@ -50,7 +50,7 @@ public class OrderProductSqlProvider {
         }
         
         if (record.getCount() != null) {
-            VALUES("count", "#{count,jdbcType=INTEGER}");
+            VALUES("`count`", "#{count,jdbcType=INTEGER}");
         }
         
         if (record.getPrice() != null) {
@@ -69,9 +69,9 @@ public class OrderProductSqlProvider {
         }
         SELECT("order_id");
         SELECT("product_id");
-        SELECT("count");
+        SELECT("`count`");
         SELECT("price");
-        FROM("order_product");
+        FROM("`order_product`");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -86,7 +86,7 @@ public class OrderProductSqlProvider {
         OrderProductExample example = (OrderProductExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("order_product");
+        UPDATE("`order_product`");
         
         if (record.getId() != null) {
             SET("id = #{record.id,jdbcType=BIGINT}");
@@ -101,7 +101,7 @@ public class OrderProductSqlProvider {
         }
         
         if (record.getCount() != null) {
-            SET("count = #{record.count,jdbcType=INTEGER}");
+            SET("`count` = #{record.count,jdbcType=INTEGER}");
         }
         
         if (record.getPrice() != null) {
@@ -114,12 +114,12 @@ public class OrderProductSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("order_product");
+        UPDATE("`order_product`");
         
         SET("id = #{record.id,jdbcType=BIGINT}");
         SET("order_id = #{record.orderId,jdbcType=BIGINT}");
         SET("product_id = #{record.productId,jdbcType=BIGINT}");
-        SET("count = #{record.count,jdbcType=INTEGER}");
+        SET("`count` = #{record.count,jdbcType=INTEGER}");
         SET("price = #{record.price,jdbcType=REAL}");
         
         OrderProductExample example = (OrderProductExample) parameter.get("example");
@@ -129,7 +129,7 @@ public class OrderProductSqlProvider {
 
     public String updateByPrimaryKeySelective(OrderProduct record) {
         BEGIN();
-        UPDATE("order_product");
+        UPDATE("`order_product`");
         
         if (record.getOrderId() != null) {
             SET("order_id = #{orderId,jdbcType=BIGINT}");
@@ -140,7 +140,7 @@ public class OrderProductSqlProvider {
         }
         
         if (record.getCount() != null) {
-            SET("count = #{count,jdbcType=INTEGER}");
+            SET("`count` = #{count,jdbcType=INTEGER}");
         }
         
         if (record.getPrice() != null) {

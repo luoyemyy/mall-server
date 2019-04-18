@@ -25,21 +25,21 @@ public class ShopCartSqlProvider {
     public String countByExample(ShopCartExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("shop_cart");
+        FROM("`shop_cart`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(ShopCartExample example) {
         BEGIN();
-        DELETE_FROM("shop_cart");
+        DELETE_FROM("`shop_cart`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(ShopCart record) {
         BEGIN();
-        INSERT_INTO("shop_cart");
+        INSERT_INTO("`shop_cart`");
         
         if (record.getUserId() != null) {
             VALUES("user_id", "#{userId,jdbcType=BIGINT}");
@@ -50,7 +50,7 @@ public class ShopCartSqlProvider {
         }
         
         if (record.getCount() != null) {
-            VALUES("count", "#{count,jdbcType=INTEGER}");
+            VALUES("`count`", "#{count,jdbcType=INTEGER}");
         }
         
         return SQL();
@@ -65,8 +65,8 @@ public class ShopCartSqlProvider {
         }
         SELECT("user_id");
         SELECT("product_id");
-        SELECT("count");
-        FROM("shop_cart");
+        SELECT("`count`");
+        FROM("`shop_cart`");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -81,7 +81,7 @@ public class ShopCartSqlProvider {
         ShopCartExample example = (ShopCartExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("shop_cart");
+        UPDATE("`shop_cart`");
         
         if (record.getId() != null) {
             SET("id = #{record.id,jdbcType=BIGINT}");
@@ -96,7 +96,7 @@ public class ShopCartSqlProvider {
         }
         
         if (record.getCount() != null) {
-            SET("count = #{record.count,jdbcType=INTEGER}");
+            SET("`count` = #{record.count,jdbcType=INTEGER}");
         }
         
         applyWhere(example, true);
@@ -105,12 +105,12 @@ public class ShopCartSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("shop_cart");
+        UPDATE("`shop_cart`");
         
         SET("id = #{record.id,jdbcType=BIGINT}");
         SET("user_id = #{record.userId,jdbcType=BIGINT}");
         SET("product_id = #{record.productId,jdbcType=BIGINT}");
-        SET("count = #{record.count,jdbcType=INTEGER}");
+        SET("`count` = #{record.count,jdbcType=INTEGER}");
         
         ShopCartExample example = (ShopCartExample) parameter.get("example");
         applyWhere(example, true);
@@ -119,7 +119,7 @@ public class ShopCartSqlProvider {
 
     public String updateByPrimaryKeySelective(ShopCart record) {
         BEGIN();
-        UPDATE("shop_cart");
+        UPDATE("`shop_cart`");
         
         if (record.getUserId() != null) {
             SET("user_id = #{userId,jdbcType=BIGINT}");
@@ -130,7 +130,7 @@ public class ShopCartSqlProvider {
         }
         
         if (record.getCount() != null) {
-            SET("count = #{count,jdbcType=INTEGER}");
+            SET("`count` = #{count,jdbcType=INTEGER}");
         }
         
         WHERE("id = #{id,jdbcType=BIGINT}");

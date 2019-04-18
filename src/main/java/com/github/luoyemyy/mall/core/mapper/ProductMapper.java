@@ -25,17 +25,17 @@ public interface ProductMapper {
     int deleteByExample(ProductExample example);
 
     @Delete({
-        "delete from product",
+        "delete from `product`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into product (cover_image, name, ",
+        "insert into `product` (cover_image, `name`, ",
         "description, market_price, ",
         "actual_price, stock, ",
-        "online, sort, create_time, ",
-        "status)",
+        "`online`, sort, create_time, ",
+        "`status`)",
         "values (#{coverImage,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, ",
         "#{description,jdbcType=VARCHAR}, #{marketPrice,jdbcType=REAL}, ",
         "#{actualPrice,jdbcType=REAL}, #{stock,jdbcType=INTEGER}, ",
@@ -67,9 +67,9 @@ public interface ProductMapper {
 
     @Select({
         "select",
-        "id, cover_image, name, description, market_price, actual_price, stock, online, ",
-        "sort, create_time, status",
-        "from product",
+        "id, cover_image, `name`, description, market_price, actual_price, stock, `online`, ",
+        "sort, create_time, `status`",
+        "from `product`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
@@ -97,17 +97,17 @@ public interface ProductMapper {
     int updateByPrimaryKeySelective(Product record);
 
     @Update({
-        "update product",
+        "update `product`",
         "set cover_image = #{coverImage,jdbcType=VARCHAR},",
-          "name = #{name,jdbcType=VARCHAR},",
+          "`name` = #{name,jdbcType=VARCHAR},",
           "description = #{description,jdbcType=VARCHAR},",
           "market_price = #{marketPrice,jdbcType=REAL},",
           "actual_price = #{actualPrice,jdbcType=REAL},",
           "stock = #{stock,jdbcType=INTEGER},",
-          "online = #{online,jdbcType=BIT},",
+          "`online` = #{online,jdbcType=BIT},",
           "sort = #{sort,jdbcType=INTEGER},",
           "create_time = #{createTime,jdbcType=TIMESTAMP},",
-          "status = #{status,jdbcType=INTEGER}",
+          "`status` = #{status,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(Product record);

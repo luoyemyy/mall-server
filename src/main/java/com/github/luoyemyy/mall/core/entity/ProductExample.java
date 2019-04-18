@@ -236,72 +236,72 @@ public class ProductExample {
         }
 
         public Criteria andNameIsNull() {
-            addCriterion("name is null");
+            addCriterion("`name` is null");
             return (Criteria) this;
         }
 
         public Criteria andNameIsNotNull() {
-            addCriterion("name is not null");
+            addCriterion("`name` is not null");
             return (Criteria) this;
         }
 
         public Criteria andNameEqualTo(String value) {
-            addCriterion("name =", value, "name");
+            addCriterion("`name` =", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotEqualTo(String value) {
-            addCriterion("name <>", value, "name");
+            addCriterion("`name` <>", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameGreaterThan(String value) {
-            addCriterion("name >", value, "name");
+            addCriterion("`name` >", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameGreaterThanOrEqualTo(String value) {
-            addCriterion("name >=", value, "name");
+            addCriterion("`name` >=", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameLessThan(String value) {
-            addCriterion("name <", value, "name");
+            addCriterion("`name` <", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameLessThanOrEqualTo(String value) {
-            addCriterion("name <=", value, "name");
+            addCriterion("`name` <=", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameLike(String value) {
-            addCriterion("name like", value, "name");
+            addCriterion("`name` like", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotLike(String value) {
-            addCriterion("name not like", value, "name");
+            addCriterion("`name` not like", value, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameIn(List<String> values) {
-            addCriterion("name in", values, "name");
+            addCriterion("`name` in", values, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotIn(List<String> values) {
-            addCriterion("name not in", values, "name");
+            addCriterion("`name` not in", values, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameBetween(String value1, String value2) {
-            addCriterion("name between", value1, value2, "name");
+            addCriterion("`name` between", value1, value2, "name");
             return (Criteria) this;
         }
 
         public Criteria andNameNotBetween(String value1, String value2) {
-            addCriterion("name not between", value1, value2, "name");
+            addCriterion("`name` not between", value1, value2, "name");
             return (Criteria) this;
         }
 
@@ -556,62 +556,62 @@ public class ProductExample {
         }
 
         public Criteria andOnlineIsNull() {
-            addCriterion("online is null");
+            addCriterion("`online` is null");
             return (Criteria) this;
         }
 
         public Criteria andOnlineIsNotNull() {
-            addCriterion("online is not null");
+            addCriterion("`online` is not null");
             return (Criteria) this;
         }
 
         public Criteria andOnlineEqualTo(Boolean value) {
-            addCriterion("online =", value, "online");
+            addCriterion("`online` =", value, "online");
             return (Criteria) this;
         }
 
         public Criteria andOnlineNotEqualTo(Boolean value) {
-            addCriterion("online <>", value, "online");
+            addCriterion("`online` <>", value, "online");
             return (Criteria) this;
         }
 
         public Criteria andOnlineGreaterThan(Boolean value) {
-            addCriterion("online >", value, "online");
+            addCriterion("`online` >", value, "online");
             return (Criteria) this;
         }
 
         public Criteria andOnlineGreaterThanOrEqualTo(Boolean value) {
-            addCriterion("online >=", value, "online");
+            addCriterion("`online` >=", value, "online");
             return (Criteria) this;
         }
 
         public Criteria andOnlineLessThan(Boolean value) {
-            addCriterion("online <", value, "online");
+            addCriterion("`online` <", value, "online");
             return (Criteria) this;
         }
 
         public Criteria andOnlineLessThanOrEqualTo(Boolean value) {
-            addCriterion("online <=", value, "online");
+            addCriterion("`online` <=", value, "online");
             return (Criteria) this;
         }
 
         public Criteria andOnlineIn(List<Boolean> values) {
-            addCriterion("online in", values, "online");
+            addCriterion("`online` in", values, "online");
             return (Criteria) this;
         }
 
         public Criteria andOnlineNotIn(List<Boolean> values) {
-            addCriterion("online not in", values, "online");
+            addCriterion("`online` not in", values, "online");
             return (Criteria) this;
         }
 
         public Criteria andOnlineBetween(Boolean value1, Boolean value2) {
-            addCriterion("online between", value1, value2, "online");
+            addCriterion("`online` between", value1, value2, "online");
             return (Criteria) this;
         }
 
         public Criteria andOnlineNotBetween(Boolean value1, Boolean value2) {
-            addCriterion("online not between", value1, value2, "online");
+            addCriterion("`online` not between", value1, value2, "online");
             return (Criteria) this;
         }
 
@@ -736,62 +736,62 @@ public class ProductExample {
         }
 
         public Criteria andStatusIsNull() {
-            addCriterion("status is null");
+            addCriterion("`status` is null");
             return (Criteria) this;
         }
 
         public Criteria andStatusIsNotNull() {
-            addCriterion("status is not null");
+            addCriterion("`status` is not null");
             return (Criteria) this;
         }
 
         public Criteria andStatusEqualTo(Integer value) {
-            addCriterion("status =", value, "status");
+            addCriterion("`status` =", value, "status");
             return (Criteria) this;
         }
 
         public Criteria andStatusNotEqualTo(Integer value) {
-            addCriterion("status <>", value, "status");
+            addCriterion("`status` <>", value, "status");
             return (Criteria) this;
         }
 
         public Criteria andStatusGreaterThan(Integer value) {
-            addCriterion("status >", value, "status");
+            addCriterion("`status` >", value, "status");
             return (Criteria) this;
         }
 
         public Criteria andStatusGreaterThanOrEqualTo(Integer value) {
-            addCriterion("status >=", value, "status");
+            addCriterion("`status` >=", value, "status");
             return (Criteria) this;
         }
 
         public Criteria andStatusLessThan(Integer value) {
-            addCriterion("status <", value, "status");
+            addCriterion("`status` <", value, "status");
             return (Criteria) this;
         }
 
         public Criteria andStatusLessThanOrEqualTo(Integer value) {
-            addCriterion("status <=", value, "status");
+            addCriterion("`status` <=", value, "status");
             return (Criteria) this;
         }
 
         public Criteria andStatusIn(List<Integer> values) {
-            addCriterion("status in", values, "status");
+            addCriterion("`status` in", values, "status");
             return (Criteria) this;
         }
 
         public Criteria andStatusNotIn(List<Integer> values) {
-            addCriterion("status not in", values, "status");
+            addCriterion("`status` not in", values, "status");
             return (Criteria) this;
         }
 
         public Criteria andStatusBetween(Integer value1, Integer value2) {
-            addCriterion("status between", value1, value2, "status");
+            addCriterion("`status` between", value1, value2, "status");
             return (Criteria) this;
         }
 
         public Criteria andStatusNotBetween(Integer value1, Integer value2) {
-            addCriterion("status not between", value1, value2, "status");
+            addCriterion("`status` not between", value1, value2, "status");
             return (Criteria) this;
         }
     }

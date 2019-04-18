@@ -25,24 +25,24 @@ public class AddressSqlProvider {
     public String countByExample(AddressExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("address");
+        FROM("`address`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(AddressExample example) {
         BEGIN();
-        DELETE_FROM("address");
+        DELETE_FROM("`address`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(Address record) {
         BEGIN();
-        INSERT_INTO("address");
+        INSERT_INTO("`address`");
         
         if (record.getName() != null) {
-            VALUES("name", "#{name,jdbcType=VARCHAR}");
+            VALUES("`name`", "#{name,jdbcType=VARCHAR}");
         }
         
         if (record.getPhone() != null) {
@@ -87,7 +87,7 @@ public class AddressSqlProvider {
         } else {
             SELECT("id");
         }
-        SELECT("name");
+        SELECT("`name`");
         SELECT("phone");
         SELECT("post_code");
         SELECT("country");
@@ -96,7 +96,7 @@ public class AddressSqlProvider {
         SELECT("county");
         SELECT("street");
         SELECT("summary");
-        FROM("address");
+        FROM("`address`");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -111,14 +111,14 @@ public class AddressSqlProvider {
         AddressExample example = (AddressExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("address");
+        UPDATE("`address`");
         
         if (record.getId() != null) {
             SET("id = #{record.id,jdbcType=BIGINT}");
         }
         
         if (record.getName() != null) {
-            SET("name = #{record.name,jdbcType=VARCHAR}");
+            SET("`name` = #{record.name,jdbcType=VARCHAR}");
         }
         
         if (record.getPhone() != null) {
@@ -159,10 +159,10 @@ public class AddressSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("address");
+        UPDATE("`address`");
         
         SET("id = #{record.id,jdbcType=BIGINT}");
-        SET("name = #{record.name,jdbcType=VARCHAR}");
+        SET("`name` = #{record.name,jdbcType=VARCHAR}");
         SET("phone = #{record.phone,jdbcType=VARCHAR}");
         SET("post_code = #{record.postCode,jdbcType=VARCHAR}");
         SET("country = #{record.country,jdbcType=VARCHAR}");
@@ -179,10 +179,10 @@ public class AddressSqlProvider {
 
     public String updateByPrimaryKeySelective(Address record) {
         BEGIN();
-        UPDATE("address");
+        UPDATE("`address`");
         
         if (record.getName() != null) {
-            SET("name = #{name,jdbcType=VARCHAR}");
+            SET("`name` = #{name,jdbcType=VARCHAR}");
         }
         
         if (record.getPhone() != null) {

@@ -25,21 +25,21 @@ public class OrderSqlProvider {
     public String countByExample(OrderExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("order");
+        FROM("`order`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(OrderExample example) {
         BEGIN();
-        DELETE_FROM("order");
+        DELETE_FROM("`order`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(Order record) {
         BEGIN();
-        INSERT_INTO("order");
+        INSERT_INTO("`order`");
         
         if (record.getOrderNo() != null) {
             VALUES("order_no", "#{orderNo,jdbcType=VARCHAR}");
@@ -50,7 +50,7 @@ public class OrderSqlProvider {
         }
         
         if (record.getState() != null) {
-            VALUES("state", "#{state,jdbcType=INTEGER}");
+            VALUES("`state`", "#{state,jdbcType=INTEGER}");
         }
         
         if (record.getMoney() != null) {
@@ -94,7 +94,7 @@ public class OrderSqlProvider {
         }
         
         if (record.getStatus() != null) {
-            VALUES("status", "#{status,jdbcType=INTEGER}");
+            VALUES("`status`", "#{status,jdbcType=INTEGER}");
         }
         
         return SQL();
@@ -109,7 +109,7 @@ public class OrderSqlProvider {
         }
         SELECT("order_no");
         SELECT("user_id");
-        SELECT("state");
+        SELECT("`state`");
         SELECT("money");
         SELECT("postage");
         SELECT("username");
@@ -120,8 +120,8 @@ public class OrderSqlProvider {
         SELECT("update_time");
         SELECT("wx_pay_id");
         SELECT("wx_order_id");
-        SELECT("status");
-        FROM("order");
+        SELECT("`status`");
+        FROM("`order`");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -136,7 +136,7 @@ public class OrderSqlProvider {
         OrderExample example = (OrderExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("order");
+        UPDATE("`order`");
         
         if (record.getId() != null) {
             SET("id = #{record.id,jdbcType=BIGINT}");
@@ -151,7 +151,7 @@ public class OrderSqlProvider {
         }
         
         if (record.getState() != null) {
-            SET("state = #{record.state,jdbcType=INTEGER}");
+            SET("`state` = #{record.state,jdbcType=INTEGER}");
         }
         
         if (record.getMoney() != null) {
@@ -195,7 +195,7 @@ public class OrderSqlProvider {
         }
         
         if (record.getStatus() != null) {
-            SET("status = #{record.status,jdbcType=INTEGER}");
+            SET("`status` = #{record.status,jdbcType=INTEGER}");
         }
         
         applyWhere(example, true);
@@ -204,12 +204,12 @@ public class OrderSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("order");
+        UPDATE("`order`");
         
         SET("id = #{record.id,jdbcType=BIGINT}");
         SET("order_no = #{record.orderNo,jdbcType=VARCHAR}");
         SET("user_id = #{record.userId,jdbcType=BIGINT}");
-        SET("state = #{record.state,jdbcType=INTEGER}");
+        SET("`state` = #{record.state,jdbcType=INTEGER}");
         SET("money = #{record.money,jdbcType=REAL}");
         SET("postage = #{record.postage,jdbcType=REAL}");
         SET("username = #{record.username,jdbcType=VARCHAR}");
@@ -220,7 +220,7 @@ public class OrderSqlProvider {
         SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         SET("wx_pay_id = #{record.wxPayId,jdbcType=VARCHAR}");
         SET("wx_order_id = #{record.wxOrderId,jdbcType=VARCHAR}");
-        SET("status = #{record.status,jdbcType=INTEGER}");
+        SET("`status` = #{record.status,jdbcType=INTEGER}");
         
         OrderExample example = (OrderExample) parameter.get("example");
         applyWhere(example, true);
@@ -229,7 +229,7 @@ public class OrderSqlProvider {
 
     public String updateByPrimaryKeySelective(Order record) {
         BEGIN();
-        UPDATE("order");
+        UPDATE("`order`");
         
         if (record.getOrderNo() != null) {
             SET("order_no = #{orderNo,jdbcType=VARCHAR}");
@@ -240,7 +240,7 @@ public class OrderSqlProvider {
         }
         
         if (record.getState() != null) {
-            SET("state = #{state,jdbcType=INTEGER}");
+            SET("`state` = #{state,jdbcType=INTEGER}");
         }
         
         if (record.getMoney() != null) {
@@ -284,7 +284,7 @@ public class OrderSqlProvider {
         }
         
         if (record.getStatus() != null) {
-            SET("status = #{status,jdbcType=INTEGER}");
+            SET("`status` = #{status,jdbcType=INTEGER}");
         }
         
         WHERE("id = #{id,jdbcType=BIGINT}");

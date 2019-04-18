@@ -25,14 +25,14 @@ public interface ShopCartMapper {
     int deleteByExample(ShopCartExample example);
 
     @Delete({
-        "delete from shop_cart",
+        "delete from `shop_cart`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into shop_cart (user_id, product_id, ",
-        "count)",
+        "insert into `shop_cart` (user_id, product_id, ",
+        "`count`)",
         "values (#{userId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT}, ",
         "#{count,jdbcType=INTEGER})"
     })
@@ -54,8 +54,8 @@ public interface ShopCartMapper {
 
     @Select({
         "select",
-        "id, user_id, product_id, count",
-        "from shop_cart",
+        "id, user_id, product_id, `count`",
+        "from `shop_cart`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
@@ -76,10 +76,10 @@ public interface ShopCartMapper {
     int updateByPrimaryKeySelective(ShopCart record);
 
     @Update({
-        "update shop_cart",
+        "update `shop_cart`",
         "set user_id = #{userId,jdbcType=BIGINT},",
           "product_id = #{productId,jdbcType=BIGINT},",
-          "count = #{count,jdbcType=INTEGER}",
+          "`count` = #{count,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(ShopCart record);

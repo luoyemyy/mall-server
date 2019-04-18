@@ -25,21 +25,21 @@ public class WeChatUserSqlProvider {
     public String countByExample(WeChatUserExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("we_chat_user");
+        FROM("`we_chat_user`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(WeChatUserExample example) {
         BEGIN();
-        DELETE_FROM("we_chat_user");
+        DELETE_FROM("`we_chat_user`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(WeChatUser record) {
         BEGIN();
-        INSERT_INTO("we_chat_user");
+        INSERT_INTO("`we_chat_user`");
         
         if (record.getWeChatId() != null) {
             VALUES("we_chat_id", "#{weChatId,jdbcType=BIGINT}");
@@ -66,7 +66,7 @@ public class WeChatUserSqlProvider {
         SELECT("we_chat_id");
         SELECT("user_id");
         SELECT("token");
-        FROM("we_chat_user");
+        FROM("`we_chat_user`");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -81,7 +81,7 @@ public class WeChatUserSqlProvider {
         WeChatUserExample example = (WeChatUserExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("we_chat_user");
+        UPDATE("`we_chat_user`");
         
         if (record.getId() != null) {
             SET("id = #{record.id,jdbcType=BIGINT}");
@@ -105,7 +105,7 @@ public class WeChatUserSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("we_chat_user");
+        UPDATE("`we_chat_user`");
         
         SET("id = #{record.id,jdbcType=BIGINT}");
         SET("we_chat_id = #{record.weChatId,jdbcType=BIGINT}");
@@ -119,7 +119,7 @@ public class WeChatUserSqlProvider {
 
     public String updateByPrimaryKeySelective(WeChatUser record) {
         BEGIN();
-        UPDATE("we_chat_user");
+        UPDATE("`we_chat_user`");
         
         if (record.getWeChatId() != null) {
             SET("we_chat_id = #{weChatId,jdbcType=BIGINT}");

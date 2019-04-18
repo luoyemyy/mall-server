@@ -25,13 +25,13 @@ public interface ProductCategoryMapper {
     int deleteByExample(ProductCategoryExample example);
 
     @Delete({
-        "delete from product_category",
+        "delete from `product_category`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into product_category (product_id, category_id, ",
+        "insert into `product_category` (product_id, category_id, ",
         "sort)",
         "values (#{productId,jdbcType=BIGINT}, #{categoryId,jdbcType=BIGINT}, ",
         "#{sort,jdbcType=INTEGER})"
@@ -55,7 +55,7 @@ public interface ProductCategoryMapper {
     @Select({
         "select",
         "id, product_id, category_id, sort",
-        "from product_category",
+        "from `product_category`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
@@ -76,7 +76,7 @@ public interface ProductCategoryMapper {
     int updateByPrimaryKeySelective(ProductCategory record);
 
     @Update({
-        "update product_category",
+        "update `product_category`",
         "set product_id = #{productId,jdbcType=BIGINT},",
           "category_id = #{categoryId,jdbcType=BIGINT},",
           "sort = #{sort,jdbcType=INTEGER}",

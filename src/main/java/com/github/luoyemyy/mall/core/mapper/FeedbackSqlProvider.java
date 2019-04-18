@@ -25,21 +25,21 @@ public class FeedbackSqlProvider {
     public String countByExample(FeedbackExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("feedback");
+        FROM("`feedback`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(FeedbackExample example) {
         BEGIN();
-        DELETE_FROM("feedback");
+        DELETE_FROM("`feedback`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(Feedback record) {
         BEGIN();
-        INSERT_INTO("feedback");
+        INSERT_INTO("`feedback`");
         
         if (record.getUserId() != null) {
             VALUES("user_id", "#{userId,jdbcType=BIGINT}");
@@ -61,7 +61,7 @@ public class FeedbackSqlProvider {
         }
         SELECT("user_id");
         SELECT("content");
-        FROM("feedback");
+        FROM("`feedback`");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -76,7 +76,7 @@ public class FeedbackSqlProvider {
         FeedbackExample example = (FeedbackExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("feedback");
+        UPDATE("`feedback`");
         
         if (record.getId() != null) {
             SET("id = #{record.id,jdbcType=BIGINT}");
@@ -96,7 +96,7 @@ public class FeedbackSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("feedback");
+        UPDATE("`feedback`");
         
         SET("id = #{record.id,jdbcType=BIGINT}");
         SET("user_id = #{record.userId,jdbcType=BIGINT}");
@@ -109,7 +109,7 @@ public class FeedbackSqlProvider {
 
     public String updateByPrimaryKeySelective(Feedback record) {
         BEGIN();
-        UPDATE("feedback");
+        UPDATE("`feedback`");
         
         if (record.getUserId() != null) {
             SET("user_id = #{userId,jdbcType=BIGINT}");

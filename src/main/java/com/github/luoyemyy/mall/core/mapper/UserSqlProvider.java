@@ -25,28 +25,28 @@ public class UserSqlProvider {
     public String countByExample(UserExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("user");
+        FROM("`user`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(UserExample example) {
         BEGIN();
-        DELETE_FROM("user");
+        DELETE_FROM("`user`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(User record) {
         BEGIN();
-        INSERT_INTO("user");
+        INSERT_INTO("`user`");
         
         if (record.getHeadImage() != null) {
             VALUES("head_image", "#{headImage,jdbcType=VARCHAR}");
         }
         
         if (record.getName() != null) {
-            VALUES("name", "#{name,jdbcType=VARCHAR}");
+            VALUES("`name`", "#{name,jdbcType=VARCHAR}");
         }
         
         if (record.getPhone() != null) {
@@ -54,7 +54,7 @@ public class UserSqlProvider {
         }
         
         if (record.getPassword() != null) {
-            VALUES("password", "#{password,jdbcType=VARCHAR}");
+            VALUES("`password`", "#{password,jdbcType=VARCHAR}");
         }
         
         if (record.getGender() != null) {
@@ -80,13 +80,13 @@ public class UserSqlProvider {
             SELECT("id");
         }
         SELECT("head_image");
-        SELECT("name");
+        SELECT("`name`");
         SELECT("phone");
-        SELECT("password");
+        SELECT("`password`");
         SELECT("gender");
         SELECT("create_time");
         SELECT("update_time");
-        FROM("user");
+        FROM("`user`");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -101,7 +101,7 @@ public class UserSqlProvider {
         UserExample example = (UserExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("user");
+        UPDATE("`user`");
         
         if (record.getId() != null) {
             SET("id = #{record.id,jdbcType=BIGINT}");
@@ -112,7 +112,7 @@ public class UserSqlProvider {
         }
         
         if (record.getName() != null) {
-            SET("name = #{record.name,jdbcType=VARCHAR}");
+            SET("`name` = #{record.name,jdbcType=VARCHAR}");
         }
         
         if (record.getPhone() != null) {
@@ -120,7 +120,7 @@ public class UserSqlProvider {
         }
         
         if (record.getPassword() != null) {
-            SET("password = #{record.password,jdbcType=VARCHAR}");
+            SET("`password` = #{record.password,jdbcType=VARCHAR}");
         }
         
         if (record.getGender() != null) {
@@ -141,13 +141,13 @@ public class UserSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("user");
+        UPDATE("`user`");
         
         SET("id = #{record.id,jdbcType=BIGINT}");
         SET("head_image = #{record.headImage,jdbcType=VARCHAR}");
-        SET("name = #{record.name,jdbcType=VARCHAR}");
+        SET("`name` = #{record.name,jdbcType=VARCHAR}");
         SET("phone = #{record.phone,jdbcType=VARCHAR}");
-        SET("password = #{record.password,jdbcType=VARCHAR}");
+        SET("`password` = #{record.password,jdbcType=VARCHAR}");
         SET("gender = #{record.gender,jdbcType=INTEGER}");
         SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
@@ -159,14 +159,14 @@ public class UserSqlProvider {
 
     public String updateByPrimaryKeySelective(User record) {
         BEGIN();
-        UPDATE("user");
+        UPDATE("`user`");
         
         if (record.getHeadImage() != null) {
             SET("head_image = #{headImage,jdbcType=VARCHAR}");
         }
         
         if (record.getName() != null) {
-            SET("name = #{name,jdbcType=VARCHAR}");
+            SET("`name` = #{name,jdbcType=VARCHAR}");
         }
         
         if (record.getPhone() != null) {
@@ -174,7 +174,7 @@ public class UserSqlProvider {
         }
         
         if (record.getPassword() != null) {
-            SET("password = #{password,jdbcType=VARCHAR}");
+            SET("`password` = #{password,jdbcType=VARCHAR}");
         }
         
         if (record.getGender() != null) {

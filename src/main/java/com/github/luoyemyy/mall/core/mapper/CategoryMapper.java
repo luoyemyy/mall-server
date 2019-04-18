@@ -25,14 +25,14 @@ public interface CategoryMapper {
     int deleteByExample(CategoryExample example);
 
     @Delete({
-        "delete from category",
+        "delete from `category`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into category (name, sort, ",
-        "state)",
+        "insert into `category` (`name`, sort, ",
+        "`state`)",
         "values (#{name,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, ",
         "#{state,jdbcType=INTEGER})"
     })
@@ -54,8 +54,8 @@ public interface CategoryMapper {
 
     @Select({
         "select",
-        "id, name, sort, state",
-        "from category",
+        "id, `name`, sort, `state`",
+        "from `category`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
@@ -76,10 +76,10 @@ public interface CategoryMapper {
     int updateByPrimaryKeySelective(Category record);
 
     @Update({
-        "update category",
-        "set name = #{name,jdbcType=VARCHAR},",
+        "update `category`",
+        "set `name` = #{name,jdbcType=VARCHAR},",
           "sort = #{sort,jdbcType=INTEGER},",
-          "state = #{state,jdbcType=INTEGER}",
+          "`state` = #{state,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(Category record);

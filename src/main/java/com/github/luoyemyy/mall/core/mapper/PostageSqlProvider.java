@@ -25,21 +25,21 @@ public class PostageSqlProvider {
     public String countByExample(PostageExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("postage");
+        FROM("`postage`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(PostageExample example) {
         BEGIN();
-        DELETE_FROM("postage");
+        DELETE_FROM("`postage`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(Postage record) {
         BEGIN();
-        INSERT_INTO("postage");
+        INSERT_INTO("`postage`");
         
         if (record.getArea() != null) {
             VALUES("area", "#{area,jdbcType=VARCHAR}");
@@ -66,7 +66,7 @@ public class PostageSqlProvider {
         SELECT("area");
         SELECT("price");
         SELECT("post");
-        FROM("postage");
+        FROM("`postage`");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -81,7 +81,7 @@ public class PostageSqlProvider {
         PostageExample example = (PostageExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("postage");
+        UPDATE("`postage`");
         
         if (record.getId() != null) {
             SET("id = #{record.id,jdbcType=BIGINT}");
@@ -105,7 +105,7 @@ public class PostageSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("postage");
+        UPDATE("`postage`");
         
         SET("id = #{record.id,jdbcType=BIGINT}");
         SET("area = #{record.area,jdbcType=VARCHAR}");
@@ -119,7 +119,7 @@ public class PostageSqlProvider {
 
     public String updateByPrimaryKeySelective(Postage record) {
         BEGIN();
-        UPDATE("postage");
+        UPDATE("`postage`");
         
         if (record.getArea() != null) {
             SET("area = #{area,jdbcType=VARCHAR}");

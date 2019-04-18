@@ -25,28 +25,28 @@ public class AdminUserSqlProvider {
     public String countByExample(AdminUserExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("admin_user");
+        FROM("`admin_user`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(AdminUserExample example) {
         BEGIN();
-        DELETE_FROM("admin_user");
+        DELETE_FROM("`admin_user`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(AdminUser record) {
         BEGIN();
-        INSERT_INTO("admin_user");
+        INSERT_INTO("`admin_user`");
         
         if (record.getUserId() != null) {
             VALUES("user_id", "#{userId,jdbcType=BIGINT}");
         }
         
         if (record.getRole() != null) {
-            VALUES("role", "#{role,jdbcType=INTEGER}");
+            VALUES("`role`", "#{role,jdbcType=INTEGER}");
         }
         
         if (record.getToken() != null) {
@@ -54,7 +54,7 @@ public class AdminUserSqlProvider {
         }
         
         if (record.getState() != null) {
-            VALUES("state", "#{state,jdbcType=INTEGER}");
+            VALUES("`state`", "#{state,jdbcType=INTEGER}");
         }
         
         return SQL();
@@ -68,10 +68,10 @@ public class AdminUserSqlProvider {
             SELECT("id");
         }
         SELECT("user_id");
-        SELECT("role");
+        SELECT("`role`");
         SELECT("token");
-        SELECT("state");
-        FROM("admin_user");
+        SELECT("`state`");
+        FROM("`admin_user`");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -86,7 +86,7 @@ public class AdminUserSqlProvider {
         AdminUserExample example = (AdminUserExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("admin_user");
+        UPDATE("`admin_user`");
         
         if (record.getId() != null) {
             SET("id = #{record.id,jdbcType=BIGINT}");
@@ -97,7 +97,7 @@ public class AdminUserSqlProvider {
         }
         
         if (record.getRole() != null) {
-            SET("role = #{record.role,jdbcType=INTEGER}");
+            SET("`role` = #{record.role,jdbcType=INTEGER}");
         }
         
         if (record.getToken() != null) {
@@ -105,7 +105,7 @@ public class AdminUserSqlProvider {
         }
         
         if (record.getState() != null) {
-            SET("state = #{record.state,jdbcType=INTEGER}");
+            SET("`state` = #{record.state,jdbcType=INTEGER}");
         }
         
         applyWhere(example, true);
@@ -114,13 +114,13 @@ public class AdminUserSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("admin_user");
+        UPDATE("`admin_user`");
         
         SET("id = #{record.id,jdbcType=BIGINT}");
         SET("user_id = #{record.userId,jdbcType=BIGINT}");
-        SET("role = #{record.role,jdbcType=INTEGER}");
+        SET("`role` = #{record.role,jdbcType=INTEGER}");
         SET("token = #{record.token,jdbcType=VARCHAR}");
-        SET("state = #{record.state,jdbcType=INTEGER}");
+        SET("`state` = #{record.state,jdbcType=INTEGER}");
         
         AdminUserExample example = (AdminUserExample) parameter.get("example");
         applyWhere(example, true);
@@ -129,14 +129,14 @@ public class AdminUserSqlProvider {
 
     public String updateByPrimaryKeySelective(AdminUser record) {
         BEGIN();
-        UPDATE("admin_user");
+        UPDATE("`admin_user`");
         
         if (record.getUserId() != null) {
             SET("user_id = #{userId,jdbcType=BIGINT}");
         }
         
         if (record.getRole() != null) {
-            SET("role = #{role,jdbcType=INTEGER}");
+            SET("`role` = #{role,jdbcType=INTEGER}");
         }
         
         if (record.getToken() != null) {
@@ -144,7 +144,7 @@ public class AdminUserSqlProvider {
         }
         
         if (record.getState() != null) {
-            SET("state = #{state,jdbcType=INTEGER}");
+            SET("`state` = #{state,jdbcType=INTEGER}");
         }
         
         WHERE("id = #{id,jdbcType=BIGINT}");

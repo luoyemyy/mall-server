@@ -225,62 +225,62 @@ public class AdminUserExample {
         }
 
         public Criteria andRoleIsNull() {
-            addCriterion("role is null");
+            addCriterion("`role` is null");
             return (Criteria) this;
         }
 
         public Criteria andRoleIsNotNull() {
-            addCriterion("role is not null");
+            addCriterion("`role` is not null");
             return (Criteria) this;
         }
 
         public Criteria andRoleEqualTo(Integer value) {
-            addCriterion("role =", value, "role");
+            addCriterion("`role` =", value, "role");
             return (Criteria) this;
         }
 
         public Criteria andRoleNotEqualTo(Integer value) {
-            addCriterion("role <>", value, "role");
+            addCriterion("`role` <>", value, "role");
             return (Criteria) this;
         }
 
         public Criteria andRoleGreaterThan(Integer value) {
-            addCriterion("role >", value, "role");
+            addCriterion("`role` >", value, "role");
             return (Criteria) this;
         }
 
         public Criteria andRoleGreaterThanOrEqualTo(Integer value) {
-            addCriterion("role >=", value, "role");
+            addCriterion("`role` >=", value, "role");
             return (Criteria) this;
         }
 
         public Criteria andRoleLessThan(Integer value) {
-            addCriterion("role <", value, "role");
+            addCriterion("`role` <", value, "role");
             return (Criteria) this;
         }
 
         public Criteria andRoleLessThanOrEqualTo(Integer value) {
-            addCriterion("role <=", value, "role");
+            addCriterion("`role` <=", value, "role");
             return (Criteria) this;
         }
 
         public Criteria andRoleIn(List<Integer> values) {
-            addCriterion("role in", values, "role");
+            addCriterion("`role` in", values, "role");
             return (Criteria) this;
         }
 
         public Criteria andRoleNotIn(List<Integer> values) {
-            addCriterion("role not in", values, "role");
+            addCriterion("`role` not in", values, "role");
             return (Criteria) this;
         }
 
         public Criteria andRoleBetween(Integer value1, Integer value2) {
-            addCriterion("role between", value1, value2, "role");
+            addCriterion("`role` between", value1, value2, "role");
             return (Criteria) this;
         }
 
         public Criteria andRoleNotBetween(Integer value1, Integer value2) {
-            addCriterion("role not between", value1, value2, "role");
+            addCriterion("`role` not between", value1, value2, "role");
             return (Criteria) this;
         }
 
@@ -355,62 +355,62 @@ public class AdminUserExample {
         }
 
         public Criteria andStateIsNull() {
-            addCriterion("state is null");
+            addCriterion("`state` is null");
             return (Criteria) this;
         }
 
         public Criteria andStateIsNotNull() {
-            addCriterion("state is not null");
+            addCriterion("`state` is not null");
             return (Criteria) this;
         }
 
         public Criteria andStateEqualTo(Integer value) {
-            addCriterion("state =", value, "state");
+            addCriterion("`state` =", value, "state");
             return (Criteria) this;
         }
 
         public Criteria andStateNotEqualTo(Integer value) {
-            addCriterion("state <>", value, "state");
+            addCriterion("`state` <>", value, "state");
             return (Criteria) this;
         }
 
         public Criteria andStateGreaterThan(Integer value) {
-            addCriterion("state >", value, "state");
+            addCriterion("`state` >", value, "state");
             return (Criteria) this;
         }
 
         public Criteria andStateGreaterThanOrEqualTo(Integer value) {
-            addCriterion("state >=", value, "state");
+            addCriterion("`state` >=", value, "state");
             return (Criteria) this;
         }
 
         public Criteria andStateLessThan(Integer value) {
-            addCriterion("state <", value, "state");
+            addCriterion("`state` <", value, "state");
             return (Criteria) this;
         }
 
         public Criteria andStateLessThanOrEqualTo(Integer value) {
-            addCriterion("state <=", value, "state");
+            addCriterion("`state` <=", value, "state");
             return (Criteria) this;
         }
 
         public Criteria andStateIn(List<Integer> values) {
-            addCriterion("state in", values, "state");
+            addCriterion("`state` in", values, "state");
             return (Criteria) this;
         }
 
         public Criteria andStateNotIn(List<Integer> values) {
-            addCriterion("state not in", values, "state");
+            addCriterion("`state` not in", values, "state");
             return (Criteria) this;
         }
 
         public Criteria andStateBetween(Integer value1, Integer value2) {
-            addCriterion("state between", value1, value2, "state");
+            addCriterion("`state` between", value1, value2, "state");
             return (Criteria) this;
         }
 
         public Criteria andStateNotBetween(Integer value1, Integer value2) {
-            addCriterion("state not between", value1, value2, "state");
+            addCriterion("`state` not between", value1, value2, "state");
             return (Criteria) this;
         }
     }

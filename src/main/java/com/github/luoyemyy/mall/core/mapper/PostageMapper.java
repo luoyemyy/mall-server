@@ -25,13 +25,13 @@ public interface PostageMapper {
     int deleteByExample(PostageExample example);
 
     @Delete({
-        "delete from postage",
+        "delete from `postage`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into postage (area, price, ",
+        "insert into `postage` (area, price, ",
         "post)",
         "values (#{area,jdbcType=VARCHAR}, #{price,jdbcType=REAL}, ",
         "#{post,jdbcType=INTEGER})"
@@ -55,7 +55,7 @@ public interface PostageMapper {
     @Select({
         "select",
         "id, area, price, post",
-        "from postage",
+        "from `postage`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
@@ -76,7 +76,7 @@ public interface PostageMapper {
     int updateByPrimaryKeySelective(Postage record);
 
     @Update({
-        "update postage",
+        "update `postage`",
         "set area = #{area,jdbcType=VARCHAR},",
           "price = #{price,jdbcType=REAL},",
           "post = #{post,jdbcType=INTEGER}",

@@ -25,13 +25,13 @@ public interface HotProductMapper {
     int deleteByExample(HotProductExample example);
 
     @Delete({
-        "delete from hot_product",
+        "delete from `hot_product`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into hot_product (hot_id, product_id)",
+        "insert into `hot_product` (hot_id, product_id)",
         "values (#{hotId,jdbcType=BIGINT}, #{productId,jdbcType=BIGINT})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
@@ -52,7 +52,7 @@ public interface HotProductMapper {
     @Select({
         "select",
         "id, hot_id, product_id",
-        "from hot_product",
+        "from `hot_product`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
@@ -72,7 +72,7 @@ public interface HotProductMapper {
     int updateByPrimaryKeySelective(HotProduct record);
 
     @Update({
-        "update hot_product",
+        "update `hot_product`",
         "set hot_id = #{hotId,jdbcType=BIGINT},",
           "product_id = #{productId,jdbcType=BIGINT}",
         "where id = #{id,jdbcType=BIGINT}"

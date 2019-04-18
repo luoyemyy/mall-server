@@ -25,21 +25,21 @@ public class UserAddressSqlProvider {
     public String countByExample(UserAddressExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("user_address");
+        FROM("`user_address`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(UserAddressExample example) {
         BEGIN();
-        DELETE_FROM("user_address");
+        DELETE_FROM("`user_address`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(UserAddress record) {
         BEGIN();
-        INSERT_INTO("user_address");
+        INSERT_INTO("`user_address`");
         
         if (record.getUserId() != null) {
             VALUES("user_id", "#{userId,jdbcType=BIGINT}");
@@ -50,7 +50,7 @@ public class UserAddressSqlProvider {
         }
         
         if (record.getType() != null) {
-            VALUES("type", "#{type,jdbcType=INTEGER}");
+            VALUES("`type`", "#{type,jdbcType=INTEGER}");
         }
         
         return SQL();
@@ -65,8 +65,8 @@ public class UserAddressSqlProvider {
         }
         SELECT("user_id");
         SELECT("address_id");
-        SELECT("type");
-        FROM("user_address");
+        SELECT("`type`");
+        FROM("`user_address`");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -81,7 +81,7 @@ public class UserAddressSqlProvider {
         UserAddressExample example = (UserAddressExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("user_address");
+        UPDATE("`user_address`");
         
         if (record.getId() != null) {
             SET("id = #{record.id,jdbcType=BIGINT}");
@@ -96,7 +96,7 @@ public class UserAddressSqlProvider {
         }
         
         if (record.getType() != null) {
-            SET("type = #{record.type,jdbcType=INTEGER}");
+            SET("`type` = #{record.type,jdbcType=INTEGER}");
         }
         
         applyWhere(example, true);
@@ -105,12 +105,12 @@ public class UserAddressSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("user_address");
+        UPDATE("`user_address`");
         
         SET("id = #{record.id,jdbcType=BIGINT}");
         SET("user_id = #{record.userId,jdbcType=BIGINT}");
         SET("address_id = #{record.addressId,jdbcType=BIGINT}");
-        SET("type = #{record.type,jdbcType=INTEGER}");
+        SET("`type` = #{record.type,jdbcType=INTEGER}");
         
         UserAddressExample example = (UserAddressExample) parameter.get("example");
         applyWhere(example, true);
@@ -119,7 +119,7 @@ public class UserAddressSqlProvider {
 
     public String updateByPrimaryKeySelective(UserAddress record) {
         BEGIN();
-        UPDATE("user_address");
+        UPDATE("`user_address`");
         
         if (record.getUserId() != null) {
             SET("user_id = #{userId,jdbcType=BIGINT}");
@@ -130,7 +130,7 @@ public class UserAddressSqlProvider {
         }
         
         if (record.getType() != null) {
-            SET("type = #{type,jdbcType=INTEGER}");
+            SET("`type` = #{type,jdbcType=INTEGER}");
         }
         
         WHERE("id = #{id,jdbcType=BIGINT}");

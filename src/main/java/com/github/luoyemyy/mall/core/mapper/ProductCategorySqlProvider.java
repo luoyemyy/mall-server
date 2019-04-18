@@ -25,21 +25,21 @@ public class ProductCategorySqlProvider {
     public String countByExample(ProductCategoryExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("product_category");
+        FROM("`product_category`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(ProductCategoryExample example) {
         BEGIN();
-        DELETE_FROM("product_category");
+        DELETE_FROM("`product_category`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(ProductCategory record) {
         BEGIN();
-        INSERT_INTO("product_category");
+        INSERT_INTO("`product_category`");
         
         if (record.getProductId() != null) {
             VALUES("product_id", "#{productId,jdbcType=BIGINT}");
@@ -66,7 +66,7 @@ public class ProductCategorySqlProvider {
         SELECT("product_id");
         SELECT("category_id");
         SELECT("sort");
-        FROM("product_category");
+        FROM("`product_category`");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -81,7 +81,7 @@ public class ProductCategorySqlProvider {
         ProductCategoryExample example = (ProductCategoryExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("product_category");
+        UPDATE("`product_category`");
         
         if (record.getId() != null) {
             SET("id = #{record.id,jdbcType=BIGINT}");
@@ -105,7 +105,7 @@ public class ProductCategorySqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("product_category");
+        UPDATE("`product_category`");
         
         SET("id = #{record.id,jdbcType=BIGINT}");
         SET("product_id = #{record.productId,jdbcType=BIGINT}");
@@ -119,7 +119,7 @@ public class ProductCategorySqlProvider {
 
     public String updateByPrimaryKeySelective(ProductCategory record) {
         BEGIN();
-        UPDATE("product_category");
+        UPDATE("`product_category`");
         
         if (record.getProductId() != null) {
             SET("product_id = #{productId,jdbcType=BIGINT}");

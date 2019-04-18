@@ -25,14 +25,14 @@ public interface UserAddressMapper {
     int deleteByExample(UserAddressExample example);
 
     @Delete({
-        "delete from user_address",
+        "delete from `user_address`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into user_address (user_id, address_id, ",
-        "type)",
+        "insert into `user_address` (user_id, address_id, ",
+        "`type`)",
         "values (#{userId,jdbcType=BIGINT}, #{addressId,jdbcType=BIGINT}, ",
         "#{type,jdbcType=INTEGER})"
     })
@@ -54,8 +54,8 @@ public interface UserAddressMapper {
 
     @Select({
         "select",
-        "id, user_id, address_id, type",
-        "from user_address",
+        "id, user_id, address_id, `type`",
+        "from `user_address`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
@@ -76,10 +76,10 @@ public interface UserAddressMapper {
     int updateByPrimaryKeySelective(UserAddress record);
 
     @Update({
-        "update user_address",
+        "update `user_address`",
         "set user_id = #{userId,jdbcType=BIGINT},",
           "address_id = #{addressId,jdbcType=BIGINT},",
-          "type = #{type,jdbcType=INTEGER}",
+          "`type` = #{type,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(UserAddress record);

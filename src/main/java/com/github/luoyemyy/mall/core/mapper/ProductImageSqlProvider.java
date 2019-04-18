@@ -25,21 +25,21 @@ public class ProductImageSqlProvider {
     public String countByExample(ProductImageExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("product_image");
+        FROM("`product_image`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(ProductImageExample example) {
         BEGIN();
-        DELETE_FROM("product_image");
+        DELETE_FROM("`product_image`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(ProductImage record) {
         BEGIN();
-        INSERT_INTO("product_image");
+        INSERT_INTO("`product_image`");
         
         if (record.getProductId() != null) {
             VALUES("product_id", "#{productId,jdbcType=BIGINT}");
@@ -50,7 +50,7 @@ public class ProductImageSqlProvider {
         }
         
         if (record.getType() != null) {
-            VALUES("type", "#{type,jdbcType=INTEGER}");
+            VALUES("`type`", "#{type,jdbcType=INTEGER}");
         }
         
         if (record.getSort() != null) {
@@ -69,9 +69,9 @@ public class ProductImageSqlProvider {
         }
         SELECT("product_id");
         SELECT("image");
-        SELECT("type");
+        SELECT("`type`");
         SELECT("sort");
-        FROM("product_image");
+        FROM("`product_image`");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -86,7 +86,7 @@ public class ProductImageSqlProvider {
         ProductImageExample example = (ProductImageExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("product_image");
+        UPDATE("`product_image`");
         
         if (record.getId() != null) {
             SET("id = #{record.id,jdbcType=BIGINT}");
@@ -101,7 +101,7 @@ public class ProductImageSqlProvider {
         }
         
         if (record.getType() != null) {
-            SET("type = #{record.type,jdbcType=INTEGER}");
+            SET("`type` = #{record.type,jdbcType=INTEGER}");
         }
         
         if (record.getSort() != null) {
@@ -114,12 +114,12 @@ public class ProductImageSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("product_image");
+        UPDATE("`product_image`");
         
         SET("id = #{record.id,jdbcType=BIGINT}");
         SET("product_id = #{record.productId,jdbcType=BIGINT}");
         SET("image = #{record.image,jdbcType=VARCHAR}");
-        SET("type = #{record.type,jdbcType=INTEGER}");
+        SET("`type` = #{record.type,jdbcType=INTEGER}");
         SET("sort = #{record.sort,jdbcType=INTEGER}");
         
         ProductImageExample example = (ProductImageExample) parameter.get("example");
@@ -129,7 +129,7 @@ public class ProductImageSqlProvider {
 
     public String updateByPrimaryKeySelective(ProductImage record) {
         BEGIN();
-        UPDATE("product_image");
+        UPDATE("`product_image`");
         
         if (record.getProductId() != null) {
             SET("product_id = #{productId,jdbcType=BIGINT}");
@@ -140,7 +140,7 @@ public class ProductImageSqlProvider {
         }
         
         if (record.getType() != null) {
-            SET("type = #{type,jdbcType=INTEGER}");
+            SET("`type` = #{type,jdbcType=INTEGER}");
         }
         
         if (record.getSort() != null) {

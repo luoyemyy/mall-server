@@ -25,24 +25,24 @@ public class CategorySqlProvider {
     public String countByExample(CategoryExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("category");
+        FROM("`category`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(CategoryExample example) {
         BEGIN();
-        DELETE_FROM("category");
+        DELETE_FROM("`category`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(Category record) {
         BEGIN();
-        INSERT_INTO("category");
+        INSERT_INTO("`category`");
         
         if (record.getName() != null) {
-            VALUES("name", "#{name,jdbcType=VARCHAR}");
+            VALUES("`name`", "#{name,jdbcType=VARCHAR}");
         }
         
         if (record.getSort() != null) {
@@ -50,7 +50,7 @@ public class CategorySqlProvider {
         }
         
         if (record.getState() != null) {
-            VALUES("state", "#{state,jdbcType=INTEGER}");
+            VALUES("`state`", "#{state,jdbcType=INTEGER}");
         }
         
         return SQL();
@@ -63,10 +63,10 @@ public class CategorySqlProvider {
         } else {
             SELECT("id");
         }
-        SELECT("name");
+        SELECT("`name`");
         SELECT("sort");
-        SELECT("state");
-        FROM("category");
+        SELECT("`state`");
+        FROM("`category`");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -81,14 +81,14 @@ public class CategorySqlProvider {
         CategoryExample example = (CategoryExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("category");
+        UPDATE("`category`");
         
         if (record.getId() != null) {
             SET("id = #{record.id,jdbcType=BIGINT}");
         }
         
         if (record.getName() != null) {
-            SET("name = #{record.name,jdbcType=VARCHAR}");
+            SET("`name` = #{record.name,jdbcType=VARCHAR}");
         }
         
         if (record.getSort() != null) {
@@ -96,7 +96,7 @@ public class CategorySqlProvider {
         }
         
         if (record.getState() != null) {
-            SET("state = #{record.state,jdbcType=INTEGER}");
+            SET("`state` = #{record.state,jdbcType=INTEGER}");
         }
         
         applyWhere(example, true);
@@ -105,12 +105,12 @@ public class CategorySqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("category");
+        UPDATE("`category`");
         
         SET("id = #{record.id,jdbcType=BIGINT}");
-        SET("name = #{record.name,jdbcType=VARCHAR}");
+        SET("`name` = #{record.name,jdbcType=VARCHAR}");
         SET("sort = #{record.sort,jdbcType=INTEGER}");
-        SET("state = #{record.state,jdbcType=INTEGER}");
+        SET("`state` = #{record.state,jdbcType=INTEGER}");
         
         CategoryExample example = (CategoryExample) parameter.get("example");
         applyWhere(example, true);
@@ -119,10 +119,10 @@ public class CategorySqlProvider {
 
     public String updateByPrimaryKeySelective(Category record) {
         BEGIN();
-        UPDATE("category");
+        UPDATE("`category`");
         
         if (record.getName() != null) {
-            SET("name = #{name,jdbcType=VARCHAR}");
+            SET("`name` = #{name,jdbcType=VARCHAR}");
         }
         
         if (record.getSort() != null) {
@@ -130,7 +130,7 @@ public class CategorySqlProvider {
         }
         
         if (record.getState() != null) {
-            SET("state = #{state,jdbcType=INTEGER}");
+            SET("`state` = #{state,jdbcType=INTEGER}");
         }
         
         WHERE("id = #{id,jdbcType=BIGINT}");

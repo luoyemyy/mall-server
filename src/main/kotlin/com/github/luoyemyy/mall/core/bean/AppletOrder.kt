@@ -7,8 +7,8 @@ import io.swagger.annotations.ApiModelProperty
 class AppletOrder {
     @ApiModelProperty("总额")
     var money: Float = 0f
-    @ApiModelProperty("地址")
-    var address: AppletAddress? = null
+    @ApiModelProperty("地址Id")
+    var addressId: Long = 0
     @ApiModelProperty("邮费")
     var postage: Float = 0f
     @ApiModelProperty("产品")

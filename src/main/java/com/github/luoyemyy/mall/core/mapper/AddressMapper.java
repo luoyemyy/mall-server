@@ -25,13 +25,13 @@ public interface AddressMapper {
     int deleteByExample(AddressExample example);
 
     @Delete({
-        "delete from address",
+        "delete from `address`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into address (name, phone, ",
+        "insert into `address` (`name`, phone, ",
         "post_code, country, ",
         "province, city, ",
         "county, street, ",
@@ -66,8 +66,8 @@ public interface AddressMapper {
 
     @Select({
         "select",
-        "id, name, phone, post_code, country, province, city, county, street, summary",
-        "from address",
+        "id, `name`, phone, post_code, country, province, city, county, street, summary",
+        "from `address`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
@@ -94,8 +94,8 @@ public interface AddressMapper {
     int updateByPrimaryKeySelective(Address record);
 
     @Update({
-        "update address",
-        "set name = #{name,jdbcType=VARCHAR},",
+        "update `address`",
+        "set `name` = #{name,jdbcType=VARCHAR},",
           "phone = #{phone,jdbcType=VARCHAR},",
           "post_code = #{postCode,jdbcType=VARCHAR},",
           "country = #{country,jdbcType=VARCHAR},",

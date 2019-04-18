@@ -25,14 +25,14 @@ public interface AdminUserMapper {
     int deleteByExample(AdminUserExample example);
 
     @Delete({
-        "delete from admin_user",
+        "delete from `admin_user`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int deleteByPrimaryKey(Long id);
 
     @Insert({
-        "insert into admin_user (user_id, role, ",
-        "token, state)",
+        "insert into `admin_user` (user_id, `role`, ",
+        "token, `state`)",
         "values (#{userId,jdbcType=BIGINT}, #{role,jdbcType=INTEGER}, ",
         "#{token,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER})"
     })
@@ -55,8 +55,8 @@ public interface AdminUserMapper {
 
     @Select({
         "select",
-        "id, user_id, role, token, state",
-        "from admin_user",
+        "id, user_id, `role`, token, `state`",
+        "from `admin_user`",
         "where id = #{id,jdbcType=BIGINT}"
     })
     @Results({
@@ -78,11 +78,11 @@ public interface AdminUserMapper {
     int updateByPrimaryKeySelective(AdminUser record);
 
     @Update({
-        "update admin_user",
+        "update `admin_user`",
         "set user_id = #{userId,jdbcType=BIGINT},",
-          "role = #{role,jdbcType=INTEGER},",
+          "`role` = #{role,jdbcType=INTEGER},",
           "token = #{token,jdbcType=VARCHAR},",
-          "state = #{state,jdbcType=INTEGER}",
+          "`state` = #{state,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=BIGINT}"
     })
     int updateByPrimaryKey(AdminUser record);

@@ -25,28 +25,28 @@ public class ProductSqlProvider {
     public String countByExample(ProductExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("product");
+        FROM("`product`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(ProductExample example) {
         BEGIN();
-        DELETE_FROM("product");
+        DELETE_FROM("`product`");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(Product record) {
         BEGIN();
-        INSERT_INTO("product");
+        INSERT_INTO("`product`");
         
         if (record.getCoverImage() != null) {
             VALUES("cover_image", "#{coverImage,jdbcType=VARCHAR}");
         }
         
         if (record.getName() != null) {
-            VALUES("name", "#{name,jdbcType=VARCHAR}");
+            VALUES("`name`", "#{name,jdbcType=VARCHAR}");
         }
         
         if (record.getDescription() != null) {
@@ -66,7 +66,7 @@ public class ProductSqlProvider {
         }
         
         if (record.getOnline() != null) {
-            VALUES("online", "#{online,jdbcType=BIT}");
+            VALUES("`online`", "#{online,jdbcType=BIT}");
         }
         
         if (record.getSort() != null) {
@@ -78,7 +78,7 @@ public class ProductSqlProvider {
         }
         
         if (record.getStatus() != null) {
-            VALUES("status", "#{status,jdbcType=INTEGER}");
+            VALUES("`status`", "#{status,jdbcType=INTEGER}");
         }
         
         return SQL();
@@ -92,16 +92,16 @@ public class ProductSqlProvider {
             SELECT("id");
         }
         SELECT("cover_image");
-        SELECT("name");
+        SELECT("`name`");
         SELECT("description");
         SELECT("market_price");
         SELECT("actual_price");
         SELECT("stock");
-        SELECT("online");
+        SELECT("`online`");
         SELECT("sort");
         SELECT("create_time");
-        SELECT("status");
-        FROM("product");
+        SELECT("`status`");
+        FROM("`product`");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -116,7 +116,7 @@ public class ProductSqlProvider {
         ProductExample example = (ProductExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("product");
+        UPDATE("`product`");
         
         if (record.getId() != null) {
             SET("id = #{record.id,jdbcType=BIGINT}");
@@ -127,7 +127,7 @@ public class ProductSqlProvider {
         }
         
         if (record.getName() != null) {
-            SET("name = #{record.name,jdbcType=VARCHAR}");
+            SET("`name` = #{record.name,jdbcType=VARCHAR}");
         }
         
         if (record.getDescription() != null) {
@@ -147,7 +147,7 @@ public class ProductSqlProvider {
         }
         
         if (record.getOnline() != null) {
-            SET("online = #{record.online,jdbcType=BIT}");
+            SET("`online` = #{record.online,jdbcType=BIT}");
         }
         
         if (record.getSort() != null) {
@@ -159,7 +159,7 @@ public class ProductSqlProvider {
         }
         
         if (record.getStatus() != null) {
-            SET("status = #{record.status,jdbcType=INTEGER}");
+            SET("`status` = #{record.status,jdbcType=INTEGER}");
         }
         
         applyWhere(example, true);
@@ -168,19 +168,19 @@ public class ProductSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("product");
+        UPDATE("`product`");
         
         SET("id = #{record.id,jdbcType=BIGINT}");
         SET("cover_image = #{record.coverImage,jdbcType=VARCHAR}");
-        SET("name = #{record.name,jdbcType=VARCHAR}");
+        SET("`name` = #{record.name,jdbcType=VARCHAR}");
         SET("description = #{record.description,jdbcType=VARCHAR}");
         SET("market_price = #{record.marketPrice,jdbcType=REAL}");
         SET("actual_price = #{record.actualPrice,jdbcType=REAL}");
         SET("stock = #{record.stock,jdbcType=INTEGER}");
-        SET("online = #{record.online,jdbcType=BIT}");
+        SET("`online` = #{record.online,jdbcType=BIT}");
         SET("sort = #{record.sort,jdbcType=INTEGER}");
         SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
-        SET("status = #{record.status,jdbcType=INTEGER}");
+        SET("`status` = #{record.status,jdbcType=INTEGER}");
         
         ProductExample example = (ProductExample) parameter.get("example");
         applyWhere(example, true);
@@ -189,14 +189,14 @@ public class ProductSqlProvider {
 
     public String updateByPrimaryKeySelective(Product record) {
         BEGIN();
-        UPDATE("product");
+        UPDATE("`product`");
         
         if (record.getCoverImage() != null) {
             SET("cover_image = #{coverImage,jdbcType=VARCHAR}");
         }
         
         if (record.getName() != null) {
-            SET("name = #{name,jdbcType=VARCHAR}");
+            SET("`name` = #{name,jdbcType=VARCHAR}");
         }
         
         if (record.getDescription() != null) {
@@ -216,7 +216,7 @@ public class ProductSqlProvider {
         }
         
         if (record.getOnline() != null) {
-            SET("online = #{online,jdbcType=BIT}");
+            SET("`online` = #{online,jdbcType=BIT}");
         }
         
         if (record.getSort() != null) {
@@ -228,7 +228,7 @@ public class ProductSqlProvider {
         }
         
         if (record.getStatus() != null) {
-            SET("status = #{status,jdbcType=INTEGER}");
+            SET("`status` = #{status,jdbcType=INTEGER}");
         }
         
         WHERE("id = #{id,jdbcType=BIGINT}");

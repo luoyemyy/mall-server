@@ -9,8 +9,10 @@ import com.github.luoyemyy.mall.core.bean.AppletOrderProduct
 import com.github.luoyemyy.mall.core.bean.AppletOrderResult
 import com.github.luoyemyy.mall.core.dao.BatchDao
 import com.github.luoyemyy.mall.core.dao.WeChatDao
+import com.github.luoyemyy.mall.core.entity.Address
 import com.github.luoyemyy.mall.core.entity.Order
 import com.github.luoyemyy.mall.core.entity.ProductExample
+import com.github.luoyemyy.mall.core.mapper.AddressMapper
 import com.github.luoyemyy.mall.core.mapper.OrderMapper
 import com.github.luoyemyy.mall.core.mapper.ProductMapper
 import com.github.luoyemyy.mall.core.service.HttpService
@@ -56,6 +58,8 @@ class WxPayService {
     private lateinit var batchDao: BatchDao
     @Autowired
     private lateinit var mockWxPay: MockWxPay
+    @Autowired
+    private lateinit var addressMapper: AddressMapper
 
 
     private fun bookOrderCheckUser(userId: Long): String {
@@ -63,8 +67,8 @@ class WxPayService {
         return weChat.openId ?: throw MallException(Code.BOOK_ORDER_USER_ERROR)
     }
 
-    private fun bookOrderCheckPostage(productMoney: Float, postage: Float, address: AppletAddress): Float {
-        val match = appletPostageService.match(address.id)
+    private fun bookOrderCheckPostage(productMoney: Float, postage: Float, addressId: Long): Float {
+        val match = appletPostageService.match(addressId)
         if (match != null && match.post == 1) {
             val free = appletPostageService.free()
             if ((free > 0f && productMoney >= free && postage == 0f) || (free == 0f && postage == match.price)) {
@@ -77,10 +81,9 @@ class WxPayService {
     private fun bookOrderCheckProduct(products: List<AppletOrderProduct>?): Float {
         if (products.isNullOrEmpty()) throw MallException(Code.BOOK_ORDER_PRODUCT_ERROR)
         var orderMoney = 0f
-        val orderProductDesc = StringBuilder()
+        val orderProductDesc = products.joinToString(","){"${it.productId}=${it.price}"}
         val productIds = products.map {
             orderMoney += it.count * it.price
-            orderProductDesc.append("${it.productId}=${it.price}").append(",")
             it.productId
         }
         if (productIds.isNullOrEmpty()) {
@@ -91,15 +94,15 @@ class WxPayService {
         })?.joinToString(",") {
             "${it.id}=${it.actualPrice}"
         }
-        if (productDesc != orderProductDesc.toString()) {
+        if (productDesc != orderProductDesc) {
             throw MallException(Code.BOOK_ORDER_PRODUCT_ERROR)
         }
 
         return orderMoney
     }
 
-    private fun bookOrderCheckAddress(address: AppletAddress?): AppletAddress {
-        if (address == null) throw MallException(Code.BOOK_ORDER_ADDRESS_ERROR)
+    private fun bookOrderCheckAddress(addressId: Long): Address {
+        val address = addressMapper.selectByPrimaryKey(addressId)?: throw MallException(Code.BOOK_ORDER_ADDRESS_ERROR)
         if (address.name.isNullOrEmpty() || address.phone.isNullOrEmpty() || address.summary.isNullOrEmpty() || address.postCode.isNullOrEmpty()) {
             throw MallException(Code.BOOK_ORDER_ADDRESS_ERROR)
         }
@@ -113,11 +116,11 @@ class WxPayService {
         //检验用户
         val openId = bookOrderCheckUser(userId)
         //检验地址
-        val address = bookOrderCheckAddress(appletOrder.address)
+        val address = bookOrderCheckAddress(appletOrder.addressId)
         //检验产品和价格
         val orderProductMoney = bookOrderCheckProduct(appletOrder.products)
         //检验邮费
-        val postage = bookOrderCheckPostage(orderProductMoney, appletOrder.postage, address)
+        val postage = bookOrderCheckPostage(orderProductMoney, appletOrder.postage, appletOrder.addressId)
         //检验金额
         if (postage + orderProductMoney != appletOrder.money) {
             throw MallException(Code.BOOK_ORDER_MONEY_ERROR)
@@ -127,7 +130,7 @@ class WxPayService {
             this.orderNo = newOrderNo()
             this.userId = userId
             this.state = 0
-            this.money = money
+            this.money = appletOrder.money
             this.postage = postage
             this.username = address.name
             this.phone = address.phone
