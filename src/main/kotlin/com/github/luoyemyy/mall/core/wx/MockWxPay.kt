@@ -10,6 +10,7 @@ import com.github.luoyemyy.mall.core.mapper.OrderMapper
 import com.github.luoyemyy.mall.util.newOrderNo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class MockWxPay {
@@ -22,13 +23,18 @@ class MockWxPay {
         order.wxPayId = newOrderNo()
         if (orderMapper.insert(order) > 0) {
             if (batchDao.insertOrderProduct(order.id, appletOrder.products)) {
-                return AppletBookOrderResult().also {
-                    it.orderId = order.id
-                    it.payId = order.wxPayId
-                    it.mock = true
-                }
+                return bookPay(order)
             }
         }
         throw MallException(Code.BOOK_ORDER_FAIL)
+    }
+
+    fun bookPay(order: Order):AppletBookOrderResult{
+        return AppletBookOrderResult().also {
+            it.orderId = order.id
+            it.payId = order.wxPayId
+            it.mock = true
+            it.buildParams()
+        }
     }
 }

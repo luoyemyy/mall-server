@@ -34,6 +34,8 @@ class AppletOrderInfo {
     var wxPayId: String? = null
     @ApiModelProperty("微信支付编号")
     var wxOrderId: String? = null
+    @ApiModelProperty("支付截止时间")
+    var payLimitTime: Date? = null
 
     @ApiModelProperty("产品")
     var products: List<AppletOrderProduct>? = null

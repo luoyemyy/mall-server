@@ -10,6 +10,7 @@ import com.github.luoyemyy.mall.core.dao.BatchDao
 import com.github.luoyemyy.mall.core.dao.WeChatDao
 import com.github.luoyemyy.mall.core.entity.Address
 import com.github.luoyemyy.mall.core.entity.Order
+import com.github.luoyemyy.mall.core.entity.OrderExample
 import com.github.luoyemyy.mall.core.entity.ProductExample
 import com.github.luoyemyy.mall.core.mapper.AddressMapper
 import com.github.luoyemyy.mall.core.mapper.OrderMapper
@@ -22,6 +23,7 @@ import com.github.luoyemyy.mall.util.newOrderNo
 import com.github.luoyemyy.mall.util.xmlToObject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Service
@@ -165,6 +167,35 @@ class WxPayService {
         throw MallException(Code.BOOK_ORDER_FAIL)
     }
 
+    @Transactional
+    fun bookPaySuccess(userId: Long, orderId: Long): Boolean {
+        val order = orderMapper.selectByExample(OrderExample().apply {
+            createCriteria().andUserIdEqualTo(userId).andIdEqualTo(orderId)
+        })?.firstOrNull() ?: throw MallException(Code.ORDER_NOT_EXIST)
+        order.updateTime = Date()
+        order.state = 1
+        return orderMapper.updateByPrimaryKeySelective(order) > 0
+    }
+
+    fun bookPayRetry(userId: Long, orderId: Long): AppletBookOrderResult {
+        val order = orderMapper.selectByExample(OrderExample().apply {
+            createCriteria().andUserIdEqualTo(userId).andIdEqualTo(orderId)
+        })?.firstOrNull() ?: throw MallException(Code.ORDER_NOT_EXIST)
+        order.updateTime?.apply {
+            if (this.time + 30 * 60 * 1000 > System.currentTimeMillis()) {
+                return if (appletInfo.payMock) {
+                    mockWxPay.bookPay(order)
+                } else {
+                    AppletBookOrderResult().also {
+                        it.orderId = order.id
+                        it.payId = order.wxPayId
+                        it.buildParams()
+                    }
+                }
+            }
+        }
+        throw MallException(Code.ORDER_CANCELED)
+    }
 
     /**
      * 查订单

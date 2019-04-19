@@ -97,6 +97,11 @@ class AppletOrderService {
     fun info(userId: Long, orderId: Long): AppletOrderInfo {
         return orderDao.selectOrderInfo(userId, orderId)?.apply {
             products = getOrderProducts(orderId)
+            if (state == 0) {
+                payLimitTime = updateTime?.let {
+                    Date(it.time + 30 * 60 * 1000)
+                }
+            }
         } ?: throw MallException(Code.ORDER_NOT_EXIST)
     }
 
