@@ -3,10 +3,9 @@ package com.github.luoyemyy.mall.core.wx
 import com.github.luoyemyy.mall.base.advice.Code
 import com.github.luoyemyy.mall.base.advice.MallException
 import com.github.luoyemyy.mall.base.config.AppletInfo
-import com.github.luoyemyy.mall.core.bean.AppletAddress
-import com.github.luoyemyy.mall.core.bean.AppletOrder
-import com.github.luoyemyy.mall.core.bean.AppletOrderProduct
-import com.github.luoyemyy.mall.core.bean.AppletOrderResult
+import com.github.luoyemyy.mall.core.bean.AppletBookOrder
+import com.github.luoyemyy.mall.core.bean.AppletBookOrderProduct
+import com.github.luoyemyy.mall.core.bean.AppletBookOrderResult
 import com.github.luoyemyy.mall.core.dao.BatchDao
 import com.github.luoyemyy.mall.core.dao.WeChatDao
 import com.github.luoyemyy.mall.core.entity.Address
@@ -78,10 +77,10 @@ class WxPayService {
         throw MallException(Code.BOOK_ORDER_ADDRESS_ERROR)
     }
 
-    private fun bookOrderCheckProduct(products: List<AppletOrderProduct>?): Float {
+    private fun bookOrderCheckProduct(products: List<AppletBookOrderProduct>?): Float {
         if (products.isNullOrEmpty()) throw MallException(Code.BOOK_ORDER_PRODUCT_ERROR)
         var orderMoney = 0f
-        val orderProductDesc = products.joinToString(","){"${it.productId}=${it.price}"}
+        val orderProductDesc = products.joinToString(",") { "${it.productId}=${it.price}" }
         val productIds = products.map {
             orderMoney += it.count * it.price
             it.productId
@@ -102,7 +101,7 @@ class WxPayService {
     }
 
     private fun bookOrderCheckAddress(addressId: Long): Address {
-        val address = addressMapper.selectByPrimaryKey(addressId)?: throw MallException(Code.BOOK_ORDER_ADDRESS_ERROR)
+        val address = addressMapper.selectByPrimaryKey(addressId) ?: throw MallException(Code.BOOK_ORDER_ADDRESS_ERROR)
         if (address.name.isNullOrEmpty() || address.phone.isNullOrEmpty() || address.summary.isNullOrEmpty() || address.postCode.isNullOrEmpty()) {
             throw MallException(Code.BOOK_ORDER_ADDRESS_ERROR)
         }
@@ -112,7 +111,7 @@ class WxPayService {
     /**
      * 下单
      */
-    fun bookOrder(userId: Long, appletOrder: AppletOrder): AppletOrderResult {
+    fun bookOrder(userId: Long, appletOrder: AppletBookOrder): AppletBookOrderResult {
         //检验用户
         val openId = bookOrderCheckUser(userId)
         //检验地址
@@ -154,9 +153,10 @@ class WxPayService {
                 order.wxPayId = prepay_id
                 if (orderMapper.insert(order) > 0) {
                     if (batchDao.insertOrderProduct(order.id, appletOrder.products)) {
-                        return AppletOrderResult().also {
+                        return AppletBookOrderResult().also {
                             it.orderId = order.id
                             it.payId = prepay_id
+                            it.buildParams()
                         }
                     }
                 }

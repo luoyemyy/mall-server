@@ -23,6 +23,8 @@ object Code {
     const val BOOK_ORDER_PRODUCT_ERROR = 14
     const val BOOK_ORDER_FAIL = 15
 
+    const val ORDER_NOT_EXIST = 16
+
 
     private val map = mapOf(
             SUCCESS to "请求成功",
@@ -41,7 +43,8 @@ object Code {
             BOOK_ORDER_MONEY_ERROR to "金额校验失败",
             BOOK_ORDER_ADDRESS_ERROR to "地址校验失败",
             BOOK_ORDER_PRODUCT_ERROR to "产品校验失败",
-            BOOK_ORDER_FAIL to "下单失败"
+            BOOK_ORDER_FAIL to "下单失败",
+            ORDER_NOT_EXIST to "订单不存在"
     )
 
     fun msg(code: Int): String {

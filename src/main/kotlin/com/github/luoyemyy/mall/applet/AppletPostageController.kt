@@ -4,6 +4,7 @@ package com.github.luoyemyy.mall.applet
 
 import com.github.luoyemyy.mall.base.BaseController
 import com.github.luoyemyy.mall.base.aspect.RequestAdmin
+import com.github.luoyemyy.mall.base.aspect.RequestApplet
 import com.github.luoyemyy.mall.base.response.*
 import com.github.luoyemyy.mall.core.bean.*
 import com.github.luoyemyy.mall.core.service2.AppletPostageService
@@ -26,7 +27,7 @@ class AppletPostageController : BaseController() {
      *
      */
     @ApiOperation("获得匹配的邮费")
-    @RequestAdmin
+    @RequestApplet(needLogin = false)
     @ApiImplicitParams(value = [
         ApiImplicitParam(name = "addressId", value = "地址id", required = true, dataTypeClass = Long::class)])
     @GetMapping("match")
@@ -35,7 +36,7 @@ class AppletPostageController : BaseController() {
     }
 
     @ApiOperation("免邮总额")
-    @RequestAdmin
+    @RequestApplet(needLogin = false)
     @GetMapping("free")
     fun free(): DataResponse<Float> {
         return dataResponse(appletPostageService.free())

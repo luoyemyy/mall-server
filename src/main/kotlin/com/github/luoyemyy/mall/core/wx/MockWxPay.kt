@@ -2,8 +2,8 @@ package com.github.luoyemyy.mall.core.wx
 
 import com.github.luoyemyy.mall.base.advice.Code
 import com.github.luoyemyy.mall.base.advice.MallException
-import com.github.luoyemyy.mall.core.bean.AppletOrder
-import com.github.luoyemyy.mall.core.bean.AppletOrderResult
+import com.github.luoyemyy.mall.core.bean.AppletBookOrder
+import com.github.luoyemyy.mall.core.bean.AppletBookOrderResult
 import com.github.luoyemyy.mall.core.dao.BatchDao
 import com.github.luoyemyy.mall.core.entity.Order
 import com.github.luoyemyy.mall.core.mapper.OrderMapper
@@ -18,11 +18,11 @@ class MockWxPay {
     @Autowired
     private lateinit var batchDao: BatchDao
 
-    fun bookOrder(order: Order,appletOrder: AppletOrder):AppletOrderResult{
+    fun bookOrder(order: Order,appletOrder: AppletBookOrder):AppletBookOrderResult{
         order.wxPayId = newOrderNo()
         if (orderMapper.insert(order) > 0) {
             if (batchDao.insertOrderProduct(order.id, appletOrder.products)) {
-                return AppletOrderResult().also {
+                return AppletBookOrderResult().also {
                     it.orderId = order.id
                     it.payId = order.wxPayId
                     it.mock = true

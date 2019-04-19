@@ -27,7 +27,7 @@ class AppletUserController {
     @ApiImplicitParams(value = [
         ApiImplicitParam(name = "code", value = "授权码", paramType = "body", required = true, dataTypeClass = String::class)])
     @GetMapping("login")
-    fun list(code: String): DataResponse<AppletLoginUser> {
+    fun login(code: String): DataResponse<AppletLoginUser> {
         return dataResponse(appletUserService.login(code))
     }
 

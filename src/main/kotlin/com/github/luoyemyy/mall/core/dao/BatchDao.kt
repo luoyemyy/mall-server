@@ -1,6 +1,6 @@
 package com.github.luoyemyy.mall.core.dao
 
-import com.github.luoyemyy.mall.core.bean.AppletOrderProduct
+import com.github.luoyemyy.mall.core.bean.AppletBookOrderProduct
 import com.github.luoyemyy.mall.core.bean.PostageBean
 import com.github.luoyemyy.mall.core.bean.SortBean
 import com.github.luoyemyy.mall.core.entity.ProductCategory
@@ -84,7 +84,7 @@ class BatchDao {
         jdbcTemplate.batchUpdate(*sql)
     }
 
-    fun insertOrderProduct(orderId: Long, list: List<AppletOrderProduct>?): Boolean {
+    fun insertOrderProduct(orderId: Long, list: List<AppletBookOrderProduct>?): Boolean {
         if (list.isNullOrEmpty()) return false
         val sql = list.map {
             "insert into order_product (order_id, product_id, count, price) values ($orderId,${it.productId},${it.count},${it.price})"

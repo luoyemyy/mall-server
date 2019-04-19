@@ -1,6 +1,7 @@
 package com.github.luoyemyy.mall.core.dao
 
 import com.github.luoyemyy.mall.core.bean.AppletCart
+import com.github.luoyemyy.mall.core.bean.AppletOrderProduct
 import com.github.luoyemyy.mall.core.bean.ProductBean
 import com.github.luoyemyy.mall.core.bean.ProductDetail
 import org.apache.ibatis.annotations.Result
@@ -92,4 +93,16 @@ interface ProductDao {
         Result(column = "actual_price", property = "actualPrice", jdbcType = JdbcType.REAL),
         Result(column = "count", property = "count", jdbcType = JdbcType.INTEGER)])
     fun selectCartProducts(userId: Long): List<AppletCart>?
+
+    @Select("""
+        select p.id,p.name,p.cover_image,op.price,op.count from order_product op
+        inner join product p on op.product_id = p.id
+        where op.order_id=#{orderId}
+    """)
+    @Results(value = [Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
+        Result(column = "cover_image", property = "coverImage", jdbcType = JdbcType.VARCHAR),
+        Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
+        Result(column = "price", property = "price", jdbcType = JdbcType.REAL),
+        Result(column = "count", property = "count", jdbcType = JdbcType.INTEGER)])
+    fun selectOrderProducts(orderId: Long): List<AppletOrderProduct>?
 }

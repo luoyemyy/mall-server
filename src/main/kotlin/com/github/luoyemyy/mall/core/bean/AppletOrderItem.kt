@@ -2,15 +2,17 @@ package com.github.luoyemyy.mall.core.bean
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
+import java.util.*
 
-@ApiModel("微信邮费")
-class AppletOrder {
-    @ApiModelProperty("总额")
+@ApiModel("微信订单列表")
+class AppletOrderItem {
+    @ApiModelProperty("订单id")
+    var id: Long = 0
+    @ApiModelProperty("状态")
+    var state: Int = 0
+    @ApiModelProperty("金额")
     var money: Float = 0f
-    @ApiModelProperty("地址Id")
-    var addressId: Long = 0
-    @ApiModelProperty("邮费")
-    var postage: Float = 0f
+
     @ApiModelProperty("产品")
     var products: List<AppletOrderProduct>? = null
 }

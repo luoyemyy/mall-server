@@ -6,8 +6,8 @@ import com.github.luoyemyy.mall.base.BaseController
 import com.github.luoyemyy.mall.base.aspect.RequestApplet
 import com.github.luoyemyy.mall.base.response.DataResponse
 import com.github.luoyemyy.mall.base.response.dataResponse
-import com.github.luoyemyy.mall.core.bean.AppletOrder
-import com.github.luoyemyy.mall.core.bean.AppletOrderResult
+import com.github.luoyemyy.mall.core.bean.AppletBookOrder
+import com.github.luoyemyy.mall.core.bean.AppletBookOrderResult
 import com.github.luoyemyy.mall.core.wx.WxPayService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
@@ -31,7 +31,7 @@ class AppletPayController : BaseController() {
     @ApiOperation("下单")
     @RequestApplet
     @PostMapping("book")
-    fun book(@RequestBody order: AppletOrder): DataResponse<AppletOrderResult> {
+    fun book(@RequestBody order: AppletBookOrder): DataResponse<AppletBookOrderResult> {
         return dataResponse(wxPayService.bookOrder(userId(), order))
     }
 
