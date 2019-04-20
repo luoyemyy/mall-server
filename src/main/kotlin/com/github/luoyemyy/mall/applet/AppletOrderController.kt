@@ -40,10 +40,12 @@ class AppletOrderController : BaseController() {
     @ApiOperation("订单列表")
     @RequestApplet
     @ApiImplicitParams(value = [
-        ApiImplicitParam(name = "type", value = "1 待支付 2 待收货 3 退款、退货 4 全部", required = true, dataTypeClass = Int::class)])
+        ApiImplicitParam(name = "type", value = "1 待支付 2 待收货 3 退款、退货 4 全部", required = true, dataTypeClass = Int::class),
+        ApiImplicitParam(name = "page", value = "页码", required = true, dataTypeClass = Int::class)
+    ])
     @GetMapping("list")
-    fun list(type: Int): ListResponse<AppletOrderItem> {
-        return listResponse(appletOrderService.list(userId(), type))
+    fun list(type: Int, page: Int): ListResponse<AppletOrderItem> {
+        return listResponse(appletOrderService.list(userId(), type, page))
     }
 
     /**

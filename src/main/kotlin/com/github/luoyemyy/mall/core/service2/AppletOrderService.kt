@@ -11,6 +11,7 @@ import com.github.luoyemyy.mall.core.dao.ProductDao
 import com.github.luoyemyy.mall.core.entity.Order
 import com.github.luoyemyy.mall.core.entity.OrderExample
 import com.github.luoyemyy.mall.core.mapper.OrderMapper
+import com.github.luoyemyy.mall.util.toPageStart
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -77,7 +78,7 @@ class AppletOrderService {
      * @param type 1 待支付 2 待收货 3 退款、退货 4 全部
      */
     @Transactional
-    fun list(userId: Long, type: Int): List<AppletOrderItem> {
+    fun list(userId: Long, type: Int, page: Int): List<AppletOrderItem> {
         val state = when (type) {
             1 -> listOf(0)
             2 -> listOf(1, 2, 3)
@@ -86,9 +87,9 @@ class AppletOrderService {
         }
         updateTimeout(userId)
         return if (type == 4) {
-            orderDao.selectOrderItemAll(userId)
+            orderDao.selectOrderItemByPage(userId, page.toPageStart())
         } else {
-            orderDao.selectOrderItemByState(userId, state.joinToString(","))
+            orderDao.selectOrderItemByStatePage(userId, state, page.toPageStart())
         }?.apply {
             forEach { it.products = getOrderProducts(it.id) }
         } ?: listOf()

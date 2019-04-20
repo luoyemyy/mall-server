@@ -82,7 +82,7 @@ class WxPayService {
     private fun bookOrderCheckProduct(products: List<AppletBookOrderProduct>?): Float {
         if (products.isNullOrEmpty()) throw MallException(Code.BOOK_ORDER_PRODUCT_ERROR)
         var orderMoney = 0f
-        val orderProductDesc = products.joinToString(",") { "${it.productId}=${it.price}" }
+        val orderProductDesc = products.sortedBy { it.productId }.joinToString(",") { "${it.productId}=${it.price}" }
         val productIds = products.map {
             orderMoney += it.count * it.price
             it.productId
@@ -92,7 +92,7 @@ class WxPayService {
         }
         val productDesc = productMapper.selectByExample(ProductExample().apply {
             createCriteria().andStatusEqualTo(1).andIdIn(productIds)
-        })?.joinToString(",") {
+        })?.sortedBy { it.id }?.joinToString(",") {
             "${it.id}=${it.actualPrice}"
         }
         if (productDesc != orderProductDesc) {
