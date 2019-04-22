@@ -93,6 +93,26 @@ public class OrderSqlProvider {
             VALUES("wx_order_id", "#{wxOrderId,jdbcType=VARCHAR}");
         }
         
+        if (record.getExpressCompany() != null) {
+            VALUES("express_company", "#{expressCompany,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getExpressNo() != null) {
+            VALUES("express_no", "#{expressNo,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getCancelReason() != null) {
+            VALUES("cancel_reason", "#{cancelReason,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getRefuseOrderNo() != null) {
+            VALUES("refuse_order_no", "#{refuseOrderNo,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getRefuseWxNo() != null) {
+            VALUES("refuse_wx_no", "#{refuseWxNo,jdbcType=VARCHAR}");
+        }
+        
         if (record.getStatus() != null) {
             VALUES("`status`", "#{status,jdbcType=INTEGER}");
         }
@@ -120,6 +140,11 @@ public class OrderSqlProvider {
         SELECT("update_time");
         SELECT("wx_pay_id");
         SELECT("wx_order_id");
+        SELECT("express_company");
+        SELECT("express_no");
+        SELECT("cancel_reason");
+        SELECT("refuse_order_no");
+        SELECT("refuse_wx_no");
         SELECT("`status`");
         FROM("`order`");
         applyWhere(example, false);
@@ -194,6 +219,26 @@ public class OrderSqlProvider {
             SET("wx_order_id = #{record.wxOrderId,jdbcType=VARCHAR}");
         }
         
+        if (record.getExpressCompany() != null) {
+            SET("express_company = #{record.expressCompany,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getExpressNo() != null) {
+            SET("express_no = #{record.expressNo,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getCancelReason() != null) {
+            SET("cancel_reason = #{record.cancelReason,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getRefuseOrderNo() != null) {
+            SET("refuse_order_no = #{record.refuseOrderNo,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getRefuseWxNo() != null) {
+            SET("refuse_wx_no = #{record.refuseWxNo,jdbcType=VARCHAR}");
+        }
+        
         if (record.getStatus() != null) {
             SET("`status` = #{record.status,jdbcType=INTEGER}");
         }
@@ -220,6 +265,11 @@ public class OrderSqlProvider {
         SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         SET("wx_pay_id = #{record.wxPayId,jdbcType=VARCHAR}");
         SET("wx_order_id = #{record.wxOrderId,jdbcType=VARCHAR}");
+        SET("express_company = #{record.expressCompany,jdbcType=VARCHAR}");
+        SET("express_no = #{record.expressNo,jdbcType=VARCHAR}");
+        SET("cancel_reason = #{record.cancelReason,jdbcType=VARCHAR}");
+        SET("refuse_order_no = #{record.refuseOrderNo,jdbcType=VARCHAR}");
+        SET("refuse_wx_no = #{record.refuseWxNo,jdbcType=VARCHAR}");
         SET("`status` = #{record.status,jdbcType=INTEGER}");
         
         OrderExample example = (OrderExample) parameter.get("example");
@@ -281,6 +331,26 @@ public class OrderSqlProvider {
         
         if (record.getWxOrderId() != null) {
             SET("wx_order_id = #{wxOrderId,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getExpressCompany() != null) {
+            SET("express_company = #{expressCompany,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getExpressNo() != null) {
+            SET("express_no = #{expressNo,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getCancelReason() != null) {
+            SET("cancel_reason = #{cancelReason,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getRefuseOrderNo() != null) {
+            SET("refuse_order_no = #{refuseOrderNo,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getRefuseWxNo() != null) {
+            SET("refuse_wx_no = #{refuseWxNo,jdbcType=VARCHAR}");
         }
         
         if (record.getStatus() != null) {

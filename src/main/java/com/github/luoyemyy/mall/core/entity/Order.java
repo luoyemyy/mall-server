@@ -31,6 +31,16 @@ public class Order {
 
     private String wxOrderId;
 
+    private String expressCompany;
+
+    private String expressNo;
+
+    private String cancelReason;
+
+    private String refuseOrderNo;
+
+    private String refuseWxNo;
+
     private Integer status;
 
     public Long getId() {
@@ -143,6 +153,46 @@ public class Order {
 
     public void setWxOrderId(String wxOrderId) {
         this.wxOrderId = wxOrderId == null ? null : wxOrderId.trim();
+    }
+
+    public String getExpressCompany() {
+        return expressCompany;
+    }
+
+    public void setExpressCompany(String expressCompany) {
+        this.expressCompany = expressCompany == null ? null : expressCompany.trim();
+    }
+
+    public String getExpressNo() {
+        return expressNo;
+    }
+
+    public void setExpressNo(String expressNo) {
+        this.expressNo = expressNo == null ? null : expressNo.trim();
+    }
+
+    public String getCancelReason() {
+        return cancelReason;
+    }
+
+    public void setCancelReason(String cancelReason) {
+        this.cancelReason = cancelReason == null ? null : cancelReason.trim();
+    }
+
+    public String getRefuseOrderNo() {
+        return refuseOrderNo;
+    }
+
+    public void setRefuseOrderNo(String refuseOrderNo) {
+        this.refuseOrderNo = refuseOrderNo == null ? null : refuseOrderNo.trim();
+    }
+
+    public String getRefuseWxNo() {
+        return refuseWxNo;
+    }
+
+    public void setRefuseWxNo(String refuseWxNo) {
+        this.refuseWxNo = refuseWxNo == null ? null : refuseWxNo.trim();
     }
 
     public Integer getStatus() {

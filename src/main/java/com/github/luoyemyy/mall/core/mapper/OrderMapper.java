@@ -37,14 +37,18 @@ public interface OrderMapper {
         "address, postcode, ",
         "create_time, update_time, ",
         "wx_pay_id, wx_order_id, ",
-        "`status`)",
+        "express_company, express_no, ",
+        "cancel_reason, refuse_order_no, ",
+        "refuse_wx_no, `status`)",
         "values (#{orderNo,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, ",
         "#{state,jdbcType=INTEGER}, #{money,jdbcType=REAL}, #{postage,jdbcType=REAL}, ",
         "#{username,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, ",
         "#{address,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR}, ",
         "#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, ",
         "#{wxPayId,jdbcType=VARCHAR}, #{wxOrderId,jdbcType=VARCHAR}, ",
-        "#{status,jdbcType=INTEGER})"
+        "#{expressCompany,jdbcType=VARCHAR}, #{expressNo,jdbcType=VARCHAR}, ",
+        "#{cancelReason,jdbcType=VARCHAR}, #{refuseOrderNo,jdbcType=VARCHAR}, ",
+        "#{refuseWxNo,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(Order record);
@@ -69,6 +73,11 @@ public interface OrderMapper {
         @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="wx_pay_id", property="wxPayId", jdbcType=JdbcType.VARCHAR),
         @Result(column="wx_order_id", property="wxOrderId", jdbcType=JdbcType.VARCHAR),
+        @Result(column="express_company", property="expressCompany", jdbcType=JdbcType.VARCHAR),
+        @Result(column="express_no", property="expressNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="cancel_reason", property="cancelReason", jdbcType=JdbcType.VARCHAR),
+        @Result(column="refuse_order_no", property="refuseOrderNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="refuse_wx_no", property="refuseWxNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER)
     })
     List<Order> selectByExample(OrderExample example);
@@ -76,7 +85,8 @@ public interface OrderMapper {
     @Select({
         "select",
         "id, order_no, user_id, `state`, money, postage, username, phone, address, postcode, ",
-        "create_time, update_time, wx_pay_id, wx_order_id, `status`",
+        "create_time, update_time, wx_pay_id, wx_order_id, express_company, express_no, ",
+        "cancel_reason, refuse_order_no, refuse_wx_no, `status`",
         "from `order`",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -95,6 +105,11 @@ public interface OrderMapper {
         @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="wx_pay_id", property="wxPayId", jdbcType=JdbcType.VARCHAR),
         @Result(column="wx_order_id", property="wxOrderId", jdbcType=JdbcType.VARCHAR),
+        @Result(column="express_company", property="expressCompany", jdbcType=JdbcType.VARCHAR),
+        @Result(column="express_no", property="expressNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="cancel_reason", property="cancelReason", jdbcType=JdbcType.VARCHAR),
+        @Result(column="refuse_order_no", property="refuseOrderNo", jdbcType=JdbcType.VARCHAR),
+        @Result(column="refuse_wx_no", property="refuseWxNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER)
     })
     Order selectByPrimaryKey(Long id);
@@ -123,6 +138,11 @@ public interface OrderMapper {
           "update_time = #{updateTime,jdbcType=TIMESTAMP},",
           "wx_pay_id = #{wxPayId,jdbcType=VARCHAR},",
           "wx_order_id = #{wxOrderId,jdbcType=VARCHAR},",
+          "express_company = #{expressCompany,jdbcType=VARCHAR},",
+          "express_no = #{expressNo,jdbcType=VARCHAR},",
+          "cancel_reason = #{cancelReason,jdbcType=VARCHAR},",
+          "refuse_order_no = #{refuseOrderNo,jdbcType=VARCHAR},",
+          "refuse_wx_no = #{refuseWxNo,jdbcType=VARCHAR},",
           "`status` = #{status,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=BIGINT}"
     })

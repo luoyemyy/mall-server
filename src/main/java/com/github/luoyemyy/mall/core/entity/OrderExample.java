@@ -1015,6 +1015,356 @@ public class OrderExample {
             return (Criteria) this;
         }
 
+        public Criteria andExpressCompanyIsNull() {
+            addCriterion("express_company is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressCompanyIsNotNull() {
+            addCriterion("express_company is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressCompanyEqualTo(String value) {
+            addCriterion("express_company =", value, "expressCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressCompanyNotEqualTo(String value) {
+            addCriterion("express_company <>", value, "expressCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressCompanyGreaterThan(String value) {
+            addCriterion("express_company >", value, "expressCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressCompanyGreaterThanOrEqualTo(String value) {
+            addCriterion("express_company >=", value, "expressCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressCompanyLessThan(String value) {
+            addCriterion("express_company <", value, "expressCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressCompanyLessThanOrEqualTo(String value) {
+            addCriterion("express_company <=", value, "expressCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressCompanyLike(String value) {
+            addCriterion("express_company like", value, "expressCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressCompanyNotLike(String value) {
+            addCriterion("express_company not like", value, "expressCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressCompanyIn(List<String> values) {
+            addCriterion("express_company in", values, "expressCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressCompanyNotIn(List<String> values) {
+            addCriterion("express_company not in", values, "expressCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressCompanyBetween(String value1, String value2) {
+            addCriterion("express_company between", value1, value2, "expressCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressCompanyNotBetween(String value1, String value2) {
+            addCriterion("express_company not between", value1, value2, "expressCompany");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressNoIsNull() {
+            addCriterion("express_no is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressNoIsNotNull() {
+            addCriterion("express_no is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressNoEqualTo(String value) {
+            addCriterion("express_no =", value, "expressNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressNoNotEqualTo(String value) {
+            addCriterion("express_no <>", value, "expressNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressNoGreaterThan(String value) {
+            addCriterion("express_no >", value, "expressNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressNoGreaterThanOrEqualTo(String value) {
+            addCriterion("express_no >=", value, "expressNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressNoLessThan(String value) {
+            addCriterion("express_no <", value, "expressNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressNoLessThanOrEqualTo(String value) {
+            addCriterion("express_no <=", value, "expressNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressNoLike(String value) {
+            addCriterion("express_no like", value, "expressNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressNoNotLike(String value) {
+            addCriterion("express_no not like", value, "expressNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressNoIn(List<String> values) {
+            addCriterion("express_no in", values, "expressNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressNoNotIn(List<String> values) {
+            addCriterion("express_no not in", values, "expressNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressNoBetween(String value1, String value2) {
+            addCriterion("express_no between", value1, value2, "expressNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andExpressNoNotBetween(String value1, String value2) {
+            addCriterion("express_no not between", value1, value2, "expressNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelReasonIsNull() {
+            addCriterion("cancel_reason is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelReasonIsNotNull() {
+            addCriterion("cancel_reason is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelReasonEqualTo(String value) {
+            addCriterion("cancel_reason =", value, "cancelReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelReasonNotEqualTo(String value) {
+            addCriterion("cancel_reason <>", value, "cancelReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelReasonGreaterThan(String value) {
+            addCriterion("cancel_reason >", value, "cancelReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelReasonGreaterThanOrEqualTo(String value) {
+            addCriterion("cancel_reason >=", value, "cancelReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelReasonLessThan(String value) {
+            addCriterion("cancel_reason <", value, "cancelReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelReasonLessThanOrEqualTo(String value) {
+            addCriterion("cancel_reason <=", value, "cancelReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelReasonLike(String value) {
+            addCriterion("cancel_reason like", value, "cancelReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelReasonNotLike(String value) {
+            addCriterion("cancel_reason not like", value, "cancelReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelReasonIn(List<String> values) {
+            addCriterion("cancel_reason in", values, "cancelReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelReasonNotIn(List<String> values) {
+            addCriterion("cancel_reason not in", values, "cancelReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelReasonBetween(String value1, String value2) {
+            addCriterion("cancel_reason between", value1, value2, "cancelReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andCancelReasonNotBetween(String value1, String value2) {
+            addCriterion("cancel_reason not between", value1, value2, "cancelReason");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseOrderNoIsNull() {
+            addCriterion("refuse_order_no is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseOrderNoIsNotNull() {
+            addCriterion("refuse_order_no is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseOrderNoEqualTo(String value) {
+            addCriterion("refuse_order_no =", value, "refuseOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseOrderNoNotEqualTo(String value) {
+            addCriterion("refuse_order_no <>", value, "refuseOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseOrderNoGreaterThan(String value) {
+            addCriterion("refuse_order_no >", value, "refuseOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseOrderNoGreaterThanOrEqualTo(String value) {
+            addCriterion("refuse_order_no >=", value, "refuseOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseOrderNoLessThan(String value) {
+            addCriterion("refuse_order_no <", value, "refuseOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseOrderNoLessThanOrEqualTo(String value) {
+            addCriterion("refuse_order_no <=", value, "refuseOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseOrderNoLike(String value) {
+            addCriterion("refuse_order_no like", value, "refuseOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseOrderNoNotLike(String value) {
+            addCriterion("refuse_order_no not like", value, "refuseOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseOrderNoIn(List<String> values) {
+            addCriterion("refuse_order_no in", values, "refuseOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseOrderNoNotIn(List<String> values) {
+            addCriterion("refuse_order_no not in", values, "refuseOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseOrderNoBetween(String value1, String value2) {
+            addCriterion("refuse_order_no between", value1, value2, "refuseOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseOrderNoNotBetween(String value1, String value2) {
+            addCriterion("refuse_order_no not between", value1, value2, "refuseOrderNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseWxNoIsNull() {
+            addCriterion("refuse_wx_no is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseWxNoIsNotNull() {
+            addCriterion("refuse_wx_no is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseWxNoEqualTo(String value) {
+            addCriterion("refuse_wx_no =", value, "refuseWxNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseWxNoNotEqualTo(String value) {
+            addCriterion("refuse_wx_no <>", value, "refuseWxNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseWxNoGreaterThan(String value) {
+            addCriterion("refuse_wx_no >", value, "refuseWxNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseWxNoGreaterThanOrEqualTo(String value) {
+            addCriterion("refuse_wx_no >=", value, "refuseWxNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseWxNoLessThan(String value) {
+            addCriterion("refuse_wx_no <", value, "refuseWxNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseWxNoLessThanOrEqualTo(String value) {
+            addCriterion("refuse_wx_no <=", value, "refuseWxNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseWxNoLike(String value) {
+            addCriterion("refuse_wx_no like", value, "refuseWxNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseWxNoNotLike(String value) {
+            addCriterion("refuse_wx_no not like", value, "refuseWxNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseWxNoIn(List<String> values) {
+            addCriterion("refuse_wx_no in", values, "refuseWxNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseWxNoNotIn(List<String> values) {
+            addCriterion("refuse_wx_no not in", values, "refuseWxNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseWxNoBetween(String value1, String value2) {
+            addCriterion("refuse_wx_no between", value1, value2, "refuseWxNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefuseWxNoNotBetween(String value1, String value2) {
+            addCriterion("refuse_wx_no not between", value1, value2, "refuseWxNo");
+            return (Criteria) this;
+        }
+
         public Criteria andStatusIsNull() {
             addCriterion("`status` is null");
             return (Criteria) this;

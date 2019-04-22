@@ -34,6 +34,16 @@ class AppletOrderInfo {
     var wxPayId: String? = null
     @ApiModelProperty("微信支付编号")
     var wxOrderId: String? = null
+    @ApiModelProperty("快递公司名称")
+    var expressCompany: String? = null
+    @ApiModelProperty("快递单号")
+    var expressNo: String? = null
+    @ApiModelProperty("取消原因")
+    var cancelReason: String? = null
+    @ApiModelProperty("退款单号")
+    var refuseOrderNo: String? = null
+    @ApiModelProperty("退款微信单号")
+    var refuseWxNo: String? = null
     @ApiModelProperty("支付截止时间")
     var payLimitTime: Date? = null
 

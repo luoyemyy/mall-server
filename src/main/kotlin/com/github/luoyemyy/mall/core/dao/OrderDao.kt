@@ -49,7 +49,12 @@ interface OrderDao {
             Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
             Result(column = "update_time", property = "updateTime", jdbcType = JdbcType.TIMESTAMP),
             Result(column = "wx_pay_id", property = "wxPayId", jdbcType = JdbcType.VARCHAR),
-            Result(column = "wx_order_id", property = "wxOrderId", jdbcType = JdbcType.VARCHAR))
+            Result(column = "wx_order_id", property = "wxOrderId", jdbcType = JdbcType.VARCHAR),
+            Result(column = "express_company", property = "expressCompany", jdbcType = JdbcType.VARCHAR),
+            Result(column = "express_no", property = "expressNo", jdbcType = JdbcType.VARCHAR),
+            Result(column = "cancel_reason", property = "cancelReason", jdbcType = JdbcType.VARCHAR),
+            Result(column = "refuse_order_no", property = "refuseOrderNo", jdbcType = JdbcType.VARCHAR),
+            Result(column = "refuse_wx_no", property = "refuseWxNo", jdbcType = JdbcType.VARCHAR))
     fun selectOrderInfo(userId: Long, orderId: Long): AppletOrderInfo?
 
 

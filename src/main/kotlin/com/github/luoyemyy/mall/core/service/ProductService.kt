@@ -43,7 +43,7 @@ class ProductService {
      */
     fun getByCategoryAndPage(categoryId: Long, page: Int): List<ProductBean> {
         return if (categoryId == 0L) {
-            productDao.selectAllByPage(page.toPageStart()) ?: listOf()
+            productDao.selectByPage(page.toPageStart()) ?: listOf()
         } else {
             productDao.selectByCategoryAndPage(categoryId, page.toPageStart()) ?: listOf()
         }
@@ -84,7 +84,7 @@ class ProductService {
      * @admin
      */
     fun getDetail(id: Long): ProductDetail {
-        return productDao.getDetail(id)?.apply {
+        return productDao.get(id)?.apply {
             swipeImages = getImages(id, 1)
             descImages = getImages(id, 2)
             categoryIds = getCategoryByProduct(id)?.map { it.categoryId }

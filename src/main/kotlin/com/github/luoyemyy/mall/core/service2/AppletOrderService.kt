@@ -30,36 +30,38 @@ class AppletOrderService {
     /**
      * 订单逻辑
      * 状态：
-     * 0 未支付 1 已支付，待确认 2 支付成功，待发货 3 运输中 4 已签收，交易完成 5 取消订单，待审核  6 退货，待审核 7 退货中 8 退款中 9 已取消
+     * 0 未支付 1 已支付，待确认 2 支付成功，待发货 3 发货中 4 运输中 5 已签收，交易完成 6 取消订单，待审核  7 退货，待审核 8 退货中 9 退款中 10 已取消
      * 状态流转：
-     * 0 客户支付 1；客户取消 9
-     * 1 商户确认支付 2；客户取消 5
-     * 2 商户发货 3；客户取消 5
-     * 3 客户确认收货 4
-     * 4 客户申请退货 6
-     * 5 商户审核退款 8
-     * 6 商户审核退货 7
-     * 7 商户确认已退货 8
-     * 8 商户确认已退款 9
+     * 0-> 客户支付 1；客户取消 10
+     * 1-> 商户确认支付 2；客户取消 6
+     * 2-> 商户备货 3
+     * 3-> 商户发货 4
+     * 4-> 客户确认收货 5
+     * 5-> 客户申请退货 7
+     * 6-> 商户审核退款 9
+     * 7-> 商户审核退货 8
+     * 8-> 商户确认已退货 9
+     * 9-> 商户确认已退款 10
      *
      */
+
 
     /**
      * @applet
      */
     @Transactional
     fun index(userId: Long): AppletOrderIndex {
-        //更新超时未支付订单状态为已取消9
+        //更新超时未支付订单状态为已取消10
         updateTimeout(userId)
         return AppletOrderIndex().apply {
             pay = orderMapper.countByExample(OrderExample().apply {
                 createCriteria().andUserIdEqualTo(userId).andStatusEqualTo(1).andStateEqualTo(0)
             })
             accept = orderMapper.countByExample(OrderExample().apply {
-                createCriteria().andUserIdEqualTo(userId).andStatusEqualTo(1).andStateIn(listOf(1, 2, 3))
+                createCriteria().andUserIdEqualTo(userId).andStatusEqualTo(1).andStateIn(listOf(1, 2, 3, 4))
             })
             refuse = orderMapper.countByExample(OrderExample().apply {
-                createCriteria().andUserIdEqualTo(userId).andStatusEqualTo(1).andStateIn(listOf(5, 6, 7, 8))
+                createCriteria().andUserIdEqualTo(userId).andStatusEqualTo(1).andStateIn(listOf(6, 7, 8, 9))
             })
         }
     }
@@ -67,7 +69,7 @@ class AppletOrderService {
     private fun updateTimeout(userId: Long) {
         val before30min = Date(System.currentTimeMillis() - 30 * 60 * 1000)
         orderMapper.updateByExampleSelective(Order().apply {
-            state = 9
+            state = 10
             updateTime = Date()
         }, OrderExample().apply {
             createCriteria().andUserIdEqualTo(userId).andStatusEqualTo(1).andStateEqualTo(0).andUpdateTimeLessThanOrEqualTo(before30min)
@@ -81,8 +83,8 @@ class AppletOrderService {
     fun list(userId: Long, type: Int, page: Int): List<AppletOrderItem> {
         val state = when (type) {
             1 -> listOf(0)
-            2 -> listOf(1, 2, 3)
-            3 -> listOf(5, 6, 7, 8)
+            2 -> listOf(1, 2, 3, 4)
+            3 -> listOf(6, 7, 8, 9)
             else -> listOf()
         }
         updateTimeout(userId)
@@ -126,11 +128,11 @@ class AppletOrderService {
         }
         val ok = when (order.state) {
             0 -> {
-                order.state = 9
+                order.state = 10
                 true
             }
             1, 2 -> {
-                order.state = 5
+                order.state = 6
                 true
             }
             else -> false
@@ -148,8 +150,8 @@ class AppletOrderService {
             throw MallException(Code.ORDER_NOT_EXIST)
         }
         val ok = when (order.state) {
-            3 -> {
-                order.state = 4
+            4 -> {
+                order.state = 5
                 true
             }
             else -> false
@@ -167,8 +169,8 @@ class AppletOrderService {
             throw MallException(Code.ORDER_NOT_EXIST)
         }
         val ok = when (order.state) {
-            4 -> {
-                order.state = 6
+            5 -> {
+                order.state = 7
                 true
             }
             else -> false
