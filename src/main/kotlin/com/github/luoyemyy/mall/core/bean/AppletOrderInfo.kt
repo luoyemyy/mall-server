@@ -18,6 +18,8 @@ class AppletOrderInfo {
     var money: Float = 0f
     @ApiModelProperty("邮费")
     var postage: Float = 0f
+    @ApiModelProperty("商品总数")
+    var productCount: Int = 0
     @ApiModelProperty("收件人名称")
     var username: String? = null
     @ApiModelProperty("收件人电话")

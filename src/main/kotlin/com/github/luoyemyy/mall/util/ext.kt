@@ -21,9 +21,16 @@ fun wxSign(obj: Any, mchKey: String?): String? {
         val clazz = obj.javaClass
         clazz.fields.forEach {
             val name = it.name
-            val value = it.get(clazz)
-            if (value != null && (value is Int && value > 0)) {
-                add("$name=$value")
+            when (val value = it.get(clazz)) {
+                null -> {
+                    //pass
+                }
+                value is Int && value > 0 -> {
+                    add("$name=$value")
+                }
+                else -> {
+                    add("$name=$value")
+                }
             }
         }
     }.sorted().joinToString("&") + "key=$mchKey").md5()?.toUpperCase()

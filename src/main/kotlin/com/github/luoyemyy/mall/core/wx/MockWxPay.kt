@@ -19,7 +19,7 @@ class MockWxPay {
     @Autowired
     private lateinit var batchDao: BatchDao
 
-    fun bookOrder(order: Order,appletOrder: AppletBookOrder):AppletBookOrderResult{
+    fun bookOrder(order: Order, appletOrder: AppletBookOrder): AppletBookOrderResult {
         order.wxPayId = newOrderNo()
         if (orderMapper.insert(order) > 0) {
             if (batchDao.insertOrderProduct(order.id, appletOrder.products)) {
@@ -29,12 +29,21 @@ class MockWxPay {
         throw MallException(Code.BOOK_ORDER_FAIL)
     }
 
-    fun bookPay(order: Order):AppletBookOrderResult{
+    fun bookPay(order: Order): AppletBookOrderResult {
         return AppletBookOrderResult().also {
             it.orderId = order.id
             it.payId = order.wxPayId
             it.mock = true
             it.buildParams()
         }
+    }
+
+    fun queryOrder(order: Order): Boolean {
+        if (Math.random() > 0.5) {
+            order.wxOrderId = newOrderNo()
+            order.state = 2
+            return orderMapper.updateByPrimaryKeySelective(order) > 0
+        }
+        return false
     }
 }

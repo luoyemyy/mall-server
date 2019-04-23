@@ -61,6 +61,18 @@ class AppletPayController : BaseController() {
     /**
      *
      */
+    @ApiOperation("查询订单支付结果")
+    @RequestApplet
+    @ApiImplicitParams(value = [
+        ApiImplicitParam(name = "orderId", value = "订单id", required = true, dataTypeClass = Long::class)])
+    @GetMapping("book/pay/query")
+    fun bookQuery(orderId: Long): DataResponse<Boolean> {
+        return dataResponse(wxPayService.queryOrder(userId(), orderId))
+    }
+
+    /**
+     *
+     */
     @ApiOperation("下单结果通知")
     @RequestApplet(needLogin = false)
     @PostMapping("book/notify")

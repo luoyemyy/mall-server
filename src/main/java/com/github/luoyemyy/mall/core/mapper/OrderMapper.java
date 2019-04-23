@@ -33,22 +33,24 @@ public interface OrderMapper {
     @Insert({
         "insert into `order` (order_no, user_id, ",
         "`state`, money, postage, ",
-        "username, phone, ",
-        "address, postcode, ",
-        "create_time, update_time, ",
-        "wx_pay_id, wx_order_id, ",
-        "express_company, express_no, ",
-        "cancel_reason, refuse_order_no, ",
-        "refuse_wx_no, `status`)",
+        "product_count, username, ",
+        "phone, address, ",
+        "postcode, create_time, ",
+        "update_time, wx_pay_id, ",
+        "wx_order_id, express_company, ",
+        "express_no, cancel_reason, ",
+        "refuse_order_no, refuse_wx_no, ",
+        "`status`)",
         "values (#{orderNo,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, ",
         "#{state,jdbcType=INTEGER}, #{money,jdbcType=REAL}, #{postage,jdbcType=REAL}, ",
-        "#{username,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, ",
-        "#{address,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR}, ",
-        "#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, ",
-        "#{wxPayId,jdbcType=VARCHAR}, #{wxOrderId,jdbcType=VARCHAR}, ",
-        "#{expressCompany,jdbcType=VARCHAR}, #{expressNo,jdbcType=VARCHAR}, ",
-        "#{cancelReason,jdbcType=VARCHAR}, #{refuseOrderNo,jdbcType=VARCHAR}, ",
-        "#{refuseWxNo,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})"
+        "#{productCount,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, ",
+        "#{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, ",
+        "#{postcode,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
+        "#{updateTime,jdbcType=TIMESTAMP}, #{wxPayId,jdbcType=VARCHAR}, ",
+        "#{wxOrderId,jdbcType=VARCHAR}, #{expressCompany,jdbcType=VARCHAR}, ",
+        "#{expressNo,jdbcType=VARCHAR}, #{cancelReason,jdbcType=VARCHAR}, ",
+        "#{refuseOrderNo,jdbcType=VARCHAR}, #{refuseWxNo,jdbcType=VARCHAR}, ",
+        "#{status,jdbcType=INTEGER})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(Order record);
@@ -65,6 +67,7 @@ public interface OrderMapper {
         @Result(column="state", property="state", jdbcType=JdbcType.INTEGER),
         @Result(column="money", property="money", jdbcType=JdbcType.REAL),
         @Result(column="postage", property="postage", jdbcType=JdbcType.REAL),
+        @Result(column="product_count", property="productCount", jdbcType=JdbcType.INTEGER),
         @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
         @Result(column="phone", property="phone", jdbcType=JdbcType.VARCHAR),
         @Result(column="address", property="address", jdbcType=JdbcType.VARCHAR),
@@ -84,9 +87,9 @@ public interface OrderMapper {
 
     @Select({
         "select",
-        "id, order_no, user_id, `state`, money, postage, username, phone, address, postcode, ",
-        "create_time, update_time, wx_pay_id, wx_order_id, express_company, express_no, ",
-        "cancel_reason, refuse_order_no, refuse_wx_no, `status`",
+        "id, order_no, user_id, `state`, money, postage, product_count, username, phone, ",
+        "address, postcode, create_time, update_time, wx_pay_id, wx_order_id, express_company, ",
+        "express_no, cancel_reason, refuse_order_no, refuse_wx_no, `status`",
         "from `order`",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -97,6 +100,7 @@ public interface OrderMapper {
         @Result(column="state", property="state", jdbcType=JdbcType.INTEGER),
         @Result(column="money", property="money", jdbcType=JdbcType.REAL),
         @Result(column="postage", property="postage", jdbcType=JdbcType.REAL),
+        @Result(column="product_count", property="productCount", jdbcType=JdbcType.INTEGER),
         @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
         @Result(column="phone", property="phone", jdbcType=JdbcType.VARCHAR),
         @Result(column="address", property="address", jdbcType=JdbcType.VARCHAR),
@@ -130,6 +134,7 @@ public interface OrderMapper {
           "`state` = #{state,jdbcType=INTEGER},",
           "money = #{money,jdbcType=REAL},",
           "postage = #{postage,jdbcType=REAL},",
+          "product_count = #{productCount,jdbcType=INTEGER},",
           "username = #{username,jdbcType=VARCHAR},",
           "phone = #{phone,jdbcType=VARCHAR},",
           "address = #{address,jdbcType=VARCHAR},",

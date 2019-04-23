@@ -15,6 +15,8 @@ public class Order {
 
     private Float postage;
 
+    private Integer productCount;
+
     private String username;
 
     private String phone;
@@ -89,6 +91,14 @@ public class Order {
 
     public void setPostage(Float postage) {
         this.postage = postage;
+    }
+
+    public Integer getProductCount() {
+        return productCount;
+    }
+
+    public void setProductCount(Integer productCount) {
+        this.productCount = productCount;
     }
 
     public String getUsername() {

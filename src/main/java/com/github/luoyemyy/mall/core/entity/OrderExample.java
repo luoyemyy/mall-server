@@ -475,6 +475,66 @@ public class OrderExample {
             return (Criteria) this;
         }
 
+        public Criteria andProductCountIsNull() {
+            addCriterion("product_count is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductCountIsNotNull() {
+            addCriterion("product_count is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductCountEqualTo(Integer value) {
+            addCriterion("product_count =", value, "productCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductCountNotEqualTo(Integer value) {
+            addCriterion("product_count <>", value, "productCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductCountGreaterThan(Integer value) {
+            addCriterion("product_count >", value, "productCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductCountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("product_count >=", value, "productCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductCountLessThan(Integer value) {
+            addCriterion("product_count <", value, "productCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductCountLessThanOrEqualTo(Integer value) {
+            addCriterion("product_count <=", value, "productCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductCountIn(List<Integer> values) {
+            addCriterion("product_count in", values, "productCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductCountNotIn(List<Integer> values) {
+            addCriterion("product_count not in", values, "productCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductCountBetween(Integer value1, Integer value2) {
+            addCriterion("product_count between", value1, value2, "productCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductCountNotBetween(Integer value1, Integer value2) {
+            addCriterion("product_count not between", value1, value2, "productCount");
+            return (Criteria) this;
+        }
+
         public Criteria andUsernameIsNull() {
             addCriterion("username is null");
             return (Criteria) this;

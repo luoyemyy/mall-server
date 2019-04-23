@@ -17,9 +17,9 @@ import com.github.luoyemyy.mall.core.mapper.OrderMapper
 import com.github.luoyemyy.mall.core.mapper.ProductMapper
 import com.github.luoyemyy.mall.core.service.HttpService
 import com.github.luoyemyy.mall.core.service2.AppletPostageService
-import com.github.luoyemyy.mall.core.wx.bean.BookOrder
-import com.github.luoyemyy.mall.core.wx.bean.BookOrderResult
+import com.github.luoyemyy.mall.core.wx.bean.*
 import com.github.luoyemyy.mall.util.newOrderNo
+import com.github.luoyemyy.mall.util.toXmlString
 import com.github.luoyemyy.mall.util.xmlToObject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -126,12 +126,14 @@ class WxPayService {
         if (postage + orderProductMoney != appletOrder.money) {
             throw MallException(Code.BOOK_ORDER_MONEY_ERROR)
         }
+        val productCount = appletOrder.products?.map { it.count }?.sum() ?: 0
         //生成订单
         val order = Order().apply {
             this.orderNo = newOrderNo()
             this.userId = userId
             this.state = 0
             this.money = appletOrder.money
+            this.productCount = productCount
             this.postage = postage
             this.username = address.name
             this.phone = address.phone
@@ -143,12 +145,13 @@ class WxPayService {
             this.wxOrderId = null
             this.status = 1
         }
-        val bookOrder = BookOrder(appletInfo, order.orderNo, (appletOrder.money * 100).toInt(), openId)
 
         //直接返回订单注册成功，模拟微信支付
         if (appletInfo.payMock) {
             return mockWxPay.bookOrder(order, appletOrder)
         }
+
+        val bookOrder = BookOrder(appletInfo, order.orderNo, (appletOrder.money * 100).toInt(), openId)
         //注册订单
         httpService.postXml(URL_BOOK_ORDER, bookOrder.buildXml())?.xmlToObject<BookOrderResult>()?.apply {
             if (success(appletInfo.mchKey)) {
@@ -197,18 +200,78 @@ class WxPayService {
         throw MallException(Code.ORDER_CANCELED)
     }
 
+
+    fun getByOrderNo(orderNo: String?): Order? {
+        return orderMapper.selectByExample(OrderExample().apply {
+            createCriteria().andStatusEqualTo(1).andOrderNoEqualTo(orderNo)
+        })?.firstOrNull()
+    }
+
+
     /**
-     * 查订单
+     * 支付结果通知
      */
     fun bookOrderNotify(xml: String): String {
-        //todo
-        return ""
+        xml.xmlToObject<NotifyOrderResult>()?.apply {
+            if (success(appletInfo.mchKey)) {
+                getByOrderNo(out_trade_no)?.also {
+                    if (it.state == 1) {//订单在待确认状态下，接收到支付成功通知，此时转换状态为已支付成功
+                        it.state = 2
+                        it.wxOrderId = transaction_id
+                        orderMapper.updateByPrimaryKeySelective(it) > 0
+                    }
+                }
+            }
+        }
+        return "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>"
     }
+
+    /**
+     * 订单逻辑
+     * 状态：
+     * 0 未支付 1 已支付，待确认 2 支付成功，待发货 3 发货中 4 运输中 5 已签收，交易完成 6 取消订单，待审核  7 退货，待审核 8 退货中 9 退款中 10 已取消
+     * 状态流转：
+     * 0-> 客户支付 1；客户取消 10
+     * 1-> 商户确认支付 2；客户取消 6
+     * 2-> 商户备货 3
+     * 3-> 商户发货 4
+     * 4-> 客户确认收货 5
+     * 5-> 客户申请退货 7
+     * 6-> 商户审核退款 9
+     * 7-> 商户审核退货 8
+     * 8-> 商户确认已退货 9
+     * 9-> 商户确认已退款 10
+     *
+     */
 
     /**
      * 查订单
      */
-    fun queryOrder(orderId: Long) {
-        //todo
+    @Transactional
+    fun queryOrder(userId: Long, orderId: Long): Boolean {
+        val order = orderMapper.selectByPrimaryKey(orderId) ?: return false
+        if (order.userId != userId || order.status == 0) {
+            return false
+        }
+        if (order.state == 2) {
+            return true
+        }
+        //用户只有订单状态在 0 1 10 的时候才可以查询订单支付结果
+        if (order.state in listOf(0, 1, 10)) {
+            //模拟查询微信支付结果
+            if (appletInfo.payMock) {
+                return mockWxPay.queryOrder(order)
+            }
+
+            val queryOrder = QueryOrder(appletInfo, order.orderNo)
+            httpService.postXml(URL_QUERY_ORDER, queryOrder.toXmlString())?.xmlToObject<QueryOrderResult>()?.apply {
+                if (success(appletInfo.mchKey)) {
+                    order.wxOrderId = transaction_id
+                    order.state = 2
+                    return orderMapper.updateByPrimaryKeySelective(order) > 0
+                }
+            }
+        }
+        return false
     }
 }

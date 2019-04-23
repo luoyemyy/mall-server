@@ -61,6 +61,10 @@ public class OrderSqlProvider {
             VALUES("postage", "#{postage,jdbcType=REAL}");
         }
         
+        if (record.getProductCount() != null) {
+            VALUES("product_count", "#{productCount,jdbcType=INTEGER}");
+        }
+        
         if (record.getUsername() != null) {
             VALUES("username", "#{username,jdbcType=VARCHAR}");
         }
@@ -132,6 +136,7 @@ public class OrderSqlProvider {
         SELECT("`state`");
         SELECT("money");
         SELECT("postage");
+        SELECT("product_count");
         SELECT("username");
         SELECT("phone");
         SELECT("address");
@@ -185,6 +190,10 @@ public class OrderSqlProvider {
         
         if (record.getPostage() != null) {
             SET("postage = #{record.postage,jdbcType=REAL}");
+        }
+        
+        if (record.getProductCount() != null) {
+            SET("product_count = #{record.productCount,jdbcType=INTEGER}");
         }
         
         if (record.getUsername() != null) {
@@ -257,6 +266,7 @@ public class OrderSqlProvider {
         SET("`state` = #{record.state,jdbcType=INTEGER}");
         SET("money = #{record.money,jdbcType=REAL}");
         SET("postage = #{record.postage,jdbcType=REAL}");
+        SET("product_count = #{record.productCount,jdbcType=INTEGER}");
         SET("username = #{record.username,jdbcType=VARCHAR}");
         SET("phone = #{record.phone,jdbcType=VARCHAR}");
         SET("address = #{record.address,jdbcType=VARCHAR}");
@@ -299,6 +309,10 @@ public class OrderSqlProvider {
         
         if (record.getPostage() != null) {
             SET("postage = #{postage,jdbcType=REAL}");
+        }
+        
+        if (record.getProductCount() != null) {
+            SET("product_count = #{productCount,jdbcType=INTEGER}");
         }
         
         if (record.getUsername() != null) {
