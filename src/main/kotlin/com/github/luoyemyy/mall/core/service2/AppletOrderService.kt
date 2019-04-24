@@ -112,6 +112,7 @@ class AppletOrderService {
         return productDao.selectOrderProducts(orderId)
     }
 
+    @Transactional
     fun delete(userId: Long, orderId: Long): Boolean {
         return orderMapper.updateByExampleSelective(Order().apply {
             status = 0
@@ -120,6 +121,9 @@ class AppletOrderService {
         }) > 0
     }
 
+    /**
+     *  0 未支付 1 已支付，待确认 2 支付成功，待发货 3 发货中 4 运输中 5 已签收，交易完成 6 取消订单，待审核  7 退货，待审核 8 退货中 9 退款中 10 已取消
+     */
     @Transactional
     fun cancel(userId: Long, orderId: Long): Boolean {
         val order = orderMapper.selectByPrimaryKey(orderId) ?: throw MallException(Code.ORDER_NOT_EXIST)
@@ -143,6 +147,9 @@ class AppletOrderService {
         } else false
     }
 
+    /**
+     *  0 未支付 1 已支付，待确认 2 支付成功，待发货 3 发货中 4 运输中 5 已签收，交易完成 6 取消订单，待审核  7 退货，待审核 8 退货中 9 退款中 10 已取消
+     */
     @Transactional
     fun accept(userId: Long, orderId: Long): Boolean {
         val order = orderMapper.selectByPrimaryKey(orderId) ?: throw MallException(Code.ORDER_NOT_EXIST)
@@ -162,6 +169,9 @@ class AppletOrderService {
         } else false
     }
 
+    /**
+     *  0 未支付 1 已支付，待确认 2 支付成功，待发货 3 发货中 4 运输中 5 已签收，交易完成 6 取消订单，待审核  7 退货，待审核 8 退货中 9 退款中 10 已取消
+     */
     @Transactional
     fun back(userId: Long, orderId: Long): Boolean {
         val order = orderMapper.selectByPrimaryKey(orderId) ?: throw MallException(Code.ORDER_NOT_EXIST)
