@@ -16,27 +16,7 @@ fun newRandomString(length: Int): String {
 }
 
 
-fun wxSign(obj: Any, mchKey: String?): String? {
-    return (mutableListOf<String>().apply {
-        val clazz = obj.javaClass
-        clazz.fields.forEach {
-            val name = it.name
-            when (val value = it.get(clazz)) {
-                null -> {
-                    //pass
-                }
-                value is Int && value > 0 -> {
-                    add("$name=$value")
-                }
-                else -> {
-                    add("$name=$value")
-                }
-            }
-        }
-    }.sorted().joinToString("&") + "key=$mchKey").md5()?.toUpperCase()
-}
-
-fun wxSign2(map: MutableMap<String, Any?>, mchKey: String?): String? {
+fun wxRequestSign(map: MutableMap<String, Any?>, mchKey: String?): String? {
     map["key"] = mchKey
     return map.map {
         when (val value = it.value) {
@@ -45,6 +25,11 @@ fun wxSign2(map: MutableMap<String, Any?>, mchKey: String?): String? {
             else -> "${it.key}=${it.value}"
         }
     }.filter { it.isNotEmpty() }.sorted().joinToString("&").md5()?.toUpperCase()
+}
+
+fun wxResponseSign(map: MutableMap<String, Any?>, mchKey: String?): String? {
+    map.remove("sign")
+    return wxRequestSign(map, mchKey)
 }
 
 fun newOrderNo(): String = UUID.randomUUID().toString().replace("-", "")

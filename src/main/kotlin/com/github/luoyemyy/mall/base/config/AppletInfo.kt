@@ -16,4 +16,5 @@ class AppletInfo {
     var tradeType: String? = null
     var body: String? = null
     var payMock: Boolean = false
+    var certPath: String? = null
 }

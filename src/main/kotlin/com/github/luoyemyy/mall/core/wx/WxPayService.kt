@@ -62,16 +62,25 @@ class WxPayService {
     @Autowired
     private lateinit var addressMapper: AddressMapper
 
+    /**
+     * 金额单位：元->分
+     */
     private fun moneyFormat(money: Float): Int {
         return (money * 100).toInt()
     }
 
 
+    /**
+     * 检查下订单用户
+     */
     private fun bookOrderCheckUser(userId: Long): String {
         val weChat = weChatDao.selectByUser(userId) ?: throw MallException(Code.BOOK_ORDER_USER_ERROR)
         return weChat.openId ?: throw MallException(Code.BOOK_ORDER_USER_ERROR)
     }
 
+    /**
+     * 检查订单邮费
+     */
     private fun bookOrderCheckPostage(productMoney: Float, postage: Float, addressId: Long): Float {
         val match = appletPostageService.match(addressId)
         if (match != null && match.post == 1) {
@@ -83,6 +92,9 @@ class WxPayService {
         throw MallException(Code.BOOK_ORDER_ADDRESS_ERROR)
     }
 
+    /**
+     * 检查订单的的产品
+     */
     private fun bookOrderCheckProduct(products: List<AppletBookOrderProduct>?): Float {
         if (products.isNullOrEmpty()) throw MallException(Code.BOOK_ORDER_PRODUCT_ERROR)
         var orderMoney = 0f
@@ -106,6 +118,9 @@ class WxPayService {
         return orderMoney
     }
 
+    /**
+     * 检查订单的地址
+     */
     private fun bookOrderCheckAddress(addressId: Long): Address {
         val address = addressMapper.selectByPrimaryKey(addressId) ?: throw MallException(Code.BOOK_ORDER_ADDRESS_ERROR)
         if (address.name.isNullOrEmpty() || address.phone.isNullOrEmpty() || address.summary.isNullOrEmpty() || address.postCode.isNullOrEmpty()) {
@@ -175,6 +190,9 @@ class WxPayService {
         throw MallException(Code.BOOK_ORDER_FAIL)
     }
 
+    /**
+     * 用户确认支付完成
+     */
     @Transactional
     fun bookPaySuccess(userId: Long, orderId: Long): Boolean {
         val order = orderMapper.selectByExample(OrderExample().apply {
@@ -185,6 +203,9 @@ class WxPayService {
         return orderMapper.updateByPrimaryKeySelective(order) > 0
     }
 
+    /**
+     * 用户重新获得支付的参数
+     */
     fun bookPayRetry(userId: Long, orderId: Long): AppletBookOrderResult {
         val order = orderMapper.selectByExample(OrderExample().apply {
             createCriteria().andUserIdEqualTo(userId).andIdEqualTo(orderId)
@@ -206,6 +227,9 @@ class WxPayService {
     }
 
 
+    /**
+     * 通过订单编号产查询订单
+     */
     fun getByOrderNo(orderNo: String?): Order? {
         return orderMapper.selectByExample(OrderExample().apply {
             createCriteria().andStatusEqualTo(1).andOrderNoEqualTo(orderNo)
@@ -295,6 +319,9 @@ class WxPayService {
         return false
     }
 
+    /**
+     * 确认退款
+     */
     fun refund(order: Order, refundMoney: Float): Boolean {
         order.refuseOrderNo = newOrderNo()
         if (appletInfo.payMock) {
@@ -312,13 +339,16 @@ class WxPayService {
         return false
     }
 
+    /**
+     * 查询退款结果
+     */
     fun queryRefund(order: Order): Boolean {
         if (appletInfo.payMock) {
             return mockWxPay.queryRefund(order)
         }
 
         val queryRefundRequest = QueryRefundRequest(appletInfo, order.wxOrderId)
-        httpService.postXml(URL_QUERY_REFUND_ORDER, queryRefundRequest.toXml())?.apply {
+        httpService.postXmlUseCert(URL_QUERY_REFUND_ORDER, queryRefundRequest.toXml())?.apply {
             val queryOrderResponse = QueryRefundResponse(this)
             if (queryOrderResponse.success(appletInfo.mchKey)) {
                 return true
@@ -328,6 +358,9 @@ class WxPayService {
     }
 
 
+    /**
+     * 退款结果通知
+     */
     fun refundNotify(xml: String): String {
         NotifyRefundResponse(xml).apply {
             if (success(appletInfo.mchKey)) {

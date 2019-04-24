@@ -17,7 +17,7 @@ inline fun <reified T> String?.xmlToLinkedList(): List<T>? {
     return if (this == null) null else JsonUtil.objectMapper.readValue(this, type)
 }
 
-inline fun <reified R, reified T> String?.xmlToMap(): Map<R, T>? {
+inline fun <reified R, reified T> String?.xmlToMap(): HashMap<R, T>? {
     val type = JsonUtil.objectMapper.typeFactory.constructMapType(HashMap::class.java, R::class.java, T::class.java)
     return if (this == null) null else JsonUtil.objectMapper.readValue(this, type)
 }

@@ -3,7 +3,7 @@ package com.github.luoyemyy.mall.core.wx.bean
 import com.github.luoyemyy.mall.base.config.AppletInfo
 import com.github.luoyemyy.mall.util.newRandomString
 import com.github.luoyemyy.mall.util.toXmlString
-import com.github.luoyemyy.mall.util.wxSign2
+import com.github.luoyemyy.mall.util.wxRequestSign
 
 class BookOrderRequest(appletInfo: AppletInfo, orderNo: String, amount: Int, openId: String) {
 
@@ -20,7 +20,7 @@ class BookOrderRequest(appletInfo: AppletInfo, orderNo: String, amount: Int, ope
         map["notify_url"] = appletInfo.payNotifyUrl
         map["trade_type"] = appletInfo.tradeType
         map["openid"] = openId
-        map["sign"] = wxSign2(map, appletInfo.mchKey)
+        map["sign"] = wxRequestSign(map, appletInfo.mchKey)
     }
 
     fun toXml(): String {
