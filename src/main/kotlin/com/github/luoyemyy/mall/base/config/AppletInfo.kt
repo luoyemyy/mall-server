@@ -11,7 +11,8 @@ class AppletInfo {
     var mchId: String? = null
     var mchKey: String? = null
     var spbillCreateIp: String? = null
-    var notifyUrl: String? = null
+    var payNotifyUrl: String? = null
+    var refundNotifyUrl: String? = null
     var tradeType: String? = null
     var body: String? = null
     var payMock: Boolean = false

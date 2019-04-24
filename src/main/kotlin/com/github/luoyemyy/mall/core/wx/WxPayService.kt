@@ -62,6 +62,10 @@ class WxPayService {
     @Autowired
     private lateinit var addressMapper: AddressMapper
 
+    private fun moneyFormat(money: Float): Int {
+        return (money * 100).toInt()
+    }
+
 
     private fun bookOrderCheckUser(userId: Long): String {
         val weChat = weChatDao.selectByUser(userId) ?: throw MallException(Code.BOOK_ORDER_USER_ERROR)
@@ -151,16 +155,17 @@ class WxPayService {
             return mockWxPay.bookOrder(order, appletOrder)
         }
 
-        val bookOrder = BookOrder(appletInfo, order.orderNo, (appletOrder.money * 100).toInt(), openId)
+        val bookRequest = BookOrderRequest(appletInfo, order.orderNo, moneyFormat(appletOrder.money), openId)
         //注册订单
-        httpService.postXml(URL_BOOK_ORDER, bookOrder.buildXml())?.xmlToObject<BookOrderResult>()?.apply {
-            if (success(appletInfo.mchKey)) {
-                order.wxPayId = prepay_id
+        httpService.postXml(URL_BOOK_ORDER, bookRequest.toXml())?.apply {
+            val response = BookOrderResponse(this)
+            if (response.success(appletInfo.mchKey)) {
+                order.wxPayId = response.getPayId()
                 if (orderMapper.insert(order) > 0) {
                     if (batchDao.insertOrderProduct(order.id, appletOrder.products)) {
                         return AppletBookOrderResult().also {
                             it.orderId = order.id
-                            it.payId = prepay_id
+                            it.payId = order.wxPayId
                             it.buildParams()
                         }
                     }
@@ -212,12 +217,13 @@ class WxPayService {
      * 支付结果通知
      */
     fun bookOrderNotify(xml: String): String {
-        xml.xmlToObject<NotifyOrderResult>()?.apply {
+        NotifyOrderResponse(xml).apply {
             if (success(appletInfo.mchKey)) {
-                getByOrderNo(out_trade_no)?.also {
+                getByOrderNo(getOrderNo())?.also {
                     if (it.state == 1) {//订单在待确认状态下，接收到支付成功通知，此时转换状态为已支付成功
                         it.state = 2
-                        it.wxOrderId = transaction_id
+                        it.wxOrderId = getWxOrderId()
+                        it.updateTime = Date()
                         orderMapper.updateByPrimaryKeySelective(it) > 0
                     }
                 }
@@ -259,19 +265,81 @@ class WxPayService {
         //用户只有订单状态在 0 1 10 的时候才可以查询订单支付结果
         if (order.state in listOf(0, 1, 10)) {
             //模拟查询微信支付结果
-            if (appletInfo.payMock) {
-                return mockWxPay.queryOrder(order)
-            }
+            return queryOrder(order, true)
+        }
+        return false
+    }
 
-            val queryOrder = QueryOrder(appletInfo, order.orderNo)
-            httpService.postXml(URL_QUERY_ORDER, queryOrder.toXmlString())?.xmlToObject<QueryOrderResult>()?.apply {
-                if (success(appletInfo.mchKey)) {
-                    order.wxOrderId = transaction_id
+    /**
+     * 查订单
+     */
+    @Transactional
+    fun queryOrder(order: Order, updateState: Boolean): Boolean {
+        //模拟查询微信支付结果
+        if (appletInfo.payMock) {
+            return mockWxPay.queryOrder(order, updateState)
+        }
+
+        val queryOrderRequest = QueryOrderRequest(appletInfo, order.orderNo)
+        httpService.postXml(URL_QUERY_ORDER, queryOrderRequest.toXml())?.apply {
+            val queryOrderResponse = QueryOrderResponse(this)
+            if (queryOrderResponse.success(appletInfo.mchKey)) {
+                if (updateState) {
                     order.state = 2
-                    return orderMapper.updateByPrimaryKeySelective(order) > 0
+                    order.updateTime = Date()
                 }
+                order.wxOrderId = queryOrderResponse.getWxOrderId()
+                return orderMapper.updateByPrimaryKeySelective(order) > 0
             }
         }
         return false
+    }
+
+    fun refund(order: Order, refundMoney: Float): Boolean {
+        order.refuseOrderNo = newOrderNo()
+        if (appletInfo.payMock) {
+            return mockWxPay.refund(order)
+        }
+
+        val refundRequest = RefundRequest(appletInfo, order.wxOrderId, order.refuseOrderNo, moneyFormat(order.money), moneyFormat(order.refundMoney))
+        httpService.postXml(URL_REFUND_ORDER, refundRequest.toXml())?.apply {
+            val refundResponse = RefundResponse(this)
+            if (refundResponse.success(appletInfo.mchKey)) {
+                order.refuseWxNo = refundResponse.getWxRefundNo()
+                return true
+            }
+        }
+        return false
+    }
+
+    fun queryRefund(order: Order): Boolean {
+        if (appletInfo.payMock) {
+            return mockWxPay.queryRefund(order)
+        }
+
+        val queryRefundRequest = QueryRefundRequest(appletInfo, order.wxOrderId)
+        httpService.postXml(URL_QUERY_REFUND_ORDER, queryRefundRequest.toXml())?.apply {
+            val queryOrderResponse = QueryRefundResponse(this)
+            if (queryOrderResponse.success(appletInfo.mchKey)) {
+                return true
+            }
+        }
+        return false
+    }
+
+
+    fun refundNotify(xml: String): String {
+        NotifyRefundResponse(xml).apply {
+            if (success(appletInfo.mchKey)) {
+                getByOrderNo(getOrderNo())?.also {
+                    if (it.state == 9) {//订单在退款中，接收到退款成功通知，此时转换状态为已取消
+                        it.state = 10
+                        it.updateTime = Date()
+                        orderMapper.updateByPrimaryKeySelective(it) > 0
+                    }
+                }
+            }
+        }
+        return "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>"
     }
 }

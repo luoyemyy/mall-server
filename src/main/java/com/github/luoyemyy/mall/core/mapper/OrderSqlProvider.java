@@ -109,6 +109,10 @@ public class OrderSqlProvider {
             VALUES("cancel_reason", "#{cancelReason,jdbcType=VARCHAR}");
         }
         
+        if (record.getRefundMoney() != null) {
+            VALUES("refund_money", "#{refundMoney,jdbcType=REAL}");
+        }
+        
         if (record.getRefuseOrderNo() != null) {
             VALUES("refuse_order_no", "#{refuseOrderNo,jdbcType=VARCHAR}");
         }
@@ -148,6 +152,7 @@ public class OrderSqlProvider {
         SELECT("express_company");
         SELECT("express_no");
         SELECT("cancel_reason");
+        SELECT("refund_money");
         SELECT("refuse_order_no");
         SELECT("refuse_wx_no");
         SELECT("`status`");
@@ -240,6 +245,10 @@ public class OrderSqlProvider {
             SET("cancel_reason = #{record.cancelReason,jdbcType=VARCHAR}");
         }
         
+        if (record.getRefundMoney() != null) {
+            SET("refund_money = #{record.refundMoney,jdbcType=REAL}");
+        }
+        
         if (record.getRefuseOrderNo() != null) {
             SET("refuse_order_no = #{record.refuseOrderNo,jdbcType=VARCHAR}");
         }
@@ -278,6 +287,7 @@ public class OrderSqlProvider {
         SET("express_company = #{record.expressCompany,jdbcType=VARCHAR}");
         SET("express_no = #{record.expressNo,jdbcType=VARCHAR}");
         SET("cancel_reason = #{record.cancelReason,jdbcType=VARCHAR}");
+        SET("refund_money = #{record.refundMoney,jdbcType=REAL}");
         SET("refuse_order_no = #{record.refuseOrderNo,jdbcType=VARCHAR}");
         SET("refuse_wx_no = #{record.refuseWxNo,jdbcType=VARCHAR}");
         SET("`status` = #{record.status,jdbcType=INTEGER}");
@@ -357,6 +367,10 @@ public class OrderSqlProvider {
         
         if (record.getCancelReason() != null) {
             SET("cancel_reason = #{cancelReason,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getRefundMoney() != null) {
+            SET("refund_money = #{refundMoney,jdbcType=REAL}");
         }
         
         if (record.getRefuseOrderNo() != null) {

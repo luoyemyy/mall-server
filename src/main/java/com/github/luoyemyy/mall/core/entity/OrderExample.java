@@ -1285,6 +1285,66 @@ public class OrderExample {
             return (Criteria) this;
         }
 
+        public Criteria andRefundMoneyIsNull() {
+            addCriterion("refund_money is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefundMoneyIsNotNull() {
+            addCriterion("refund_money is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefundMoneyEqualTo(Float value) {
+            addCriterion("refund_money =", value, "refundMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefundMoneyNotEqualTo(Float value) {
+            addCriterion("refund_money <>", value, "refundMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefundMoneyGreaterThan(Float value) {
+            addCriterion("refund_money >", value, "refundMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefundMoneyGreaterThanOrEqualTo(Float value) {
+            addCriterion("refund_money >=", value, "refundMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefundMoneyLessThan(Float value) {
+            addCriterion("refund_money <", value, "refundMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefundMoneyLessThanOrEqualTo(Float value) {
+            addCriterion("refund_money <=", value, "refundMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefundMoneyIn(List<Float> values) {
+            addCriterion("refund_money in", values, "refundMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefundMoneyNotIn(List<Float> values) {
+            addCriterion("refund_money not in", values, "refundMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefundMoneyBetween(Float value1, Float value2) {
+            addCriterion("refund_money between", value1, value2, "refundMoney");
+            return (Criteria) this;
+        }
+
+        public Criteria andRefundMoneyNotBetween(Float value1, Float value2) {
+            addCriterion("refund_money not between", value1, value2, "refundMoney");
+            return (Criteria) this;
+        }
+
         public Criteria andRefuseOrderNoIsNull() {
             addCriterion("refuse_order_no is null");
             return (Criteria) this;

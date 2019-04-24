@@ -36,4 +36,15 @@ fun wxSign(obj: Any, mchKey: String?): String? {
     }.sorted().joinToString("&") + "key=$mchKey").md5()?.toUpperCase()
 }
 
+fun wxSign2(map: MutableMap<String, Any?>, mchKey: String?): String? {
+    map["key"] = mchKey
+    return map.map {
+        when (val value = it.value) {
+            null -> ""
+            value is Int && value == 0 -> ""
+            else -> "${it.key}=${it.value}"
+        }
+    }.filter { it.isNotEmpty() }.sorted().joinToString("&").md5()?.toUpperCase()
+}
+
 fun newOrderNo(): String = UUID.randomUUID().toString().replace("-", "")

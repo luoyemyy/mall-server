@@ -38,12 +38,24 @@ class MockWxPay {
         }
     }
 
-    fun queryOrder(order: Order): Boolean {
+    fun queryOrder(order: Order, updateState: Boolean): Boolean {
         if (Math.random() > 0.5) {
+            if (updateState) {
+                order.state = 2
+                order.updateTime = Date()
+            }
             order.wxOrderId = newOrderNo()
-            order.state = 2
             return orderMapper.updateByPrimaryKeySelective(order) > 0
         }
         return false
+    }
+
+    fun refund(order: Order): Boolean {
+        order.refuseWxNo = newOrderNo()
+        return true
+    }
+
+    fun queryRefund(order: Order): Boolean {
+        return true
     }
 }

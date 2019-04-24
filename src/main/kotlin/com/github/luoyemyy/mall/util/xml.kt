@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.xml.XmlMapper
 import java.util.*
+import kotlin.collections.HashMap
 
 inline fun <reified T> String?.xmlToList(): List<T>? {
     val type = JsonUtil.objectMapper.typeFactory.constructCollectionType(ArrayList::class.java, T::class.java)
@@ -13,6 +14,11 @@ inline fun <reified T> String?.xmlToList(): List<T>? {
 
 inline fun <reified T> String?.xmlToLinkedList(): List<T>? {
     val type = JsonUtil.objectMapper.typeFactory.constructCollectionType(LinkedList::class.java, T::class.java)
+    return if (this == null) null else JsonUtil.objectMapper.readValue(this, type)
+}
+
+inline fun <reified R, reified T> String?.xmlToMap(): Map<R, T>? {
+    val type = JsonUtil.objectMapper.typeFactory.constructMapType(HashMap::class.java, R::class.java, T::class.java)
     return if (this == null) null else JsonUtil.objectMapper.readValue(this, type)
 }
 

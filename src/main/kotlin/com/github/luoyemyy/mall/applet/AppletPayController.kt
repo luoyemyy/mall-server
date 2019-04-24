@@ -79,4 +79,14 @@ class AppletPayController : BaseController() {
     fun bookNotify(@RequestBody xml: String): String {
         return wxPayService.bookOrderNotify(xml)
     }
+
+    /**
+     *
+     */
+    @ApiOperation("退款结果通知")
+    @RequestApplet(needLogin = false)
+    @PostMapping("refund/notify")
+    fun refundNotify(@RequestBody xml: String): String {
+        return wxPayService.refundNotify(xml)
+    }
 }

@@ -1,9 +1,6 @@
 package com.github.luoyemyy.mall.core.dao
 
-import com.github.luoyemyy.mall.core.bean.AppletOrderInfo
-import com.github.luoyemyy.mall.core.bean.AppletOrderItem
-import com.github.luoyemyy.mall.core.bean.AppletOrderProduct
-import com.github.luoyemyy.mall.core.bean.OrderItem
+import com.github.luoyemyy.mall.core.bean.*
 import org.apache.ibatis.annotations.Param
 import org.apache.ibatis.annotations.Result
 import org.apache.ibatis.annotations.Results
@@ -74,5 +71,29 @@ interface OrderDao {
             Result(column = "refuse_wx_no", property = "refuseWxNo", jdbcType = JdbcType.VARCHAR))
     fun selectOrderInfo(userId: Long, orderId: Long): AppletOrderInfo?
 
+    @Select("""
+        select * from `order` where id = #{orderId} and status=1
+    """)
+    @Results(Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
+            Result(column = "order_no", property = "orderNo", jdbcType = JdbcType.VARCHAR),
+            Result(column = "user_id", property = "userId", jdbcType = JdbcType.BIGINT),
+            Result(column = "state", property = "state", jdbcType = JdbcType.INTEGER),
+            Result(column = "money", property = "money", jdbcType = JdbcType.REAL),
+            Result(column = "postage", property = "postage", jdbcType = JdbcType.REAL),
+            Result(column = "product_count", property = "productCount", jdbcType = JdbcType.INTEGER),
+            Result(column = "username", property = "username", jdbcType = JdbcType.VARCHAR),
+            Result(column = "phone", property = "phone", jdbcType = JdbcType.VARCHAR),
+            Result(column = "address", property = "address", jdbcType = JdbcType.VARCHAR),
+            Result(column = "postcode", property = "postcode", jdbcType = JdbcType.VARCHAR),
+            Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
+            Result(column = "update_time", property = "updateTime", jdbcType = JdbcType.TIMESTAMP),
+            Result(column = "wx_pay_id", property = "wxPayId", jdbcType = JdbcType.VARCHAR),
+            Result(column = "wx_order_id", property = "wxOrderId", jdbcType = JdbcType.VARCHAR),
+            Result(column = "express_company", property = "expressCompany", jdbcType = JdbcType.VARCHAR),
+            Result(column = "express_no", property = "expressNo", jdbcType = JdbcType.VARCHAR),
+            Result(column = "cancel_reason", property = "cancelReason", jdbcType = JdbcType.VARCHAR),
+            Result(column = "refuse_order_no", property = "refuseOrderNo", jdbcType = JdbcType.VARCHAR),
+            Result(column = "refuse_wx_no", property = "refuseWxNo", jdbcType = JdbcType.VARCHAR))
+    fun selectOrderDetail(orderId: Long): OrderDetail?
 
 }

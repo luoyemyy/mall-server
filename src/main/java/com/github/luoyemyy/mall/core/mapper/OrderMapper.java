@@ -39,8 +39,8 @@ public interface OrderMapper {
         "update_time, wx_pay_id, ",
         "wx_order_id, express_company, ",
         "express_no, cancel_reason, ",
-        "refuse_order_no, refuse_wx_no, ",
-        "`status`)",
+        "refund_money, refuse_order_no, ",
+        "refuse_wx_no, `status`)",
         "values (#{orderNo,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, ",
         "#{state,jdbcType=INTEGER}, #{money,jdbcType=REAL}, #{postage,jdbcType=REAL}, ",
         "#{productCount,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, ",
@@ -49,8 +49,8 @@ public interface OrderMapper {
         "#{updateTime,jdbcType=TIMESTAMP}, #{wxPayId,jdbcType=VARCHAR}, ",
         "#{wxOrderId,jdbcType=VARCHAR}, #{expressCompany,jdbcType=VARCHAR}, ",
         "#{expressNo,jdbcType=VARCHAR}, #{cancelReason,jdbcType=VARCHAR}, ",
-        "#{refuseOrderNo,jdbcType=VARCHAR}, #{refuseWxNo,jdbcType=VARCHAR}, ",
-        "#{status,jdbcType=INTEGER})"
+        "#{refundMoney,jdbcType=REAL}, #{refuseOrderNo,jdbcType=VARCHAR}, ",
+        "#{refuseWxNo,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})"
     })
     @SelectKey(statement="SELECT LAST_INSERT_ID()", keyProperty="id", before=false, resultType=Long.class)
     int insert(Order record);
@@ -79,6 +79,7 @@ public interface OrderMapper {
         @Result(column="express_company", property="expressCompany", jdbcType=JdbcType.VARCHAR),
         @Result(column="express_no", property="expressNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="cancel_reason", property="cancelReason", jdbcType=JdbcType.VARCHAR),
+        @Result(column="refund_money", property="refundMoney", jdbcType=JdbcType.REAL),
         @Result(column="refuse_order_no", property="refuseOrderNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="refuse_wx_no", property="refuseWxNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER)
@@ -89,7 +90,7 @@ public interface OrderMapper {
         "select",
         "id, order_no, user_id, `state`, money, postage, product_count, username, phone, ",
         "address, postcode, create_time, update_time, wx_pay_id, wx_order_id, express_company, ",
-        "express_no, cancel_reason, refuse_order_no, refuse_wx_no, `status`",
+        "express_no, cancel_reason, refund_money, refuse_order_no, refuse_wx_no, `status`",
         "from `order`",
         "where id = #{id,jdbcType=BIGINT}"
     })
@@ -112,6 +113,7 @@ public interface OrderMapper {
         @Result(column="express_company", property="expressCompany", jdbcType=JdbcType.VARCHAR),
         @Result(column="express_no", property="expressNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="cancel_reason", property="cancelReason", jdbcType=JdbcType.VARCHAR),
+        @Result(column="refund_money", property="refundMoney", jdbcType=JdbcType.REAL),
         @Result(column="refuse_order_no", property="refuseOrderNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="refuse_wx_no", property="refuseWxNo", jdbcType=JdbcType.VARCHAR),
         @Result(column="status", property="status", jdbcType=JdbcType.INTEGER)
@@ -146,6 +148,7 @@ public interface OrderMapper {
           "express_company = #{expressCompany,jdbcType=VARCHAR},",
           "express_no = #{expressNo,jdbcType=VARCHAR},",
           "cancel_reason = #{cancelReason,jdbcType=VARCHAR},",
+          "refund_money = #{refundMoney,jdbcType=REAL},",
           "refuse_order_no = #{refuseOrderNo,jdbcType=VARCHAR},",
           "refuse_wx_no = #{refuseWxNo,jdbcType=VARCHAR},",
           "`status` = #{status,jdbcType=INTEGER}",

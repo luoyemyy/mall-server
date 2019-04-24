@@ -39,6 +39,8 @@ public class Order {
 
     private String cancelReason;
 
+    private Float refundMoney;
+
     private String refuseOrderNo;
 
     private String refuseWxNo;
@@ -187,6 +189,14 @@ public class Order {
 
     public void setCancelReason(String cancelReason) {
         this.cancelReason = cancelReason == null ? null : cancelReason.trim();
+    }
+
+    public Float getRefundMoney() {
+        return refundMoney;
+    }
+
+    public void setRefundMoney(Float refundMoney) {
+        this.refundMoney = refundMoney;
     }
 
     public String getRefuseOrderNo() {
