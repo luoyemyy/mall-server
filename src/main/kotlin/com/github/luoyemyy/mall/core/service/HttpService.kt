@@ -8,13 +8,10 @@ import okhttp3.RequestBody
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.io.FileInputStream
-import java.io.IOException
-import java.io.InputStream
-import java.security.GeneralSecurityException
 import java.security.KeyStore
-import java.security.cert.CertificateFactory
-import java.util.*
-import javax.net.ssl.*
+import java.security.SecureRandom
+import javax.net.ssl.KeyManagerFactory
+import javax.net.ssl.SSLContext
 
 
 @Service
@@ -26,62 +23,15 @@ class HttpService {
     private val okHttpClient = OkHttpClient.Builder().build()
 
     private val certOkHttpClient: OkHttpClient by lazy {
-        val trustManager: X509TrustManager
-        val sslSocketFactory: SSLSocketFactory
-        try {
-            trustManager = trustManagerForCertificates(trustedCertificatesInputStream())
-            val sslContext = SSLContext.getInstance("TLS")
-            sslContext.init(null, arrayOf<TrustManager>(trustManager), null)
-            sslSocketFactory = sslContext.socketFactory
-        } catch (e: GeneralSecurityException) {
-            throw RuntimeException(e)
-        }
-        OkHttpClient.Builder().sslSocketFactory(sslSocketFactory, trustManager).build()
-    }
-
-    private fun trustedCertificatesInputStream(): InputStream {
-        return FileInputStream(appletInfo.certPath)
-    }
-
-    @Throws(GeneralSecurityException::class)
-    private fun trustManagerForCertificates(`in`: InputStream): X509TrustManager {
-        val certificateFactory = CertificateFactory.getInstance("X.509")
-        val certificates = certificateFactory.generateCertificates(`in`)
-        if (certificates.isEmpty()) {
-            throw IllegalArgumentException("expected non-empty set of trusted certificates")
-        }
-
-        // Put the certificates a key store.
-        val password = appletInfo.mchId?.toCharArray()!! // Any password will work.
-        val keyStore = newEmptyKeyStore(password)
-        for ((index, certificate) in certificates.withIndex()) {
-            val certificateAlias = Integer.toString(index)
-            keyStore.setCertificateEntry(certificateAlias, certificate)
-        }
-
-        // Use it to build an X509 trust manager.
+        val password = appletInfo.mchId?.toCharArray()
+        val keyStore = KeyStore.getInstance("PKCS12")
+        keyStore.load(FileInputStream(appletInfo.certPath), password)
         val keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm())
         keyManagerFactory.init(keyStore, password)
-        val trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm())
-        trustManagerFactory.init(keyStore)
-        val trustManagers = trustManagerFactory.trustManagers
-        if (trustManagers.size != 1 || trustManagers[0] !is X509TrustManager) {
-            throw IllegalStateException("Unexpected default trust managers:" + Arrays.toString(trustManagers))
-        }
-        return trustManagers[0] as X509TrustManager
-    }
-
-    @Throws(GeneralSecurityException::class)
-    private fun newEmptyKeyStore(password: CharArray): KeyStore {
-        try {
-            val keyStore = KeyStore.getInstance(KeyStore.getDefaultType())
-            val `in`: InputStream? = null // By convention, 'null' creates an empty key store.
-            keyStore.load(`in`, password)
-            return keyStore
-        } catch (e: IOException) {
-            throw AssertionError(e)
-        }
-
+        val sslContext = SSLContext.getInstance("TLS")
+        sslContext.init(keyManagerFactory.keyManagers, null, SecureRandom())
+        val sslSocketFactory = sslContext.socketFactory
+        OkHttpClient.Builder().sslSocketFactory(sslSocketFactory).build()
     }
 
 

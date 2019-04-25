@@ -66,7 +66,7 @@ class OrderController : BaseController() {
         ApiImplicitParam(name = "refundMoney", value = "退款金额state=6,8必须", required = true, dataTypeClass = Float::class)
     ])
     @RequestAdmin
-    @GetMapping("state")
+    @PostMapping("state")
     fun state(orderId: Long,
               @RequestParam(name = "expressCompany", required = false) expressCompany: String? = null,
               @RequestParam(name = "expressNo", required = false) expressNo: String? = null,

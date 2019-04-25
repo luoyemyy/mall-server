@@ -121,6 +121,26 @@ class AppletOrderService {
         }) > 0
     }
 
+    @Transactional
+    fun payComplete(userId: Long, orderId: Long): Boolean {
+        val order = orderMapper.selectByPrimaryKey(orderId) ?: throw MallException(Code.ORDER_NOT_EXIST)
+        if (order.userId != userId || order.status == 0) {
+            throw MallException(Code.ORDER_NOT_EXIST)
+        }
+        val ok = when (order.state) {
+            0 -> {
+                order.state = 1
+                true
+            }
+            else -> false
+        }
+        return if (ok) {
+            order.updateTime = Date()
+            return orderMapper.updateByPrimaryKeySelective(order) > 0
+        } else false
+
+    }
+
     /**
      *  0 未支付 1 已支付，待确认 2 支付成功，待发货 3 发货中 4 运输中 5 已签收，交易完成 6 取消订单，待审核  7 退货，待审核 8 退货中 9 退款中 10 已取消
      */

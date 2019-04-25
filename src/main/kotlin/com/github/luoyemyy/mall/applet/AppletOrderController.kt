@@ -60,6 +60,20 @@ class AppletOrderController : BaseController() {
         return dataResponse(appletOrderService.info(userId(), orderId))
     }
 
+
+    /**
+     *
+     */
+    @ApiOperation("支付完成")
+    @RequestApplet
+    @ApiImplicitParams(value = [
+        ApiImplicitParam(name = "orderId", value = "订单id", required = true, dataTypeClass = Long::class)
+    ])
+    @GetMapping("pay/complete")
+    fun payComplete(orderId: Long): ApiResponse {
+        return apiResponse(appletOrderService.payComplete(userId(), orderId))
+    }
+
     /**
      *
      */

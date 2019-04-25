@@ -191,19 +191,6 @@ class WxPayService {
     }
 
     /**
-     * 用户确认支付完成
-     */
-    @Transactional
-    fun bookPaySuccess(userId: Long, orderId: Long): Boolean {
-        val order = orderMapper.selectByExample(OrderExample().apply {
-            createCriteria().andUserIdEqualTo(userId).andIdEqualTo(orderId)
-        })?.firstOrNull() ?: throw MallException(Code.ORDER_NOT_EXIST)
-        order.updateTime = Date()
-        order.state = 1
-        return orderMapper.updateByPrimaryKeySelective(order) > 0
-    }
-
-    /**
      * 用户重新获得支付的参数
      */
     fun bookPayRetry(userId: Long, orderId: Long): AppletBookOrderResult {
@@ -361,6 +348,7 @@ class WxPayService {
     /**
      * 退款结果通知
      */
+    @Transactional
     fun refundNotify(xml: String): String {
         NotifyRefundResponse(xml).apply {
             if (success(appletInfo.mchKey)) {

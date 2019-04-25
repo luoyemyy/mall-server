@@ -36,19 +36,6 @@ class AppletPayController : BaseController() {
     /**
      *
      */
-    @ApiOperation("支付成功")
-    @RequestApplet
-    @ApiImplicitParams(value = [
-        ApiImplicitParam(name = "orderId", value = "订单id", required = true, dataTypeClass = Long::class)
-    ])
-    @GetMapping("book/pay/success")
-    fun bookPaySuccess(orderId: Long): ApiResponse {
-        return apiResponse(wxPayService.bookPaySuccess(userId(), orderId))
-    }
-
-    /**
-     *
-     */
     @ApiOperation("重新支付")
     @RequestApplet
     @ApiImplicitParams(value = [
