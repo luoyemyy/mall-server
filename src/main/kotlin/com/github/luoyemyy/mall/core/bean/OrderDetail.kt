@@ -31,8 +31,12 @@ open class OrderDetail {
     var postcode: String? = null
     @ApiModelProperty("创建时间")
     var createTime: Date? = null
-    @ApiModelProperty("更新时间")
-    var updateTime: Date? = null
+    @ApiModelProperty("支付时间")
+    var payTime: Date? = null
+    @ApiModelProperty("运送时间")
+    var deliverTime: Date? = null
+    @ApiModelProperty("签收时间")
+    var signTime: Date? = null
     @ApiModelProperty("微信支付id")
     var wxPayId: String? = null
     @ApiModelProperty("微信支付编号")

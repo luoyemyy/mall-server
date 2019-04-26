@@ -27,7 +27,7 @@ interface ProductDao {
                 Result(column = "pc_sort", property = "sort", jdbcType = JdbcType.INTEGER)])
     fun selectByCategoryAndPage(categoryId: Long, pageStart: Int): List<ProductBean>?
 
-    @Select("select p.* from product p where p.status=1 order by sort desc limit #{pageStart},10 ")
+    @Select("select p.* from product p where p.status=1 order by p.sort desc limit #{pageStart},10 ")
     @ResultMap("productBean")
     fun selectByPage(pageStart: Int): List<ProductBean>?
 
@@ -60,7 +60,7 @@ interface ProductDao {
     fun currentProductCategorySort(categoryId: Long): Int?
 
 
-    @Select("select * from product where id = #{id} and p.online = true and status=1 ")
+    @Select("select * from product where id = #{id} and online = true and status=1 ")
     @ResultMap("productDetail")
     fun getOnline(id: Long): ProductDetail?
 

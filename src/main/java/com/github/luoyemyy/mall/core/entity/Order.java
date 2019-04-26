@@ -27,7 +27,11 @@ public class Order {
 
     private Date createTime;
 
-    private Date updateTime;
+    private Date payTime;
+
+    private Date deliverTime;
+
+    private Date signTime;
 
     private String wxPayId;
 
@@ -143,12 +147,28 @@ public class Order {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public Date getPayTime() {
+        return payTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setPayTime(Date payTime) {
+        this.payTime = payTime;
+    }
+
+    public Date getDeliverTime() {
+        return deliverTime;
+    }
+
+    public void setDeliverTime(Date deliverTime) {
+        this.deliverTime = deliverTime;
+    }
+
+    public Date getSignTime() {
+        return signTime;
+    }
+
+    public void setSignTime(Date signTime) {
+        this.signTime = signTime;
     }
 
     public String getWxPayId() {

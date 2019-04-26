@@ -70,9 +70,8 @@ class AppletOrderService {
         val before30min = Date(System.currentTimeMillis() - 30 * 60 * 1000)
         orderMapper.updateByExampleSelective(Order().apply {
             state = 10
-            updateTime = Date()
         }, OrderExample().apply {
-            createCriteria().andUserIdEqualTo(userId).andStatusEqualTo(1).andStateEqualTo(0).andUpdateTimeLessThanOrEqualTo(before30min)
+            createCriteria().andUserIdEqualTo(userId).andStatusEqualTo(1).andStateEqualTo(0).andCreateTimeLessThanOrEqualTo(before30min)
         })
     }
 
@@ -101,7 +100,7 @@ class AppletOrderService {
         return orderDao.selectOrderInfo(userId, orderId)?.apply {
             products = getOrderProducts(orderId)
             if (state == 0) {
-                payLimitTime = updateTime?.let {
+                payLimitTime = createTime?.let {
                     Date(it.time + 30 * 60 * 1000)
                 }
             }
@@ -135,7 +134,6 @@ class AppletOrderService {
             else -> false
         }
         return if (ok) {
-            order.updateTime = Date()
             return orderMapper.updateByPrimaryKeySelective(order) > 0
         } else false
 
@@ -162,7 +160,6 @@ class AppletOrderService {
             else -> false
         }
         return if (ok) {
-            order.updateTime = Date()
             return orderMapper.updateByPrimaryKeySelective(order) > 0
         } else false
     }
@@ -184,7 +181,6 @@ class AppletOrderService {
             else -> false
         }
         return if (ok) {
-            order.updateTime = Date()
             return orderMapper.updateByPrimaryKeySelective(order) > 0
         } else false
     }
@@ -206,7 +202,6 @@ class AppletOrderService {
             else -> false
         }
         return if (ok) {
-            order.updateTime = Date()
             return orderMapper.updateByPrimaryKeySelective(order) > 0
         } else false
     }

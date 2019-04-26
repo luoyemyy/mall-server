@@ -12,7 +12,7 @@ interface OrderDao {
 
     @Select("""
         select o.id,o.username,o.phone,o.money,o.address,o.product_count,o.update_time from `order` o
-        where  o.state=#{state} and o.status=1 order by o.update_time desc limit #{page},10
+        where  o.state=#{state} and o.status=1 order by o.create_time desc limit #{page},10
     """)
     @Results(Result(column = "id", property = "orderId", jdbcType = JdbcType.BIGINT, id = true),
             Result(column = "state", property = "state", jdbcType = JdbcType.INTEGER),
@@ -21,7 +21,10 @@ interface OrderDao {
             Result(column = "address", property = "address", jdbcType = JdbcType.VARCHAR),
             Result(column = "money", property = "money", jdbcType = JdbcType.REAL),
             Result(column = "product_count", property = "count", jdbcType = JdbcType.INTEGER),
-            Result(column = "update_time", property = "date", jdbcType = JdbcType.TIMESTAMP))
+            Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
+            Result(column = "pay_time", property = "payTime", jdbcType = JdbcType.TIMESTAMP),
+            Result(column = "deliver_time", property = "deliverTime", jdbcType = JdbcType.TIMESTAMP),
+            Result(column = "sign_time", property = "signTime", jdbcType = JdbcType.TIMESTAMP))
     fun getOrderItemByStatePage(state: Int, page: Int): List<OrderItem>?
 
     @Select("""
@@ -49,7 +52,8 @@ interface OrderDao {
     @Select("""
         select * from `order` where id = #{orderId} and user_id=#{userId} and status=1
     """)
-    @Results(Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
+    @Results(
+            Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
             Result(column = "order_no", property = "orderNo", jdbcType = JdbcType.VARCHAR),
             Result(column = "user_id", property = "userId", jdbcType = JdbcType.BIGINT),
             Result(column = "state", property = "state", jdbcType = JdbcType.INTEGER),
@@ -61,20 +65,25 @@ interface OrderDao {
             Result(column = "address", property = "address", jdbcType = JdbcType.VARCHAR),
             Result(column = "postcode", property = "postcode", jdbcType = JdbcType.VARCHAR),
             Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
-            Result(column = "update_time", property = "updateTime", jdbcType = JdbcType.TIMESTAMP),
+            Result(column = "pay_time", property = "payTime", jdbcType = JdbcType.TIMESTAMP),
+            Result(column = "deliver_time", property = "deliverTime", jdbcType = JdbcType.TIMESTAMP),
+            Result(column = "sign_time", property = "signTime", jdbcType = JdbcType.TIMESTAMP),
             Result(column = "wx_pay_id", property = "wxPayId", jdbcType = JdbcType.VARCHAR),
             Result(column = "wx_order_id", property = "wxOrderId", jdbcType = JdbcType.VARCHAR),
             Result(column = "express_company", property = "expressCompany", jdbcType = JdbcType.VARCHAR),
             Result(column = "express_no", property = "expressNo", jdbcType = JdbcType.VARCHAR),
             Result(column = "cancel_reason", property = "cancelReason", jdbcType = JdbcType.VARCHAR),
+            Result(column = "refund_money", property = "refundMoney", jdbcType = JdbcType.REAL),
             Result(column = "refuse_order_no", property = "refuseOrderNo", jdbcType = JdbcType.VARCHAR),
-            Result(column = "refuse_wx_no", property = "refuseWxNo", jdbcType = JdbcType.VARCHAR))
+            Result(column = "refuse_wx_no", property = "refuseWxNo", jdbcType = JdbcType.VARCHAR),
+            Result(column = "status", property = "status", jdbcType = JdbcType.INTEGER))
     fun selectOrderInfo(userId: Long, orderId: Long): AppletOrderInfo?
 
     @Select("""
         select * from `order` where id = #{orderId} and status=1
     """)
-    @Results(Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
+    @Results(
+            Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
             Result(column = "order_no", property = "orderNo", jdbcType = JdbcType.VARCHAR),
             Result(column = "user_id", property = "userId", jdbcType = JdbcType.BIGINT),
             Result(column = "state", property = "state", jdbcType = JdbcType.INTEGER),
@@ -86,14 +95,18 @@ interface OrderDao {
             Result(column = "address", property = "address", jdbcType = JdbcType.VARCHAR),
             Result(column = "postcode", property = "postcode", jdbcType = JdbcType.VARCHAR),
             Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
-            Result(column = "update_time", property = "updateTime", jdbcType = JdbcType.TIMESTAMP),
+            Result(column = "pay_time", property = "payTime", jdbcType = JdbcType.TIMESTAMP),
+            Result(column = "deliver_time", property = "deliverTime", jdbcType = JdbcType.TIMESTAMP),
+            Result(column = "sign_time", property = "signTime", jdbcType = JdbcType.TIMESTAMP),
             Result(column = "wx_pay_id", property = "wxPayId", jdbcType = JdbcType.VARCHAR),
             Result(column = "wx_order_id", property = "wxOrderId", jdbcType = JdbcType.VARCHAR),
             Result(column = "express_company", property = "expressCompany", jdbcType = JdbcType.VARCHAR),
             Result(column = "express_no", property = "expressNo", jdbcType = JdbcType.VARCHAR),
             Result(column = "cancel_reason", property = "cancelReason", jdbcType = JdbcType.VARCHAR),
+            Result(column = "refund_money", property = "refundMoney", jdbcType = JdbcType.REAL),
             Result(column = "refuse_order_no", property = "refuseOrderNo", jdbcType = JdbcType.VARCHAR),
-            Result(column = "refuse_wx_no", property = "refuseWxNo", jdbcType = JdbcType.VARCHAR))
+            Result(column = "refuse_wx_no", property = "refuseWxNo", jdbcType = JdbcType.VARCHAR),
+            Result(column = "status", property = "status", jdbcType = JdbcType.INTEGER))
     fun selectOrderDetail(orderId: Long): OrderDetail?
 
 }

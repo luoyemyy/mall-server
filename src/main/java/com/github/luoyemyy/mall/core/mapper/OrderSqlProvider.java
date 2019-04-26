@@ -85,8 +85,16 @@ public class OrderSqlProvider {
             VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateTime() != null) {
-            VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
+        if (record.getPayTime() != null) {
+            VALUES("pay_time", "#{payTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getDeliverTime() != null) {
+            VALUES("deliver_time", "#{deliverTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getSignTime() != null) {
+            VALUES("sign_time", "#{signTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getWxPayId() != null) {
@@ -146,7 +154,9 @@ public class OrderSqlProvider {
         SELECT("address");
         SELECT("postcode");
         SELECT("create_time");
-        SELECT("update_time");
+        SELECT("pay_time");
+        SELECT("deliver_time");
+        SELECT("sign_time");
         SELECT("wx_pay_id");
         SELECT("wx_order_id");
         SELECT("express_company");
@@ -221,8 +231,16 @@ public class OrderSqlProvider {
             SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateTime() != null) {
-            SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
+        if (record.getPayTime() != null) {
+            SET("pay_time = #{record.payTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getDeliverTime() != null) {
+            SET("deliver_time = #{record.deliverTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getSignTime() != null) {
+            SET("sign_time = #{record.signTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getWxPayId() != null) {
@@ -281,7 +299,9 @@ public class OrderSqlProvider {
         SET("address = #{record.address,jdbcType=VARCHAR}");
         SET("postcode = #{record.postcode,jdbcType=VARCHAR}");
         SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
-        SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
+        SET("pay_time = #{record.payTime,jdbcType=TIMESTAMP}");
+        SET("deliver_time = #{record.deliverTime,jdbcType=TIMESTAMP}");
+        SET("sign_time = #{record.signTime,jdbcType=TIMESTAMP}");
         SET("wx_pay_id = #{record.wxPayId,jdbcType=VARCHAR}");
         SET("wx_order_id = #{record.wxOrderId,jdbcType=VARCHAR}");
         SET("express_company = #{record.expressCompany,jdbcType=VARCHAR}");
@@ -345,8 +365,16 @@ public class OrderSqlProvider {
             SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getUpdateTime() != null) {
-            SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
+        if (record.getPayTime() != null) {
+            SET("pay_time = #{payTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getDeliverTime() != null) {
+            SET("deliver_time = #{deliverTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getSignTime() != null) {
+            SET("sign_time = #{signTime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getWxPayId() != null) {

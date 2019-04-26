@@ -159,7 +159,6 @@ class WxPayService {
             this.address = address.summary
             this.postcode = address.postCode
             this.createTime = Date()
-            this.updateTime = Date()
             this.wxPayId = null
             this.wxOrderId = null
             this.status = 1
@@ -197,7 +196,7 @@ class WxPayService {
         val order = orderMapper.selectByExample(OrderExample().apply {
             createCriteria().andUserIdEqualTo(userId).andIdEqualTo(orderId)
         })?.firstOrNull() ?: throw MallException(Code.ORDER_NOT_EXIST)
-        order.updateTime?.apply {
+        order.createTime?.apply {
             if (this.time + 30 * 60 * 1000 > System.currentTimeMillis()) {
                 return if (appletInfo.payMock) {
                     mockWxPay.bookPay(order)
@@ -234,7 +233,7 @@ class WxPayService {
                     if (it.state == 1) {//订单在待确认状态下，接收到支付成功通知，此时转换状态为已支付成功
                         it.state = 2
                         it.wxOrderId = getWxOrderId()
-                        it.updateTime = Date()
+                        it.payTime = Date()
                         orderMapper.updateByPrimaryKeySelective(it) > 0
                     }
                 }
@@ -297,7 +296,7 @@ class WxPayService {
             if (queryOrderResponse.success(appletInfo.mchKey)) {
                 if (updateState) {
                     order.state = 2
-                    order.updateTime = Date()
+                    order.payTime = Date()
                 }
                 order.wxOrderId = queryOrderResponse.getWxOrderId()
                 return orderMapper.updateByPrimaryKeySelective(order) > 0
@@ -355,7 +354,6 @@ class WxPayService {
                 getByOrderNo(getOrderNo())?.also {
                     if (it.state == 9) {//订单在退款中，接收到退款成功通知，此时转换状态为已取消
                         it.state = 10
-                        it.updateTime = Date()
                         orderMapper.updateByPrimaryKeySelective(it) > 0
                     }
                 }

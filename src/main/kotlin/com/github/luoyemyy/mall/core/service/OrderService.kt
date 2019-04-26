@@ -70,7 +70,6 @@ class OrderService {
 
     private fun toDeliver(order: Order): Boolean {
         order.state = 3
-        order.updateTime = Date()
         return orderMapper.updateByPrimaryKeySelective(order) > 0
     }
 
@@ -78,13 +77,13 @@ class OrderService {
         order.state = 4
         order.expressCompany = expressCompany
         order.expressNo = expressNo
-        order.updateTime = Date()
+        order.deliverTime = Date()
         return orderMapper.updateByPrimaryKeySelective(order) > 0
     }
 
     private fun toSign(order: Order): Boolean {
         order.state = 5
-        order.updateTime = Date()
+        order.signTime = Date()
         return orderMapper.updateByPrimaryKeySelective(order) > 0
     }
 
@@ -104,7 +103,6 @@ class OrderService {
         if (apply) {
             order.state = 9
             order.refundMoney = refundMoney
-            order.updateTime = Date()
             return orderMapper.updateByPrimaryKeySelective(order) > 0
         }
         return false
@@ -112,7 +110,6 @@ class OrderService {
 
     private fun applyBack(order: Order): Boolean {
         order.state = 8
-        order.updateTime = Date()
         return orderMapper.updateByPrimaryKeySelective(order) > 0
     }
 
@@ -123,7 +120,6 @@ class OrderService {
         if (wxPayService.refund(order, refundMoney)) {
             order.state = 9
             order.refundMoney = refundMoney
-            order.updateTime = Date()
             return orderMapper.updateByPrimaryKeySelective(order) > 0
         }
         return false
@@ -135,7 +131,6 @@ class OrderService {
     private fun refund(order: Order): Boolean {
         if (wxPayService.queryRefund(order)) {
             order.state = 10
-            order.updateTime = Date()
             return orderMapper.updateByPrimaryKeySelective(order) > 0
         }
         return false

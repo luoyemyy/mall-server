@@ -42,7 +42,7 @@ class MockWxPay {
         if (Math.random() > 0.5) {
             if (updateState) {
                 order.state = 2
-                order.updateTime = Date()
+                order.payTime = Date()
             }
             order.wxOrderId = newOrderNo()
             return orderMapper.updateByPrimaryKeySelective(order) > 0
