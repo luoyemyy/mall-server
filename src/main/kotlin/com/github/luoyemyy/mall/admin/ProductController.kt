@@ -7,12 +7,12 @@ import com.github.luoyemyy.mall.base.advice.Code
 import com.github.luoyemyy.mall.base.advice.MallException
 import com.github.luoyemyy.mall.base.aspect.RequestAdmin
 import com.github.luoyemyy.mall.base.response.*
-import com.github.luoyemyy.mall.core.bean.ProductBean
-import com.github.luoyemyy.mall.core.bean.ProductDetail
-import com.github.luoyemyy.mall.core.bean.ProductTemplateImage
-import com.github.luoyemyy.mall.core.bean.SortBean
+import com.github.luoyemyy.mall.core.admin.bean.ProductBean
+import com.github.luoyemyy.mall.core.admin.bean.ProductDetail
+import com.github.luoyemyy.mall.core.admin.bean.ProductTemplateImage
+import com.github.luoyemyy.mall.core.admin.bean.SortBean
 import com.github.luoyemyy.mall.core.entity.Product
-import com.github.luoyemyy.mall.core.service.ProductService
+import com.github.luoyemyy.mall.core.admin.ProductService
 import com.github.luoyemyy.mall.util.Role
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiImplicitParam

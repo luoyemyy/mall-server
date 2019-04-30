@@ -10,9 +10,9 @@ import com.github.luoyemyy.mall.base.response.ApiResponse
 import com.github.luoyemyy.mall.base.response.ListResponse
 import com.github.luoyemyy.mall.base.response.apiResponse
 import com.github.luoyemyy.mall.base.response.listResponse
-import com.github.luoyemyy.mall.core.bean.HotBean
-import com.github.luoyemyy.mall.core.bean.SortBean
-import com.github.luoyemyy.mall.core.service.HotService
+import com.github.luoyemyy.mall.core.admin.bean.HotBean
+import com.github.luoyemyy.mall.core.admin.bean.SortBean
+import com.github.luoyemyy.mall.core.admin.HotService
 import com.github.luoyemyy.mall.util.toList
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiImplicitParam

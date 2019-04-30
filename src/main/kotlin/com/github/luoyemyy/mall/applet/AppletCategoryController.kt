@@ -6,8 +6,8 @@ import com.github.luoyemyy.mall.base.BaseController
 import com.github.luoyemyy.mall.base.aspect.RequestApplet
 import com.github.luoyemyy.mall.base.response.ListResponse
 import com.github.luoyemyy.mall.base.response.listResponse
-import com.github.luoyemyy.mall.core.bean.AppletCategoryBean
-import com.github.luoyemyy.mall.core.service2.AppletCategoryService
+import com.github.luoyemyy.mall.core.applet.bean.AppletCategoryBean
+import com.github.luoyemyy.mall.core.applet.AppletCategoryService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired

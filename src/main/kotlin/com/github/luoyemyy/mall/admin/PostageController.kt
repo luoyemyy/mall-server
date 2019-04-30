@@ -8,8 +8,8 @@ import com.github.luoyemyy.mall.base.response.ApiResponse
 import com.github.luoyemyy.mall.base.response.ListResponse
 import com.github.luoyemyy.mall.base.response.apiResponse
 import com.github.luoyemyy.mall.base.response.listResponse
-import com.github.luoyemyy.mall.core.bean.PostageBean
-import com.github.luoyemyy.mall.core.service.PostageService
+import com.github.luoyemyy.mall.core.admin.bean.PostageBean
+import com.github.luoyemyy.mall.core.admin.PostageService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired

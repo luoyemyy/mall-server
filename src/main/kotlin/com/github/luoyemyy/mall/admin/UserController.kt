@@ -5,8 +5,8 @@ import com.github.luoyemyy.mall.base.advice.Code
 import com.github.luoyemyy.mall.base.advice.MallException
 import com.github.luoyemyy.mall.base.aspect.RequestAdmin
 import com.github.luoyemyy.mall.base.response.*
-import com.github.luoyemyy.mall.core.bean.Manager
-import com.github.luoyemyy.mall.core.service.UserService
+import com.github.luoyemyy.mall.core.admin.bean.Manager
+import com.github.luoyemyy.mall.core.admin.UserService
 import com.github.luoyemyy.mall.util.Role
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiImplicitParam

@@ -5,8 +5,8 @@ package com.github.luoyemyy.mall.applet
 import com.github.luoyemyy.mall.base.BaseController
 import com.github.luoyemyy.mall.base.aspect.RequestApplet
 import com.github.luoyemyy.mall.base.response.*
-import com.github.luoyemyy.mall.core.bean.AppletAddress
-import com.github.luoyemyy.mall.core.service2.AppletAddressService
+import com.github.luoyemyy.mall.core.applet.bean.AppletAddress
+import com.github.luoyemyy.mall.core.applet.AppletAddressService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiImplicitParam
 import io.swagger.annotations.ApiImplicitParams

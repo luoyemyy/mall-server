@@ -3,8 +3,8 @@ package com.github.luoyemyy.mall.applet
 import com.github.luoyemyy.mall.base.aspect.RequestApplet
 import com.github.luoyemyy.mall.base.response.DataResponse
 import com.github.luoyemyy.mall.base.response.dataResponse
-import com.github.luoyemyy.mall.core.bean.AppletLoginUser
-import com.github.luoyemyy.mall.core.service2.AppletUserService
+import com.github.luoyemyy.mall.core.applet.bean.AppletLoginUser
+import com.github.luoyemyy.mall.core.applet.AppletUserService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiImplicitParam
 import io.swagger.annotations.ApiImplicitParams

@@ -2,8 +2,8 @@ package com.github.luoyemyy.mall.core.wx
 
 import com.github.luoyemyy.mall.base.advice.Code
 import com.github.luoyemyy.mall.base.advice.MallException
-import com.github.luoyemyy.mall.core.bean.AppletBookOrder
-import com.github.luoyemyy.mall.core.bean.AppletBookOrderResult
+import com.github.luoyemyy.mall.core.applet.bean.AppletBookOrder
+import com.github.luoyemyy.mall.core.applet.bean.AppletBookOrderResult
 import com.github.luoyemyy.mall.core.dao.BatchDao
 import com.github.luoyemyy.mall.core.entity.Order
 import com.github.luoyemyy.mall.core.mapper.OrderMapper

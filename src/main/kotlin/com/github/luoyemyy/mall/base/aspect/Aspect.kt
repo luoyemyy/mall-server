@@ -4,8 +4,8 @@ package com.github.luoyemyy.mall.base.aspect
 
 import com.github.luoyemyy.mall.base.advice.Code
 import com.github.luoyemyy.mall.base.advice.MallException
-import com.github.luoyemyy.mall.core.service.UserService
-import com.github.luoyemyy.mall.core.service2.AppletUserService
+import com.github.luoyemyy.mall.core.admin.UserService
+import com.github.luoyemyy.mall.core.applet.AppletUserService
 import com.github.luoyemyy.mall.util.JsonUtil
 import com.github.luoyemyy.mall.util.Role
 import com.github.luoyemyy.mall.util.toJsonString

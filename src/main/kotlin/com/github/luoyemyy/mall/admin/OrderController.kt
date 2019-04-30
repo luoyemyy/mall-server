@@ -3,22 +3,17 @@
 package com.github.luoyemyy.mall.admin
 
 import com.github.luoyemyy.mall.base.BaseController
-import com.github.luoyemyy.mall.base.advice.Code
-import com.github.luoyemyy.mall.base.advice.MallException
 import com.github.luoyemyy.mall.base.aspect.RequestAdmin
 import com.github.luoyemyy.mall.base.response.*
-import com.github.luoyemyy.mall.core.bean.*
-import com.github.luoyemyy.mall.core.entity.Product
-import com.github.luoyemyy.mall.core.service.OrderService
-import com.github.luoyemyy.mall.core.service.ProductService
-import com.github.luoyemyy.mall.util.Role
+import com.github.luoyemyy.mall.core.admin.OrderService
+import com.github.luoyemyy.mall.core.admin.bean.OrderDetail
+import com.github.luoyemyy.mall.core.admin.bean.OrderItem
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiImplicitParam
 import io.swagger.annotations.ApiImplicitParams
 import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
-import javax.websocket.server.PathParam
 
 @Api(tags = ["后台-订单"])
 @RestController

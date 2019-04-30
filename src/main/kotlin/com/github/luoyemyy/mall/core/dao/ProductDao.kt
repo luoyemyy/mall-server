@@ -1,6 +1,10 @@
 package com.github.luoyemyy.mall.core.dao
 
-import com.github.luoyemyy.mall.core.bean.*
+import com.github.luoyemyy.mall.core.admin.bean.OrderProduct
+import com.github.luoyemyy.mall.core.admin.bean.ProductBean
+import com.github.luoyemyy.mall.core.admin.bean.ProductDetail
+import com.github.luoyemyy.mall.core.applet.bean.AppletCart
+import com.github.luoyemyy.mall.core.applet.bean.AppletOrderProduct
 import org.apache.ibatis.annotations.Result
 import org.apache.ibatis.annotations.ResultMap
 import org.apache.ibatis.annotations.Results
@@ -53,12 +57,6 @@ interface ProductDao {
     @ResultMap("productBean")
     fun selectByHot(hotId: Long): List<ProductBean>?
 
-    @Select("select sort from product order by sort desc limit 1")
-    fun currentSort(): Int?
-
-    @Select("select sort from product_category where category_id = #{categoryId} order by sort desc limit 1")
-    fun currentProductCategorySort(categoryId: Long): Int?
-
 
     @Select("select * from product where id = #{id} and online = true and status=1 ")
     @ResultMap("productDetail")
@@ -110,12 +108,17 @@ interface ProductDao {
         Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
         Result(column = "price", property = "price", jdbcType = JdbcType.REAL),
         Result(column = "count", property = "count", jdbcType = JdbcType.INTEGER)])
-    fun selectOrderProducts(orderId: Long): List<AppletOrderProduct>?
+    fun selectAppletOrderProducts(orderId: Long): List<AppletOrderProduct>?
 
+    @Select("""
+        select p.id,p.name,p.cover_image,op.price,op.count from order_product op
+        inner join product p on op.product_id = p.id
+        where op.order_id=#{orderId}
+    """)
     @Results(value = [Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
         Result(column = "cover_image", property = "coverImage", jdbcType = JdbcType.VARCHAR),
         Result(column = "name", property = "name", jdbcType = JdbcType.VARCHAR),
         Result(column = "price", property = "price", jdbcType = JdbcType.REAL),
         Result(column = "count", property = "count", jdbcType = JdbcType.INTEGER)])
-    fun selectOrderProducts2(orderId: Long): List<OrderProduct>?
+    fun selectOrderProducts(orderId: Long): List<OrderProduct>?
 }

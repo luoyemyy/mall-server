@@ -1,12 +1,11 @@
 package com.github.luoyemyy.mall.core.wx
 
 import com.github.luoyemyy.mall.base.config.AppletInfo
-import com.github.luoyemyy.mall.core.bean.AccessToken
-import com.github.luoyemyy.mall.core.bean.CodeToSession
+import com.github.luoyemyy.mall.core.wx.bean.AccessToken
+import com.github.luoyemyy.mall.core.wx.bean.CodeToSession
 import com.github.luoyemyy.mall.core.dao.KeyValueDao
 import com.github.luoyemyy.mall.core.entity.KeyValue
 import com.github.luoyemyy.mall.core.mapper.KeyValueMapper
-import com.github.luoyemyy.mall.core.service.HttpService
 import com.github.luoyemyy.mall.util.AppKey
 import com.github.luoyemyy.mall.util.toObject
 import org.springframework.beans.factory.annotation.Autowired

@@ -4,12 +4,10 @@ package com.github.luoyemyy.mall.applet
 
 import com.github.luoyemyy.mall.base.BaseController
 import com.github.luoyemyy.mall.base.aspect.RequestApplet
-import com.github.luoyemyy.mall.base.response.ApiResponse
 import com.github.luoyemyy.mall.base.response.DataResponse
-import com.github.luoyemyy.mall.base.response.apiResponse
 import com.github.luoyemyy.mall.base.response.dataResponse
-import com.github.luoyemyy.mall.core.bean.AppletBookOrder
-import com.github.luoyemyy.mall.core.bean.AppletBookOrderResult
+import com.github.luoyemyy.mall.core.applet.bean.AppletBookOrder
+import com.github.luoyemyy.mall.core.applet.bean.AppletBookOrderResult
 import com.github.luoyemyy.mall.core.wx.WxPayService
 import io.swagger.annotations.*
 import org.springframework.beans.factory.annotation.Autowired

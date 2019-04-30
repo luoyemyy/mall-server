@@ -3,12 +3,12 @@
 package com.github.luoyemyy.mall.applet
 
 import com.github.luoyemyy.mall.base.BaseController
-import com.github.luoyemyy.mall.base.aspect.RequestAdmin
 import com.github.luoyemyy.mall.base.aspect.RequestApplet
 import com.github.luoyemyy.mall.base.response.*
-import com.github.luoyemyy.mall.core.bean.*
-import com.github.luoyemyy.mall.core.service2.AppletOrderService
-import com.github.luoyemyy.mall.core.service2.AppletPostageService
+import com.github.luoyemyy.mall.core.applet.AppletOrderService
+import com.github.luoyemyy.mall.core.applet.bean.AppletOrderIndex
+import com.github.luoyemyy.mall.core.applet.bean.AppletOrderInfo
+import com.github.luoyemyy.mall.core.applet.bean.AppletOrderItem
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiImplicitParam
 import io.swagger.annotations.ApiImplicitParams

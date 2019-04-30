@@ -6,8 +6,8 @@ import com.github.luoyemyy.mall.base.aspect.RequestAdmin
 import com.github.luoyemyy.mall.base.config.AliOss
 import com.github.luoyemyy.mall.base.response.DataResponse
 import com.github.luoyemyy.mall.base.response.dataResponse
-import com.github.luoyemyy.mall.core.bean.LoginUser
-import com.github.luoyemyy.mall.core.service.UserService
+import com.github.luoyemyy.mall.core.admin.bean.LoginUser
+import com.github.luoyemyy.mall.core.admin.UserService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiImplicitParam
 import io.swagger.annotations.ApiImplicitParams

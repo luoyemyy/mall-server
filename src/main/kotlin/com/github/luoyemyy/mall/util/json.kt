@@ -10,11 +10,6 @@ inline fun <reified T> String?.toList(): List<T>? {
     return if (this == null) null else JsonUtil.objectMapper.readValue(this, type)
 }
 
-inline fun <reified T> String?.toLinkedList(): List<T>? {
-    val type = JsonUtil.objectMapper.typeFactory.constructCollectionType(LinkedList::class.java, T::class.java)
-    return if (this == null) null else JsonUtil.objectMapper.readValue(this, type)
-}
-
 inline fun <reified T> String?.toObject(): T? {
     val type = JsonUtil.objectMapper.typeFactory.constructType(T::class.java)
     return if (this == null) null else JsonUtil.objectMapper.readValue(this, type)

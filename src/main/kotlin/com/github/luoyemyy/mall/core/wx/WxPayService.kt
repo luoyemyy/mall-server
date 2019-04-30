@@ -3,9 +3,9 @@ package com.github.luoyemyy.mall.core.wx
 import com.github.luoyemyy.mall.base.advice.Code
 import com.github.luoyemyy.mall.base.advice.MallException
 import com.github.luoyemyy.mall.base.config.AppletInfo
-import com.github.luoyemyy.mall.core.bean.AppletBookOrder
-import com.github.luoyemyy.mall.core.bean.AppletBookOrderProduct
-import com.github.luoyemyy.mall.core.bean.AppletBookOrderResult
+import com.github.luoyemyy.mall.core.applet.bean.AppletBookOrder
+import com.github.luoyemyy.mall.core.applet.bean.AppletBookOrderProduct
+import com.github.luoyemyy.mall.core.applet.bean.AppletBookOrderResult
 import com.github.luoyemyy.mall.core.dao.BatchDao
 import com.github.luoyemyy.mall.core.dao.WeChatDao
 import com.github.luoyemyy.mall.core.entity.Address
@@ -15,12 +15,9 @@ import com.github.luoyemyy.mall.core.entity.ProductExample
 import com.github.luoyemyy.mall.core.mapper.AddressMapper
 import com.github.luoyemyy.mall.core.mapper.OrderMapper
 import com.github.luoyemyy.mall.core.mapper.ProductMapper
-import com.github.luoyemyy.mall.core.service.HttpService
-import com.github.luoyemyy.mall.core.service2.AppletPostageService
+import com.github.luoyemyy.mall.core.applet.AppletPostageService
 import com.github.luoyemyy.mall.core.wx.bean.*
 import com.github.luoyemyy.mall.util.newOrderNo
-import com.github.luoyemyy.mall.util.toXmlString
-import com.github.luoyemyy.mall.util.xmlToObject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

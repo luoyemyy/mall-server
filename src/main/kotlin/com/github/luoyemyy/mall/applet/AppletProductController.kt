@@ -8,9 +8,9 @@ import com.github.luoyemyy.mall.base.response.DataResponse
 import com.github.luoyemyy.mall.base.response.ListResponse
 import com.github.luoyemyy.mall.base.response.dataResponse
 import com.github.luoyemyy.mall.base.response.listResponse
-import com.github.luoyemyy.mall.core.bean.ProductBean
-import com.github.luoyemyy.mall.core.bean.ProductDetail
-import com.github.luoyemyy.mall.core.service2.AppletProductService
+import com.github.luoyemyy.mall.core.admin.bean.ProductBean
+import com.github.luoyemyy.mall.core.admin.bean.ProductDetail
+import com.github.luoyemyy.mall.core.applet.AppletProductService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiImplicitParam
 import io.swagger.annotations.ApiImplicitParams
