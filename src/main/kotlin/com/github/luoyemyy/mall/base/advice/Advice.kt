@@ -1,13 +1,16 @@
 package com.github.luoyemyy.mall.base.advice
 
-import com.github.luoyemyy.mall.base.response.ApiResponse
-import com.github.luoyemyy.mall.base.response.apiResponse
+import com.github.luoyemyy.mall.controller.response.ApiResponse
+import com.github.luoyemyy.mall.controller.response.apiResponse
+import com.github.luoyemyy.mall.common.advice.AppException
 import com.github.luoyemyy.mall.util.JsonUtil
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import javax.servlet.http.HttpServletResponse
+import javax.validation.ConstraintViolationException
 
 @Suppress("unused")
 @RestControllerAdvice
@@ -29,12 +32,25 @@ class Advice {
         }
     }
 
-    @ExceptionHandler(MallException::class)
-    fun mallException(e: MallException): ApiResponse {
+    @ExceptionHandler(AppException::class)
+    fun mallException(e: AppException): ApiResponse {
         if (e.cause() != null) {
             logger.error("mallException", e)
         }
-        return result(e.code(), e.msg())
+        return result(e.code(), e.codeMsg())
+    }
+
+    @ExceptionHandler(ConstraintViolationException::class)
+    fun validException(e: ConstraintViolationException): ApiResponse {
+//        logger.error("validException", e)
+        return result(1, e.message ?: "")
+    }
+
+
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun validException(e: MethodArgumentNotValidException): ApiResponse {
+        logger.error("validException", e)
+        return result(1, e.message)
     }
 
 //    @ExceptionHandler(NoHandlerFoundException::class)

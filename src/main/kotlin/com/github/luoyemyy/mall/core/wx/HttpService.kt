@@ -1,68 +1,71 @@
 package com.github.luoyemyy.mall.core.wx
 
-import com.github.luoyemyy.mall.base.config.AppletInfo
-import okhttp3.MediaType
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody
+import com.github.luoyemyy.mall.common.properties.AppletInfo
+import org.apache.http.client.fluent.Request
+import org.apache.http.client.methods.HttpPost
+import org.apache.http.entity.ContentType
+import org.apache.http.entity.StringEntity
+import org.apache.http.impl.client.CloseableHttpClient
+import org.apache.http.impl.client.HttpClientBuilder
+import org.apache.http.ssl.SSLContextBuilder
+import org.apache.http.util.EntityUtils
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.io.FileInputStream
-import java.security.KeyStore
-import java.security.SecureRandom
-import javax.net.ssl.KeyManagerFactory
+import java.io.File
 import javax.net.ssl.SSLContext
 
 
 @Service
 class HttpService {
 
+    private val logger: Logger = LoggerFactory.getLogger(HttpService::class.java)
+
     @Autowired
     private lateinit var appletInfo: AppletInfo
 
-    private val okHttpClient = OkHttpClient.Builder().build()
-
-    private val certOkHttpClient: OkHttpClient by lazy {
-        val password = appletInfo.mchId?.toCharArray()
-        val keyStore = KeyStore.getInstance("PKCS12")
-        keyStore.load(FileInputStream(appletInfo.certPath), password)
-        val keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm())
-        keyManagerFactory.init(keyStore, password)
-        val sslContext = SSLContext.getInstance("TLS")
-        sslContext.init(keyManagerFactory.keyManagers, null, SecureRandom())
-        val sslSocketFactory = sslContext.socketFactory
-        OkHttpClient.Builder().sslSocketFactory(sslSocketFactory).build()
+    @Throws(Exception::class)
+    private fun getCertClient(): CloseableHttpClient? {
+        val password: CharArray = appletInfo.mchId?.toCharArray() ?: return null
+        val certPath: String = appletInfo.certPath ?: return null
+        val sslContext: SSLContext = SSLContextBuilder.create()
+                .setKeyStoreType("PKCS12")
+                .loadKeyMaterial(File(certPath), password, password).build()
+        return HttpClientBuilder.create().setSSLContext(sslContext).build()
     }
 
-
     fun get(url: String): String? {
-        return okHttpClient.newCall(Request.Builder().url(url).build()).execute().let {
-            if (it.isSuccessful) {
-                it.body()?.string()
-            } else {
-                null
-            }
+        try {
+            return Request.Get(url).execute().returnContent().asString()
+        } catch (e: Throwable) {
+            logger.error("HttpService.get", e)
         }
+        return null
     }
 
     fun postXml(url: String, xml: String): String? {
-        return okHttpClient.newCall(Request.Builder().url(url).post(RequestBody.create(MediaType.get("text/xml; charset=utf-8"), xml)).build()).execute().let {
-            if (it.isSuccessful) {
-                it.body()?.string()
-            } else {
-                null
-            }
+        try {
+            return Request.Post(url).bodyString(xml, ContentType.TEXT_XML).execute().returnContent().asString()
+        } catch (e: Throwable) {
+            logger.error("HttpService.postXml", e)
         }
+        return null
     }
 
     fun postXmlUseCert(url: String, xml: String): String? {
-        return certOkHttpClient.newCall(Request.Builder().url(url).post(RequestBody.create(MediaType.get("text/xml; charset=utf-8"), xml)).build()).execute().let {
-            if (it.isSuccessful) {
-                it.body()?.string()
-            } else {
-                null
-            }
+        try {
+            val client = getCertClient()
+            val post = HttpPost(url)
+            post.entity = StringEntity(xml, ContentType.TEXT_XML)
+            val response = client!!.execute(post)
+            val s = EntityUtils.toString(response.entity, "UTF-8")
+            response.close()
+            return s
+        } catch (e: Throwable) {
+            logger.error("HttpService.postXmlBodyCert", e)
         }
+        return null
     }
 
 }

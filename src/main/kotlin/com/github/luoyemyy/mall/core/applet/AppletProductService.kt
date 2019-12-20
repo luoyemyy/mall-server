@@ -1,7 +1,7 @@
 package com.github.luoyemyy.mall.core.applet
 
-import com.github.luoyemyy.mall.base.advice.Code
-import com.github.luoyemyy.mall.base.advice.MallException
+import com.github.luoyemyy.mall.common.advice.AppCode
+import com.github.luoyemyy.mall.common.advice.AppException
 import com.github.luoyemyy.mall.core.admin.bean.ProductBean
 import com.github.luoyemyy.mall.core.admin.bean.ProductDetail
 import com.github.luoyemyy.mall.core.admin.bean.ProductImageBean
@@ -56,6 +56,6 @@ class AppletProductService {
         return productDao.getOnline(id)?.apply {
             swipeImages = getImages(id, 1)
             descImages = getImages(id, 2)
-        } ?: throw MallException(Code.PRODUCT_NOT_EXIST)
+        } ?: throw AppException(AppCode.PRODUCT_NOT_EXIST)
     }
 }

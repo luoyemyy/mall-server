@@ -1,8 +1,8 @@
 package com.github.luoyemyy.mall.core.admin
 
-import com.github.luoyemyy.mall.base.advice.Code
-import com.github.luoyemyy.mall.base.advice.MallException
-import com.github.luoyemyy.mall.base.config.AliOss
+import com.github.luoyemyy.mall.common.advice.AppCode
+import com.github.luoyemyy.mall.common.advice.AppException
+import com.github.luoyemyy.mall.common.properties.AliOss
 import com.github.luoyemyy.mall.core.admin.bean.LoginUser
 import com.github.luoyemyy.mall.core.admin.bean.Manager
 import com.github.luoyemyy.mall.core.dao.UserDao
@@ -58,13 +58,13 @@ class UserService {
      */
     @Transactional
     fun adminLogin(phone: String, password: String): LoginUser {
-        val user = getUserByPhone(phone) ?: throw MallException(Code.LOGIN_FAILURE)
+        val user = getUserByPhone(phone) ?: throw AppException(AppCode.LOGIN_FAILURE)
         if (!user.password.equals(password, true)) {
-            throw MallException(Code.LOGIN_FAILURE)
+            throw AppException(AppCode.LOGIN_FAILURE)
         }
-        val admin = getAdminUserByUser(user.id) ?: throw MallException(Code.INVALID_ADMIN)
+        val admin = getAdminUserByUser(user.id) ?: throw AppException(AppCode.INVALID_ADMIN)
         admin.token = System.currentTimeMillis().toString().md5()
-        if (adminUserMapper.updateByPrimaryKeySelective(admin) == 0) throw MallException(Code.FAILURE)
+        if (adminUserMapper.updateByPrimaryKeySelective(admin) == 0) throw AppException(AppCode.FAIL)
 
         return LoginUser.fromUser(user, admin.token, admin.role).apply {
             ossAk = aliOss.accessKey
@@ -92,7 +92,7 @@ class UserService {
     fun add(phone: String, password: String, roleId: Int): String? {
         getUserByPhone(phone)?.apply {
             getAdminUserByUser(id)?.apply {
-                throw MallException(Code.EXIST_MANAGER)
+                throw AppException(AppCode.EXIST_MANAGER)
             }
             AdminUser().also {
                 it.userId = id
@@ -119,7 +119,7 @@ class UserService {
                 }
                 return null
             }
-            throw MallException(Code.FAILURE)
+            throw AppException(AppCode.FAIL)
         }
     }
 
@@ -168,7 +168,7 @@ class UserService {
     fun resetPasswordBySelf(loginUserId: Long, oldPassword: String, newPassword: String): Boolean {
         return userMapper.selectByPrimaryKey(loginUserId)?.let {
             if (!oldPassword.equals(it.password, true)) {
-                throw MallException(Code.OLD_PASSWORD_ERROR)
+                throw AppException(AppCode.OLD_PASSWORD_ERROR)
             } else {
                 userMapper.updateByPrimaryKeySelective(
                         User().apply {

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ehcache>
+    <cache name="tokenCache"
+           maxElementsInMemory="1000000"
+           overflowToDisk="false"
+           eternal="false"
+           timeToIdleSeconds="604800"/>
+
+    <cache name="codeCache"
+           maxElementsInMemory="1000000"
+           overflowToDisk="false"
+           eternal="false"
+           timeToLiveSeconds="180"/>
+
+</ehcache>

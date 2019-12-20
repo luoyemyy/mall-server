@@ -1,7 +1,7 @@
 package com.github.luoyemyy.mall.core.admin
 
-import com.github.luoyemyy.mall.base.advice.Code
-import com.github.luoyemyy.mall.base.advice.MallException
+import com.github.luoyemyy.mall.common.advice.AppCode
+import com.github.luoyemyy.mall.common.advice.AppException
 import com.github.luoyemyy.mall.core.admin.bean.CategoryBean
 import com.github.luoyemyy.mall.core.admin.bean.SortBean
 import com.github.luoyemyy.mall.core.dao.BatchDao
@@ -17,8 +17,6 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class CategoryService {
-
-
 
     @Autowired
     private lateinit var categoryMapper: CategoryMapper
@@ -70,7 +68,7 @@ class CategoryService {
         if (categoryMapper.insert(category) > 0) {
             return true
         }
-        throw MallException(Code.FAILURE)
+        throw AppException(AppCode.FAIL)
     }
 
     /**

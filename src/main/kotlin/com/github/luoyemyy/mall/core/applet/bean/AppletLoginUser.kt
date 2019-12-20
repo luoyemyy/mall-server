@@ -1,5 +1,6 @@
 package com.github.luoyemyy.mall.core.applet.bean
 
+import com.github.luoyemyy.mall.common.cache.CacheUser
 import com.github.luoyemyy.mall.core.entity.User
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
@@ -31,6 +32,10 @@ class AppletLoginUser {
     @ApiModelProperty(value = "登录token")
     var token: String? = null
 
+    fun mapToCacheUser(): CacheUser {
+        return CacheUser(token, id)
+    }
+
     companion object {
         fun fromUser(user: User, token: String): AppletLoginUser {
             return AppletLoginUser().apply {
@@ -42,5 +47,7 @@ class AppletLoginUser {
                 this.token = token
             }
         }
+
+
     }
 }

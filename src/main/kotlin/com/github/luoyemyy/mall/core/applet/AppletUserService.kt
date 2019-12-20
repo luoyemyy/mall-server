@@ -1,7 +1,7 @@
 package com.github.luoyemyy.mall.core.applet
 
-import com.github.luoyemyy.mall.base.advice.Code
-import com.github.luoyemyy.mall.base.advice.MallException
+import com.github.luoyemyy.mall.common.advice.AppCode
+import com.github.luoyemyy.mall.common.advice.AppException
 import com.github.luoyemyy.mall.core.applet.bean.AppletLoginUser
 import com.github.luoyemyy.mall.core.entity.*
 import com.github.luoyemyy.mall.core.mapper.UserMapper
@@ -43,11 +43,11 @@ class AppletUserService {
 
     @Transactional
     fun login(code: String): AppletLoginUser {
-        val cs = wxService.codeToOpenId(code) ?: throw MallException(Code.INVALID_TOKEN)
+        val cs = wxService.codeToOpenId(code) ?: throw AppException(AppCode.INVALID_TOKEN)
         val openId = cs.openid
         val token = cs.session_key
         if (openId.isNullOrEmpty() || token.isNullOrEmpty()) {
-            throw MallException(Code.INVALID_TOKEN)
+            throw AppException(AppCode.INVALID_TOKEN)
         }
         val weChat = getWeChatByOpenId(openId) ?: let {
             WeChat().apply {
@@ -58,7 +58,7 @@ class AppletUserService {
 
         if (weChat.id == null || weChat.id == 0L) {
             if (weChatMapper.insert(weChat) <= 0) {
-                throw MallException(Code.INVALID_TOKEN)
+                throw AppException(AppCode.INVALID_TOKEN)
             }
             val user = User().apply {
                 name = "weChat"
@@ -67,7 +67,7 @@ class AppletUserService {
                 updateTime = createTime
             }
             if (userMapper.insert(user) <= 0) {
-                throw MallException(Code.INVALID_TOKEN)
+                throw AppException(AppCode.INVALID_TOKEN)
             }
             val weChatUser = WeChatUser().apply {
                 weChatId = weChat.id
@@ -75,7 +75,7 @@ class AppletUserService {
                 userId = user.id
             }
             if (weChatUserMapper.insert(weChatUser) <= 0) {
-                throw MallException(Code.INVALID_TOKEN)
+                throw AppException(AppCode.INVALID_TOKEN)
             }
             return AppletLoginUser.fromUser(user, token)
         } else {
@@ -93,18 +93,18 @@ class AppletUserService {
                     updateTime = createTime
                 }
                 if (userMapper.insert(user) <= 0) {
-                    throw MallException(Code.INVALID_TOKEN)
+                    throw AppException(AppCode.INVALID_TOKEN)
                 }
                 weChatUser.userId = user.id
                 if (weChatUserMapper.insert(weChatUser) <= 0) {
-                    throw MallException(Code.INVALID_TOKEN)
+                    throw AppException(AppCode.INVALID_TOKEN)
                 }
                 return AppletLoginUser.fromUser(user, token)
             } else {
-                val user = getUserById(weChatUser.userId) ?: throw MallException(Code.INVALID_TOKEN)
+                val user = getUserById(weChatUser.userId) ?: throw AppException(AppCode.INVALID_TOKEN)
                 weChatUser.token = token
                 if (weChatUserMapper.updateByPrimaryKeySelective(weChatUser) <= 0) {
-                    throw MallException(Code.INVALID_TOKEN)
+                    throw AppException(AppCode.INVALID_TOKEN)
                 }
                 return AppletLoginUser.fromUser(user, token)
             }

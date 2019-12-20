@@ -3,7 +3,7 @@ package com.github.luoyemyy.mall.core.applet
 import com.github.luoyemyy.mall.core.applet.bean.AppletPostage
 import com.github.luoyemyy.mall.core.dao.KeyValueDao
 import com.github.luoyemyy.mall.core.dao.PostageDao
-import com.github.luoyemyy.mall.util.AppKey
+import com.github.luoyemyy.mall.util.Const
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -26,7 +26,7 @@ class AppletPostageService {
      * @applet
      */
     fun free(): Float {
-        return keyValueDao.selectByKey(AppKey.FREE_POSTAGE)?.value?.toFloat() ?: 0f
+        return keyValueDao.selectByKey(Const.FREE_POSTAGE)?.value?.toFloat() ?: 0f
     }
 
 }

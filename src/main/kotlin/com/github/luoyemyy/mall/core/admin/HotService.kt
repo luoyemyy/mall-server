@@ -1,11 +1,10 @@
 package com.github.luoyemyy.mall.core.admin
 
-import com.github.luoyemyy.mall.base.advice.Code
-import com.github.luoyemyy.mall.base.advice.MallException
+import com.github.luoyemyy.mall.common.advice.AppCode
+import com.github.luoyemyy.mall.common.advice.AppException
 import com.github.luoyemyy.mall.core.admin.bean.HotBean
 import com.github.luoyemyy.mall.core.admin.bean.SortBean
 import com.github.luoyemyy.mall.core.dao.BatchDao
-import com.github.luoyemyy.mall.core.dao.HotDao
 import com.github.luoyemyy.mall.core.dao.SortDao
 import com.github.luoyemyy.mall.core.entity.Hot
 import com.github.luoyemyy.mall.core.entity.HotExample
@@ -65,7 +64,7 @@ class HotService {
         if (hotMapper.insert(hot) > 0) {
             return true
         }
-        throw MallException(Code.FAILURE)
+        throw AppException(AppCode.FAIL)
     }
 
     /**

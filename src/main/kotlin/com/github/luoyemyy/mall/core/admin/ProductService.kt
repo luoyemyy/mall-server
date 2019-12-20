@@ -1,7 +1,7 @@
 package com.github.luoyemyy.mall.core.admin
 
-import com.github.luoyemyy.mall.base.advice.Code
-import com.github.luoyemyy.mall.base.advice.MallException
+import com.github.luoyemyy.mall.common.advice.AppCode
+import com.github.luoyemyy.mall.common.advice.AppException
 import com.github.luoyemyy.mall.core.admin.bean.*
 import com.github.luoyemyy.mall.core.dao.BatchDao
 import com.github.luoyemyy.mall.core.dao.ProductDao
@@ -91,7 +91,7 @@ class ProductService {
             swipeImages = getImages(id, 1)
             descImages = getImages(id, 2)
             categoryIds = getCategoryByProduct(id)?.map { it.categoryId }
-        } ?: throw MallException(Code.PRODUCT_NOT_EXIST)
+        } ?: throw AppException(AppCode.PRODUCT_NOT_EXIST)
     }
 
     /**
@@ -132,11 +132,11 @@ class ProductService {
             product.createTime = Date()
             product.status = 1
             if (productMapper.insert(product) == 0) {
-                throw MallException(Code.FAILURE)
+                throw AppException(AppCode.FAIL)
             }
         } else {
             if (productMapper.updateByPrimaryKeySelective(product) == 0) {
-                throw MallException(Code.FAILURE)
+                throw AppException(AppCode.FAIL)
             }
         }
 

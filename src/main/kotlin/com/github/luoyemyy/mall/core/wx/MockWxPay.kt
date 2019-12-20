@@ -1,7 +1,7 @@
 package com.github.luoyemyy.mall.core.wx
 
-import com.github.luoyemyy.mall.base.advice.Code
-import com.github.luoyemyy.mall.base.advice.MallException
+import com.github.luoyemyy.mall.common.advice.AppCode
+import com.github.luoyemyy.mall.common.advice.AppException
 import com.github.luoyemyy.mall.core.applet.bean.AppletBookOrder
 import com.github.luoyemyy.mall.core.applet.bean.AppletBookOrderResult
 import com.github.luoyemyy.mall.core.dao.BatchDao
@@ -26,7 +26,7 @@ class MockWxPay {
                 return bookPay(order)
             }
         }
-        throw MallException(Code.BOOK_ORDER_FAIL)
+        throw AppException(AppCode.BOOK_ORDER_FAIL)
     }
 
     fun bookPay(order: Order): AppletBookOrderResult {

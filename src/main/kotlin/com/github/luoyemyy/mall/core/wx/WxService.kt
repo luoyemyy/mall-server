@@ -1,12 +1,12 @@
 package com.github.luoyemyy.mall.core.wx
 
-import com.github.luoyemyy.mall.base.config.AppletInfo
+import com.github.luoyemyy.mall.common.properties.AppletInfo
 import com.github.luoyemyy.mall.core.wx.bean.AccessToken
 import com.github.luoyemyy.mall.core.wx.bean.CodeToSession
 import com.github.luoyemyy.mall.core.dao.KeyValueDao
 import com.github.luoyemyy.mall.core.entity.KeyValue
 import com.github.luoyemyy.mall.core.mapper.KeyValueMapper
-import com.github.luoyemyy.mall.util.AppKey
+import com.github.luoyemyy.mall.util.Const
 import com.github.luoyemyy.mall.util.toObject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -36,7 +36,7 @@ class WxService {
     }
 
     fun accessToken(): String? {
-        val keyValue = keyValueDao.selectByKey(AppKey.ACCESS_TOKEN)?.apply {
+        val keyValue = keyValueDao.selectByKey(Const.ACCESS_TOKEN)?.apply {
             if (this.expire != null && this.expire > System.currentTimeMillis()) {
                 return value
             }
@@ -49,7 +49,7 @@ class WxService {
                     keyValueMapper.updateByPrimaryKeySelective(keyValue)
                 } else {
                     KeyValue().apply {
-                        key = AppKey.ACCESS_TOKEN
+                        key = Const.ACCESS_TOKEN
                         value = access_token
                         expire = System.currentTimeMillis() + expires_in - 100
                         keyValueMapper.insert(this)

@@ -1,8 +1,8 @@
 package com.github.luoyemyy.mall.core.wx
 
-import com.github.luoyemyy.mall.base.advice.Code
-import com.github.luoyemyy.mall.base.advice.MallException
-import com.github.luoyemyy.mall.base.config.AppletInfo
+import com.github.luoyemyy.mall.common.advice.AppCode
+import com.github.luoyemyy.mall.common.advice.AppException
+import com.github.luoyemyy.mall.common.properties.AppletInfo
 import com.github.luoyemyy.mall.core.applet.bean.AppletBookOrder
 import com.github.luoyemyy.mall.core.applet.bean.AppletBookOrderProduct
 import com.github.luoyemyy.mall.core.applet.bean.AppletBookOrderResult
@@ -71,8 +71,8 @@ class WxPayService {
      * 检查下订单用户
      */
     private fun bookOrderCheckUser(userId: Long): String {
-        val weChat = weChatDao.selectByUser(userId) ?: throw MallException(Code.BOOK_ORDER_USER_ERROR)
-        return weChat.openId ?: throw MallException(Code.BOOK_ORDER_USER_ERROR)
+        val weChat = weChatDao.selectByUser(userId) ?: throw AppException(AppCode.BOOK_ORDER_USER_ERROR)
+        return weChat.openId ?: throw AppException(AppCode.BOOK_ORDER_USER_ERROR)
     }
 
     /**
@@ -86,14 +86,14 @@ class WxPayService {
                 return postage
             }
         }
-        throw MallException(Code.BOOK_ORDER_ADDRESS_ERROR)
+        throw AppException(AppCode.BOOK_ORDER_ADDRESS_ERROR)
     }
 
     /**
      * 检查订单的的产品
      */
     private fun bookOrderCheckProduct(products: List<AppletBookOrderProduct>?): Float {
-        if (products.isNullOrEmpty()) throw MallException(Code.BOOK_ORDER_PRODUCT_ERROR)
+        if (products.isNullOrEmpty()) throw AppException(AppCode.BOOK_ORDER_PRODUCT_ERROR)
         var orderMoney = 0f
         val orderProductDesc = products.sortedBy { it.productId }.joinToString(",") { "${it.productId}=${it.price}" }
         val productIds = products.map {
@@ -101,7 +101,7 @@ class WxPayService {
             it.productId
         }
         if (productIds.isNullOrEmpty()) {
-            throw MallException(Code.BOOK_ORDER_PRODUCT_ERROR)
+            throw AppException(AppCode.BOOK_ORDER_PRODUCT_ERROR)
         }
         val productDesc = productMapper.selectByExample(ProductExample().apply {
             createCriteria().andStatusEqualTo(1).andIdIn(productIds)
@@ -109,7 +109,7 @@ class WxPayService {
             "${it.id}=${it.actualPrice}"
         }
         if (productDesc != orderProductDesc) {
-            throw MallException(Code.BOOK_ORDER_PRODUCT_ERROR)
+            throw AppException(AppCode.BOOK_ORDER_PRODUCT_ERROR)
         }
 
         return orderMoney
@@ -119,9 +119,9 @@ class WxPayService {
      * 检查订单的地址
      */
     private fun bookOrderCheckAddress(addressId: Long): Address {
-        val address = addressMapper.selectByPrimaryKey(addressId) ?: throw MallException(Code.BOOK_ORDER_ADDRESS_ERROR)
+        val address = addressMapper.selectByPrimaryKey(addressId) ?: throw AppException(AppCode.BOOK_ORDER_ADDRESS_ERROR)
         if (address.name.isNullOrEmpty() || address.phone.isNullOrEmpty() || address.summary.isNullOrEmpty() || address.postCode.isNullOrEmpty()) {
-            throw MallException(Code.BOOK_ORDER_ADDRESS_ERROR)
+            throw AppException(AppCode.BOOK_ORDER_ADDRESS_ERROR)
         }
         return address
     }
@@ -140,7 +140,7 @@ class WxPayService {
         val postage = bookOrderCheckPostage(orderProductMoney, appletOrder.postage, appletOrder.addressId)
         //检验金额
         if (postage + orderProductMoney != appletOrder.money) {
-            throw MallException(Code.BOOK_ORDER_MONEY_ERROR)
+            throw AppException(AppCode.BOOK_ORDER_MONEY_ERROR)
         }
         val productCount = appletOrder.products?.map { it.count }?.sum() ?: 0
         //生成订单
@@ -183,7 +183,7 @@ class WxPayService {
                 }
             }
         }
-        throw MallException(Code.BOOK_ORDER_FAIL)
+        throw AppException(AppCode.BOOK_ORDER_FAIL)
     }
 
     /**
@@ -192,7 +192,7 @@ class WxPayService {
     fun bookPayRetry(userId: Long, orderId: Long): AppletBookOrderResult {
         val order = orderMapper.selectByExample(OrderExample().apply {
             createCriteria().andUserIdEqualTo(userId).andIdEqualTo(orderId)
-        })?.firstOrNull() ?: throw MallException(Code.ORDER_NOT_EXIST)
+        })?.firstOrNull() ?: throw AppException(AppCode.ORDER_NOT_EXIST)
         order.createTime?.apply {
             if (this.time + 30 * 60 * 1000 > System.currentTimeMillis()) {
                 return if (appletInfo.payMock) {
@@ -206,7 +206,7 @@ class WxPayService {
                 }
             }
         }
-        throw MallException(Code.ORDER_CANCELED)
+        throw AppException(AppCode.ORDER_CANCELED)
     }
 
 

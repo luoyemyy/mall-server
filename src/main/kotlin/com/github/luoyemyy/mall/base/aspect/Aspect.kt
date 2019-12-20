@@ -2,8 +2,8 @@
 
 package com.github.luoyemyy.mall.base.aspect
 
-import com.github.luoyemyy.mall.base.advice.Code
-import com.github.luoyemyy.mall.base.advice.MallException
+import com.github.luoyemyy.mall.common.advice.AppCode
+import com.github.luoyemyy.mall.common.advice.AppException
 import com.github.luoyemyy.mall.core.admin.UserService
 import com.github.luoyemyy.mall.core.applet.AppletUserService
 import com.github.luoyemyy.mall.util.JsonUtil
@@ -71,9 +71,9 @@ class Aspect {
                     if (Role.pass(role, flag.role)) {
                         request.setAttribute("roleId", role)
                         request.setAttribute("userId", userId)
-                    } else throw MallException(Code.INVALID_ROLE)
-                } ?: throw MallException(Code.INVALID_TOKEN)
-            } ?: throw MallException(Code.INVALID_TOKEN)
+                    } else throw AppException(AppCode.INVALID_ROLE)
+                } ?: throw AppException(AppCode.INVALID_TOKEN)
+            } ?: throw AppException(AppCode.INVALID_TOKEN)
         }
         return pjp.proceed().apply { postLog(this) }
     }
@@ -88,8 +88,8 @@ class Aspect {
             request.getHeader("token")?.apply {
                 appletUserService.getWeChatUserByToken(this)?.apply {
                     request.setAttribute("userId", userId)
-                } ?: throw MallException(Code.INVALID_TOKEN)
-            } ?: throw MallException(Code.INVALID_TOKEN)
+                } ?: throw AppException(AppCode.INVALID_TOKEN)
+            } ?: throw AppException(AppCode.INVALID_TOKEN)
         }
         return pjp.proceed().apply { postLog(this) }
     }

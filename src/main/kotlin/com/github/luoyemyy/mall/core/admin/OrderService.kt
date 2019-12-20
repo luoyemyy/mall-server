@@ -1,7 +1,7 @@
 package com.github.luoyemyy.mall.core.admin
 
-import com.github.luoyemyy.mall.base.advice.Code
-import com.github.luoyemyy.mall.base.advice.MallException
+import com.github.luoyemyy.mall.common.advice.AppCode
+import com.github.luoyemyy.mall.common.advice.AppException
 import com.github.luoyemyy.mall.core.admin.bean.OrderDetail
 import com.github.luoyemyy.mall.core.admin.bean.OrderItem
 import com.github.luoyemyy.mall.core.dao.OrderDao
@@ -41,7 +41,7 @@ class OrderService {
     fun detail(orderId: Long): OrderDetail {
         return orderDao.selectOrderDetail(orderId)?.apply {
             products = productDao.selectOrderProducts(orderId)
-        } ?: throw MallException(Code.ORDER_NOT_EXIST)
+        } ?: throw AppException(AppCode.ORDER_NOT_EXIST)
     }
 
     /**
@@ -50,7 +50,7 @@ class OrderService {
      */
     @Transactional
     fun state(orderId: Long, expressCompany: String?, expressNo: String?, refundMoney: Float): Boolean {
-        val order = orderMapper.selectByPrimaryKey(orderId) ?: throw MallException(Code.ORDER_NOT_EXIST)
+        val order = orderMapper.selectByPrimaryKey(orderId) ?: throw AppException(AppCode.ORDER_NOT_EXIST)
         return when (order.state) {
             1 -> wxPayService.queryOrder(order, true)
             2 -> toDeliver(order)

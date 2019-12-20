@@ -1,5 +1,6 @@
 package com.github.luoyemyy.mall.core.admin.bean
 
+import com.github.luoyemyy.mall.common.cache.CacheUser
 import com.github.luoyemyy.mall.core.entity.User
 import com.github.luoyemyy.mall.util.Role
 import com.github.luoyemyy.mall.util.RoleInfo
@@ -53,6 +54,10 @@ class LoginUser {
 
     @ApiModelProperty("云存储bucket")
     var ossBucket: String? = null
+
+    fun mapToCacheUser(): CacheUser {
+        return CacheUser(token, id)
+    }
 
     companion object {
         fun fromUser(user: User, token: String, roleId: Int): LoginUser {

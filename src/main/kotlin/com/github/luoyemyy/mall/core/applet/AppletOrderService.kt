@@ -1,7 +1,7 @@
 package com.github.luoyemyy.mall.core.applet
 
-import com.github.luoyemyy.mall.base.advice.Code
-import com.github.luoyemyy.mall.base.advice.MallException
+import com.github.luoyemyy.mall.common.advice.AppCode
+import com.github.luoyemyy.mall.common.advice.AppException
 import com.github.luoyemyy.mall.core.applet.bean.AppletOrderIndex
 import com.github.luoyemyy.mall.core.applet.bean.AppletOrderInfo
 import com.github.luoyemyy.mall.core.applet.bean.AppletOrderItem
@@ -104,7 +104,7 @@ class AppletOrderService {
                     Date(it.time + 30 * 60 * 1000)
                 }
             }
-        } ?: throw MallException(Code.ORDER_NOT_EXIST)
+        } ?: throw AppException(AppCode.ORDER_NOT_EXIST)
     }
 
     private fun getOrderProducts(orderId: Long): List<AppletOrderProduct>? {
@@ -122,9 +122,9 @@ class AppletOrderService {
 
     @Transactional
     fun payComplete(userId: Long, orderId: Long): Boolean {
-        val order = orderMapper.selectByPrimaryKey(orderId) ?: throw MallException(Code.ORDER_NOT_EXIST)
+        val order = orderMapper.selectByPrimaryKey(orderId) ?: throw AppException(AppCode.ORDER_NOT_EXIST)
         if (order.userId != userId || order.status == 0) {
-            throw MallException(Code.ORDER_NOT_EXIST)
+            throw AppException(AppCode.ORDER_NOT_EXIST)
         }
         val ok = when (order.state) {
             0 -> {
@@ -144,9 +144,9 @@ class AppletOrderService {
      */
     @Transactional
     fun cancel(userId: Long, orderId: Long): Boolean {
-        val order = orderMapper.selectByPrimaryKey(orderId) ?: throw MallException(Code.ORDER_NOT_EXIST)
+        val order = orderMapper.selectByPrimaryKey(orderId) ?: throw AppException(AppCode.ORDER_NOT_EXIST)
         if (order.userId != userId || order.status == 0) {
-            throw MallException(Code.ORDER_NOT_EXIST)
+            throw AppException(AppCode.ORDER_NOT_EXIST)
         }
         val ok = when (order.state) {
             0 -> {
@@ -169,9 +169,9 @@ class AppletOrderService {
      */
     @Transactional
     fun accept(userId: Long, orderId: Long): Boolean {
-        val order = orderMapper.selectByPrimaryKey(orderId) ?: throw MallException(Code.ORDER_NOT_EXIST)
+        val order = orderMapper.selectByPrimaryKey(orderId) ?: throw AppException(AppCode.ORDER_NOT_EXIST)
         if (order.userId != userId || order.status == 0) {
-            throw MallException(Code.ORDER_NOT_EXIST)
+            throw AppException(AppCode.ORDER_NOT_EXIST)
         }
         val ok = when (order.state) {
             4 -> {
@@ -190,9 +190,9 @@ class AppletOrderService {
      */
     @Transactional
     fun back(userId: Long, orderId: Long): Boolean {
-        val order = orderMapper.selectByPrimaryKey(orderId) ?: throw MallException(Code.ORDER_NOT_EXIST)
+        val order = orderMapper.selectByPrimaryKey(orderId) ?: throw AppException(AppCode.ORDER_NOT_EXIST)
         if (order.userId != userId || order.status == 0) {
-            throw MallException(Code.ORDER_NOT_EXIST)
+            throw AppException(AppCode.ORDER_NOT_EXIST)
         }
         val ok = when (order.state) {
             5 -> {
