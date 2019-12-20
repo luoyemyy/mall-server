@@ -1,0 +1,16 @@
+package com.github.luoyemyy.mall.core.service.applet.bean
+
+import io.swagger.annotations.ApiModel
+import io.swagger.annotations.ApiModelProperty
+
+@ApiModel("微信下单邮费")
+class AppletPostage {
+    @ApiModelProperty("邮费id")
+    var id: Long = 0
+    @ApiModelProperty("邮费区域")
+    var area: String? = null
+    @ApiModelProperty("邮费价格")
+    var price: Float = 0f
+    @ApiModelProperty("是否邮寄 0 不邮寄 1邮寄")
+    var post: Int = 0
+}

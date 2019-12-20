@@ -1,8 +1,8 @@
 package com.github.luoyemyy.mall.core.dao
 
-import com.github.luoyemyy.mall.core.applet.bean.AppletBookOrderProduct
-import com.github.luoyemyy.mall.core.admin.bean.PostageBean
-import com.github.luoyemyy.mall.core.admin.bean.SortBean
+import com.github.luoyemyy.mall.core.service.applet.bean.AppletBookOrderProduct
+import com.github.luoyemyy.mall.core.service.admin.bean.PostageBean
+import com.github.luoyemyy.mall.core.service.admin.bean.SortBean
 import com.github.luoyemyy.mall.core.entity.ProductCategory
 import com.github.luoyemyy.mall.core.entity.ProductImage
 import com.github.luoyemyy.mall.core.entity.ShopCart

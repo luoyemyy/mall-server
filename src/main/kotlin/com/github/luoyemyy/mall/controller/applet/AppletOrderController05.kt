@@ -2,20 +2,21 @@
 
 package com.github.luoyemyy.mall.controller.applet
 
-import com.github.luoyemyy.mall.controller.base.BaseController
-import com.github.luoyemyy.mall.base.aspect.RequestApplet
 import com.github.luoyemyy.mall.common.aspect.AppApi
+import com.github.luoyemyy.mall.controller.base.BaseController
 import com.github.luoyemyy.mall.controller.response.*
-import com.github.luoyemyy.mall.core.applet.AppletOrderService
-import com.github.luoyemyy.mall.core.applet.bean.AppletOrderIndex
-import com.github.luoyemyy.mall.core.applet.bean.AppletOrderInfo
-import com.github.luoyemyy.mall.core.applet.bean.AppletOrderItem
+import com.github.luoyemyy.mall.core.service.applet.AppletOrderService
+import com.github.luoyemyy.mall.core.service.applet.bean.AppletOrderIndex
+import com.github.luoyemyy.mall.core.service.applet.bean.AppletOrderInfo
+import com.github.luoyemyy.mall.core.service.applet.bean.AppletOrderItem
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiImplicitParam
 import io.swagger.annotations.ApiImplicitParams
 import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 @Api(tags = ["微信-订单"])
 @RestController
@@ -27,7 +28,7 @@ class AppletOrderController05 : BaseController() {
 
     @AppApi(pathId = 20501, auth = true)
     @ApiOperation("订单数量-待支付，待收货，待退款订单数量")
-    @RequestApplet
+   
     @PostMapping("index")
     fun index(): DataResponse<AppletOrderIndex> {
         return dataResponse(appletOrderService.index(userId()))
@@ -35,7 +36,7 @@ class AppletOrderController05 : BaseController() {
 
     @AppApi(pathId = 20502, auth = true)
     @ApiOperation("订单列表")
-    @RequestApplet
+   
     @ApiImplicitParams(value = [
         ApiImplicitParam(name = "type", value = "1 待支付 2 待收货 3 退款、退货 4 全部", required = true, dataTypeClass = Int::class),
         ApiImplicitParam(name = "page", value = "页码", required = true, dataTypeClass = Int::class)
@@ -47,7 +48,7 @@ class AppletOrderController05 : BaseController() {
 
     @AppApi(pathId = 20503, auth = true)
     @ApiOperation("订单详情")
-    @RequestApplet
+   
     @ApiImplicitParams(value = [
         ApiImplicitParam(name = "orderId", value = "订单id", required = true, dataTypeClass = Long::class)])
     @PostMapping("get")
@@ -58,7 +59,7 @@ class AppletOrderController05 : BaseController() {
 
     @AppApi(pathId = 20504, auth = true)
     @ApiOperation("支付完成")
-    @RequestApplet
+   
     @ApiImplicitParams(value = [
         ApiImplicitParam(name = "orderId", value = "订单id", required = true, dataTypeClass = Long::class)
     ])
@@ -69,7 +70,7 @@ class AppletOrderController05 : BaseController() {
 
     @AppApi(pathId = 20505, auth = true)
     @ApiOperation("申请取消订单")
-    @RequestApplet
+   
     @ApiImplicitParams(value = [
         ApiImplicitParam(name = "orderId", value = "订单id", required = true, dataTypeClass = Long::class)])
     @PostMapping("cancel")
@@ -79,7 +80,7 @@ class AppletOrderController05 : BaseController() {
 
     @AppApi(pathId = 20506, auth = true)
     @ApiOperation("确认收货")
-    @RequestApplet
+   
     @ApiImplicitParams(value = [
         ApiImplicitParam(name = "orderId", value = "订单id", required = true, dataTypeClass = Long::class)])
     @PostMapping("accept")
@@ -89,7 +90,7 @@ class AppletOrderController05 : BaseController() {
 
     @AppApi(pathId = 20507, auth = true)
     @ApiOperation("申请退货")
-    @RequestApplet
+   
     @ApiImplicitParams(value = [
         ApiImplicitParam(name = "orderId", value = "订单id", required = true, dataTypeClass = Long::class)])
     @PostMapping("back")

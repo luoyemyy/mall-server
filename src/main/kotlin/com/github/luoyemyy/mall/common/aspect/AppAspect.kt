@@ -6,8 +6,8 @@ import com.github.luoyemyy.mall.common.advice.LogWriter
 import com.github.luoyemyy.mall.common.advice.authException
 import com.github.luoyemyy.mall.common.cache.AppCache
 import com.github.luoyemyy.mall.common.cache.CacheUser
-import com.github.luoyemyy.mall.core.admin.UserService
-import com.github.luoyemyy.mall.core.applet.AppletUserService
+import com.github.luoyemyy.mall.core.service.admin.UserService
+import com.github.luoyemyy.mall.core.service.applet.AppletUserService
 import com.github.luoyemyy.mall.util.Const
 import com.github.luoyemyy.mall.util.toJsonString
 import org.aspectj.lang.ProceedingJoinPoint

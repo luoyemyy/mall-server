@@ -1,9 +1,9 @@
 package com.github.luoyemyy.mall.core.dao
 
-import com.github.luoyemyy.mall.core.admin.bean.OrderDetail
-import com.github.luoyemyy.mall.core.admin.bean.OrderItem
-import com.github.luoyemyy.mall.core.applet.bean.AppletOrderInfo
-import com.github.luoyemyy.mall.core.applet.bean.AppletOrderItem
+import com.github.luoyemyy.mall.core.service.admin.bean.OrderDetail
+import com.github.luoyemyy.mall.core.service.admin.bean.OrderItem
+import com.github.luoyemyy.mall.core.service.applet.bean.AppletOrderInfo
+import com.github.luoyemyy.mall.core.service.applet.bean.AppletOrderItem
 import org.apache.ibatis.annotations.Param
 import org.apache.ibatis.annotations.Result
 import org.apache.ibatis.annotations.Results

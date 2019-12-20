@@ -2,22 +2,21 @@
 
 package com.github.luoyemyy.mall.controller.applet
 
-import com.github.luoyemyy.mall.controller.base.BaseController
-import com.github.luoyemyy.mall.base.aspect.RequestApplet
 import com.github.luoyemyy.mall.common.aspect.AppApi
+import com.github.luoyemyy.mall.controller.base.BaseController
 import com.github.luoyemyy.mall.controller.response.DataResponse
 import com.github.luoyemyy.mall.controller.response.ListResponse
 import com.github.luoyemyy.mall.controller.response.dataResponse
 import com.github.luoyemyy.mall.controller.response.listResponse
-import com.github.luoyemyy.mall.core.admin.bean.ProductBean
-import com.github.luoyemyy.mall.core.admin.bean.ProductDetail
-import com.github.luoyemyy.mall.core.applet.AppletProductService
+import com.github.luoyemyy.mall.core.service.admin.bean.ProductBean
+import com.github.luoyemyy.mall.core.service.admin.bean.ProductDetail
+import com.github.luoyemyy.mall.core.service.applet.AppletProductService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiImplicitParam
 import io.swagger.annotations.ApiImplicitParams
 import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -35,7 +34,7 @@ class AppletProductController08 : BaseController() {
     @ApiImplicitParams(value = [
         ApiImplicitParam(name = "categoryId", value = "分类Id，全部分类为0", required = true, dataTypeClass = Long::class),
         ApiImplicitParam(name = "page", value = "页码", required = false, defaultValue = "1", dataTypeClass = Int::class)])
-    @GetMapping("list")
+    @PostMapping("list")
     fun list(categoryId: Long, @RequestParam(required = false, defaultValue = "1") page: Int): ListResponse<ProductBean> {
         return listResponse(appletProductService.getByCategoryAndPage(categoryId, page))
     }
@@ -44,7 +43,7 @@ class AppletProductController08 : BaseController() {
     @ApiOperation("推荐产品列表")
     @ApiImplicitParams(value = [
         ApiImplicitParam(name = "hotId", value = "热门id", required = true, dataTypeClass = Long::class)])
-    @GetMapping("list/hot")
+    @PostMapping("list/hot")
     fun hotProduct(hotId: Long): ListResponse<ProductBean> {
         return listResponse(appletProductService.getByHot(hotId))
     }
@@ -53,7 +52,7 @@ class AppletProductController08 : BaseController() {
     @ApiOperation("产品详情")
     @ApiImplicitParams(value = [
         ApiImplicitParam(name = "id", value = "产品Id", required = true, dataTypeClass = Long::class)])
-    @GetMapping("get")
+    @PostMapping("get")
     fun get(id: Long): DataResponse<ProductDetail> {
         return dataResponse(appletProductService.getDetail(id))
     }
