@@ -1,11 +1,11 @@
-package com.github.luoyemyy.mall.core.service.admin.bean
+package com.github.luoyemyy.mall.controller.manager.response
 
 import com.github.luoyemyy.mall.core.entity.Category
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 
 @ApiModel("分类")
-class CategoryBean {
+class ResponseManagerCategory {
     @ApiModelProperty("分类Id")
     var id: Long = 0
     @ApiModelProperty("分类名称")
@@ -16,8 +16,8 @@ class CategoryBean {
     var state: Int = 0
 
     companion object {
-        fun fromCategory(category: Category): CategoryBean {
-            return CategoryBean().apply {
+        fun map(category: Category): ResponseManagerCategory {
+            return ResponseManagerCategory().apply {
                 id = category.id
                 name = category.name
                 sort = category.sort

@@ -29,7 +29,6 @@ class AppletPayController06 : BaseController() {
 
     @AppApi(pathId = 20601, auth = true)
     @ApiOperation("下单")
-
     @PostMapping("book")
     fun book(@RequestBody order: AppletBookOrder): DataResponse<AppletBookOrderResult> {
         return dataResponse(wxPayService.bookOrder(userId(), order))
@@ -37,7 +36,6 @@ class AppletPayController06 : BaseController() {
 
     @AppApi(pathId = 20602, auth = true)
     @ApiOperation("重新支付")
-
     @ApiImplicitParams(value = [
         ApiImplicitParam(name = "orderId", value = "订单id", required = true, dataTypeClass = Long::class)])
     @PostMapping("book/pay/retry")
@@ -47,7 +45,6 @@ class AppletPayController06 : BaseController() {
 
     @AppApi(pathId = 20603, auth = true)
     @ApiOperation("查询订单支付结果")
-
     @ApiImplicitParams(value = [
         ApiImplicitParam(name = "orderId", value = "订单id", required = true, dataTypeClass = Long::class)])
     @PostMapping("book/pay/query")

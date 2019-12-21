@@ -2,7 +2,7 @@ package com.github.luoyemyy.mall.core.service.admin
 
 import com.github.luoyemyy.mall.common.advice.AppCode
 import com.github.luoyemyy.mall.common.advice.AppException
-import com.github.luoyemyy.mall.core.service.admin.bean.CategoryBean
+import com.github.luoyemyy.mall.controller.manager.response.ResponseManagerCategory
 import com.github.luoyemyy.mall.core.service.admin.bean.SortBean
 import com.github.luoyemyy.mall.core.dao.BatchDao
 import com.github.luoyemyy.mall.core.dao.SortDao
@@ -30,29 +30,29 @@ class CategoryService {
     /**
      * @admin
      */
-    fun allList(): List<CategoryBean> {
+    fun allList(): List<ResponseManagerCategory>? {
         return categoryMapper.selectByExample(
                 CategoryExample().apply {
                     orderByClause = "sort desc"
-                })?.map { CategoryBean.fromCategory(it) } ?: listOf()
+                })?.map { ResponseManagerCategory.map(it) }
     }
 
     /**
      * @admin
      */
-    fun validList(): List<CategoryBean> {
+    fun validList(): List<ResponseManagerCategory>? {
         return categoryMapper.selectByExample(
                 CategoryExample().apply {
                     createCriteria().andStateEqualTo(1)
                     orderByClause = "sort desc"
-                })?.map { CategoryBean.fromCategory(it) } ?: listOf()
+                })?.map { ResponseManagerCategory.map(it) }
     }
 
     /**
      * @admin
      */
     private fun nextSort(): Int {
-        return (sortDao.category()?:0) + 1
+        return (sortDao.category() ?: 0) + 1
     }
 
     /**
